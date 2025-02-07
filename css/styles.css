@@ -75,3 +75,20 @@ a.link:hover{
   margin-left: auto;
   text-align: center;
 }
+
+#footer {
+    text-align: center; /* Центруємо блок */
+}
+
+.text-block {
+    display: flex;
+    justify-content: center; /* Центруємо елементи */
+    gap: 30px; /* Відстань між посиланнями */
+}
+
+.link {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
