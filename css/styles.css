@@ -83,7 +83,7 @@ a.link:hover{
 .text-block {
     display: flex;
     justify-content: center; /* Центруємо елементи */
-    gap: 30px; /* Відстань між посиланнями */
+    gap: 100px; /* Відстань між посиланнями */
 }
 
 .link {
