@@ -60,6 +60,8 @@ h2 {
 .link {
   color: white;
   -webkit-text-stroke-color: white;
+  text-decoration: none;
+  font-size: 16px;
 }
 
 a.link:hover{
@@ -85,10 +87,3 @@ a.link:hover{
     justify-content: center; /* Центруємо елементи */
     gap: 100px; /* Відстань між посиланнями */
 }
-
-.link {
-    text-decoration: none;
-    color: #fff;
-    font-size: 16px;
-}
-
