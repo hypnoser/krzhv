@@ -22,11 +22,6 @@
 
     <title>KRZHV | Психологічна допомога</title>
 
-    <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
-        input, button { padding: 10px; margin: 5px 0; width: 100%; box-sizing: border-box; }
-        .message-box { border: 1px solid #ccc; padding: 10px; margin-top: 10px; background: #f9f9f9; }
-    </style>
   </head>
   <body>
     <section class="logo">
@@ -42,86 +37,13 @@
     </div>
 </div>
 
-<h1>Залиште відгук</h1>
-    
-    <input type="text" id="nameInput" placeholder="Ваше ім'я">
-    <input type="text" id="msgInput" placeholder="Ваше повідомлення">
-    <button id="sendBtn">Відправити</button>
-    
-    <h2>Відгуки:</h2>
-    <div id="messagesList">Loading...</div>
-
-    <script type="module">
-      // 1. Імпортуємо функції Firebase (це бібліотека Google)
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-      // 2. ВАШІ НАЛАШТУВАННЯ (Вставте сюди дані з консолі Firebase)
-      // Замініть об'єкт нижче на той, що ви скопіювали на Етапі 1
-  const firebaseConfig = {
-    apiKey: "AIzaSyCTmVh54GOcTSLFBCxUa-7T19_Rdbmlv7M",
-    authDomain: "krzhv-s.firebaseapp.com",
-    projectId: "krzhv-s",
-    storageBucket: "krzhv-s.firebasestorage.app",
-    messagingSenderId: "1064402723050",
-    appId: "1:1064402723050:web:4276fdcb87b172ef0cf793",
-    measurementId: "G-JEZHMRQYR7"
-  };
-
-      // 3. Запускаємо Firebase
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-
-      // 4. Логіка: Що робити, коли натиснули кнопку
-      document.getElementById('sendBtn').addEventListener('click', async () => {
-          const name = document.getElementById('nameInput').value;
-          const msg = document.getElementById('msgInput').value;
-
-          if(name && msg) {
-              try {
-                  // Записуємо в колекцію "reviews"
-                  await addDoc(collection(db, "reviews"), {
-                      name: name,
-                      message: msg,
-                      date: new Date() // додаємо час, щоб сортувати
-                  });
-                  // Очищаємо поля
-                  document.getElementById('msgInput').value = ''; 
-              } catch (e) {
-                  console.error("Помилка: ", e);
-                  alert("Не вдалося відправити");
-              }
-          } else {
-              alert("Заповніть всі поля!");
-          }
-      });
-
-      // 5. Логіка: Читаємо дані в реальному часі
-      // Ця функція спрацьовує сама, коли в базі щось змінюється
-      const q = query(collection(db, "reviews"), orderBy("date", "desc"));
-      
-      onSnapshot(q, (snapshot) => {
-          const list = document.getElementById('messagesList');
-          list.innerHTML = ""; // Очистити список перед оновленням
-
-          snapshot.forEach((doc) => {
-              const data = doc.data();
-              // Створюємо HTML для кожного відгуку
-              const item = document.createElement("div");
-              item.className = "message-box";
-              item.innerHTML = `<strong>${data.name}:</strong> ${data.message}`;
-              list.appendChild(item);
-          });
-      });
-    </script>
-    
-
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
   </body>
 </html>
+
 
 
 
