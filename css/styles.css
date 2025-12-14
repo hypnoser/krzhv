@@ -58,10 +58,13 @@ h2 {
   -webkit-text-stroke-color: white;
   text-decoration: none;
   font-size: 16px;
+  border-bottom: 1px dotted;
 }
 
 a.link:hover{
     color:#fff;
+    border-bottom: 1px solid;
+    text-decoration: none;
 }
 
 .timer {
