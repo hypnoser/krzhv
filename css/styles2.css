@@ -1,98 +1,92 @@
 :root {
     --primary-bg: #2B2D42;
     --secondary-bg: #1D1E33;
-    --accent-color: #00bcd4; /* Повернемо акцент для фокусу уваги */
+    --accent-color: #00bcd4;
     --text-main: #EDF2F4;
     --text-muted: #8D99AE;
     --nav-bg: rgba(43, 45, 66, 0.98);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Базові налаштування */
 body {
     font-family: 'Open Sans', sans-serif;
     background-color: var(--primary-bg);
     color: var(--text-main);
-    line-height: 1.7;
-    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-h1, h2, h3, .navbar-brand {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
+h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
-section {
-    padding: 100px 0; /* Більше відступів між секціями для "повітря" */
-}
-
-/* Навігація */
-.navbar {
-    background-color: var(--nav-bg);
-    border-bottom: 1px solid rgba(141, 153, 174, 0.1);
-    padding: 15px 0;
-}
-
-/* Картки Послуг - ВИПРАВЛЕНО */
+/* Картки Напрямки роботи — Покращено */
 .service-card {
     background: var(--secondary-bg);
-    border: 1px solid rgba(141, 153, 174, 0.1);
+    border: 1px solid rgba(141, 153, 174, 0.2);
     border-radius: 20px;
-    padding: 40px 30px; /* Збільшені внутрішні відступи */
+    padding: 2.5rem 2rem; /* Великі відступи: 40px зверху/знизу, 32px збоку */
     height: 100%;
-    transition: var(--transition);
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     border-color: var(--accent-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
-/* Кнопки */
-.btn-primary {
-    background-color: transparent;
-    border: 2px solid var(--accent-color);
+.service-card h3 {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
     color: var(--accent-color);
-    padding: 14px 35px;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: var(--transition);
 }
 
-.btn-primary:hover {
-    background-color: var(--accent-color);
-    color: var(--primary-bg);
-    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3);
+.service-card p {
+    color: var(--text-muted);
+    margin-bottom: 0;
+    font-size: 0.95rem;
 }
 
-/* Форма */
+/* Секція контактів та форми */
 .form-container {
     background: var(--secondary-bg);
-    padding: 40px;
+    padding: 3rem;
     border-radius: 25px;
     border: 1px solid rgba(141, 153, 174, 0.1);
 }
 
 .form-control {
-    background-color: rgba(43, 45, 66, 0.5) !important;
+    background-color: rgba(43, 45, 66, 0.6) !important;
     border: 1px solid rgba(141, 153, 174, 0.3) !important;
-    color: white !important;
-    padding: 12px 15px;
-    margin-bottom: 10px;
+    color: #fff !important;
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
 }
 
 .form-control:focus {
     border-color: var(--accent-color) !important;
-    box-shadow: none;
+    box-shadow: 0 0 0 0.25 red rgba(0, 188, 212, 0.1);
 }
 
-/* Адаптивність для мобільних */
+.btn-primary {
+    background-color: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+/* Адаптивність */
 @media (max-width: 768px) {
+    .service-card { padding: 2rem 1.5rem; }
+    .form-container { padding: 2rem 1.5rem; }
     section { padding: 60px 0; }
-    h1 { font-size: 2.5rem; }
-    .service-card { padding: 30px 20px; }
-    .form-container { padding: 25px; }
 }
