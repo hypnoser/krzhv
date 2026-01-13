@@ -1,0 +1,90 @@
+:root {
+    --primary-bg: #2B2D42;    /* Основний фон */
+    --secondary-bg: #1D1E33;  /* Темніший фон для карток */
+    --accent-color: #EF233C;  /* Колір акценту (можна змінити на #8D99AE, якщо хочете спокійніше) */
+    --text-main: #EDF2F4;     /* Основний текст (світлий) */
+    --text-muted: #8D99AE;    /* Допоміжний текст */
+    --nav-bg: rgba(43, 45, 66, 0.95);
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+h1, h2, h3, .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* Навігація */
+.navbar {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid rgba(141, 153, 174, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--text-main) !important;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: transparent;
+    border: 2px solid var(--text-main);
+    color: var(--text-main);
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--text-main);
+    color: var(--primary-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(237, 242, 244, 0.2);
+}
+
+/* Картки та блоки */
+.service-card, .p-5, .p-4 {
+    background: var(--secondary-bg) !important;
+    border: 1px solid rgba(141, 153, 174, 0.1) !important;
+    border-radius: 20px;
+}
+
+.service-card:hover {
+    border-color: var(--text-muted) !important;
+}
+
+/* Форми */
+.form-control {
+    background-color: rgba(141, 153, 174, 0.05) !important;
+    border: 1px solid rgba(141, 153, 174, 0.2) !important;
+    color: var(--text-main) !important;
+}
+
+.form-control:focus {
+    border-color: var(--text-main) !important;
+    box-shadow: none;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+.accordion-item {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(141, 153, 174, 0.2) !important;
+}
+
+.accordion-button {
+    background: transparent !important;
+    color: var(--text-main) !important;
+}
