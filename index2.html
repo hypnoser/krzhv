@@ -9,13 +9,17 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-   <style>
+    <style>
         :root {
-            --primary-bg: #1a1a1a;    /* Темний фон як на сайті */
-            --accent-cyan: #00bcd4;   /* Яскравий блакитний акцент */
-            --text-light: #f5f5f5;    /* Майже білий текст */
-            --card-bg: #252525;       /* Трохи світліший сірий для блоків */
-            --gray-text: #b0b0b0;     /* Сірий текст для менш важливих деталей */
+            --primary-bg: #1a1a1a;
+            --accent-cyan: #00bcd4;
+            --text-light: #f5f5f5;
+            --card-bg: #252525;
+            --gray-text: #b0b0b0;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Плавна прокрутка до секцій */
         }
 
         body {
@@ -28,15 +32,27 @@
         h1, h2, h3, .navbar-brand {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            color: var(--text-light);
         }
 
-        /* Кнопка в стилі вашого сайту */
+        .navbar {
+            background-color: rgba(26, 26, 26, 0.95);
+            border-bottom: 1px solid #333;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--text-light) !important;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-cyan) !important;
+        }
+
         .btn-primary {
             background-color: transparent;
             border: 2px solid var(--accent-cyan);
             color: var(--accent-cyan);
-            padding: 10px 25px;
+            padding: 12px 25px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -48,57 +64,65 @@
             box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
         }
 
-        .navbar {
-            background-color: rgba(26, 26, 26, 0.95);
-            border-bottom: 1px solid #333;
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid #333;
+            transition: 0.3s;
+            height: 100%;
+            padding: 1.5rem;
         }
 
-        .navbar-brand, .nav-link {
-            color: var(--text-light) !important;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-cyan) !important;
-        }
-               .form-control:focus {
-            background-color: rgba(255,255,255,0.05);
-            color: white;
-            border-color: var(--accent-cyan);
-            box-shadow: none;
-        }
-        .btn-outline-info {
-            color: var(--accent-cyan);
-            border-color: var(--accent-cyan);
-        }
-        .btn-outline-info:hover {
-            background-color: var(--accent-cyan);
-            color: var(--primary-bg);
-        }
-                #services .h-100:hover {
+        .service-card:hover {
             border-color: var(--accent-cyan) !important;
             transform: translateY(-5px);
         }
-               .form-control:focus {
-            background-color: rgba(255,255,255,0.05);
-            color: white;
+
+        .form-control {
+            background-color: rgba(255,255,255,0.05) !important;
+            color: white !important;
+            border: 1px solid #444;
+            padding: 12px;
+        }
+
+        .form-control:focus {
             border-color: var(--accent-cyan);
             box-shadow: none;
+            background-color: rgba(255,255,255,0.08) !important;
         }
+
         .btn-outline-info {
             color: var(--accent-cyan);
             border-color: var(--accent-cyan);
         }
+
         .btn-outline-info:hover {
             background-color: var(--accent-cyan);
             color: var(--primary-bg);
+        }
+
+        .accordion-button {
+            background-color: transparent !important;
+            color: white !important;
+            box-shadow: none !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: var(--accent-cyan) !important;
+        }
+
+        .accordion-item {
+            background-color: transparent;
+            border-color: #333;
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg sticky-top">
+
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">СЕРГІЙ КОРЖОВ</a>
-            <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -112,25 +136,26 @@
         </div>
     </nav>
 
-    <section class="py-5 d-flex align-items-center" style="min-height: 80vh;">
+    <section class="py-5 d-flex align-items-center" style="min-height: 85vh;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="display-4 mb-3">Сергій Коржов</h1>
-                    <h2 class="h3 text-muted mb-4" style="color: var(--accent-cyan) !important;">Клінічний психолог</h2>
+                    <h2 class="h3 mb-4" style="color: var(--accent-cyan);">Клінічний психолог</h2>
                     <p class="lead mb-5" style="color: var(--gray-text);">
                         Допомагаю знайти внутрішній ресурс, подолати тривогу та відновити ментальне здоров'я за допомогою науково доведених методів психотерапії.
                     </p>
                     <a href="#contact" class="btn btn-primary btn-lg">Записатися на консультацію</a>
                 </div>
                 <div class="col-lg-6 text-center mt-5 mt-lg-0">
-                    <div style="width: 100%; max-width: 400px; height: 500px; background: var(--card-bg); border-radius: 20px; border: 1px solid #333; display: inline-flex; align-items: center; justify-content: center;">
+                    <div style="width: 100%; max-width: 400px; height: 500px; background: var(--card-bg); border-radius: 20px; border: 1px solid #333; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
                         <span style="color: #555;">[ Ваше фото тут ]</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <section id="about" class="py-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -151,19 +176,19 @@
             <h2 class="text-center mb-5">Напрямки роботи</h2>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="h-100 p-4" style="background: var(--card-bg); border-radius: 20px; border: 1px solid #333; transition: 0.3s;">
+                    <div class="service-card">
                         <h3 class="h5" style="color: var(--accent-cyan);">Тривожні стани</h3>
                         <p style="color: var(--gray-text);">Робота з панічними атаками, фобіями та постійним відчуттям напруги.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="h-100 p-4" style="background: var(--card-bg); border-radius: 20px; border: 1px solid #333; transition: 0.3s;">
+                    <div class="service-card">
                         <h3 class="h5" style="color: var(--accent-cyan);">Депресивні розлади</h3>
                         <p style="color: var(--gray-text);">Підтримка при втраті сенсів, апатії та зниженні життєвого тонусу.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="h-100 p-4" style="background: var(--card-bg); border-radius: 20px; border: 1px solid #333; transition: 0.3s;">
+                    <div class="service-card">
                         <h3 class="h5" style="color: var(--accent-cyan);">Кризи у стосунках</h3>
                         <p style="color: var(--gray-text);">Допомога у вирішенні конфліктів, побудові кордонів та подоланні самотності.</p>
                     </div>
@@ -171,38 +196,39 @@
             </div>
         </div>
     </section>
+
     <section id="methods" class="py-5" style="background-color: rgba(255,255,255,0.02);">
         <div class="container">
-            <h2 class="text-center mb-5">Методи, які я використовую</h2>
+            <h2 class="text-center mb-5">Методи роботи</h2>
             <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="col-lg-6">
                     <ul class="list-unstyled">
                         <li class="mb-4 d-flex align-items-start">
-                            <span class="me-3" style="color: var(--accent-cyan); font-size: 1.5rem;">✔</span>
+                            <span class="me-3" style="color: var(--accent-cyan); font-size: 1.2rem;">✔</span>
                             <div>
                                 <strong>Когнітивно-поведінкова терапія (КПТ)</strong><br>
-                                <small class="text-muted">Працюємо з думками та установками, що заважають жити щасливо.</small>
+                                <small class="text-muted">Робота з установками, що заважають жити щасливо.</small>
                             </div>
                         </li>
                         <li class="mb-4 d-flex align-items-start">
-                            <span class="me-3" style="color: var(--accent-cyan); font-size: 1.5rem;">✔</span>
+                            <span class="me-3" style="color: var(--accent-cyan); font-size: 1.2rem;">✔</span>
                             <div>
                                 <strong>Гештальт-підхід</strong><br>
-                                <small class="text-muted">Фокусуємось на усвідомленні почуттів та потреб у моменті "тут і зараз".</small>
+                                <small class="text-muted">Фокус на почуттях у моменті "тут і зараз".</small>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
-                            <span class="me-3" style="color: var(--accent-cyan); font-size: 1.5rem;">✔</span>
+                            <span class="me-3" style="color: var(--accent-cyan); font-size: 1.2rem;">✔</span>
                             <div>
                                 <strong>Клінічне інтерв'ю</strong><br>
-                                <small class="text-muted">Глибока діагностика стану для вибору найефективнішої стратегії допомоги.</small>
+                                <small class="text-muted">Глибока діагностика вашого стану.</small>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
                     <div class="p-4 border-start border-info" style="background: rgba(0, 188, 212, 0.05);">
-                        <p class="fst-italic">"Психотерапія — це не про 'виправлення' людини, а про створення умов, у яких вона зможе стати собою."</p>
+                        <p class="fst-italic mb-0">"Психотерапія — це не про 'виправлення' людини, а про створення умов, у яких вона зможе стати собою."</p>
                     </div>
                 </div>
             </div>
@@ -211,68 +237,65 @@
 
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5">Популярні запитання</h2>
+            <h2 class="text-center mb-5">Запитання</h2>
             <div class="accordion accordion-flush" id="faqAccordion" style="max-width: 800px; margin: 0 auto;">
-                <div class="accordion-item bg-transparent border-bottom border-secondary">
+                <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-light shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
                             Скільки триває одна сесія?
                         </button>
                     </h2>
                     <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                         <div class="accordion-body text-muted">
-                            Стандартна тривалість консультації — 50 хвилин. Це оптимальний час для глибокої роботи без перевтоми.
+                            Стандартна тривалість консультації — 50 хвилин.
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item bg-transparent border-bottom border-secondary">
+                <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-light shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                            Це конфіденційно?
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Чи це конфіденційно?
                         </button>
                     </h2>
                     <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                         <div class="accordion-body text-muted">
-                            Так, повна анонімність та збереження вашої історії — це фундамент моєї професійної етики.
+                            Так, конфіденційність — це основа моєї професійної етики.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section id="contact" class="py-5" style="background: linear-gradient(180deg, var(--primary-bg) 0%, #252525 100%);">
+
+    <section id="contact" class="py-5" style="background: linear-gradient(180deg, var(--primary-bg) 0%, #111 100%);">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-5">
-                    <h2 class="mb-4">Зв'язатися зі мною</h2>
-                    <p class="text-muted mb-5">Оберіть зручний для вас спосіб зв'язку або заповніть форму, і я перетелефоную вам найближчим часом.</p>
-                    
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="me-3 text-info" style="font-size: 1.5rem;">📍</div>
-                        <div>м. Київ / Онлайн (Zoom, Google Meet)</div>
+                    <h2 class="mb-4">Контакти</h2>
+                    <p class="text-muted mb-4">Заповніть форму, і я перетелефоную вам найближчим часом.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="me-3 text-info">📍</span>
+                        <span>Київ / Онлайн</span>
                     </div>
-                    
-                    <div class="mt-5">
-                        <h5 class="mb-3">Месенджери:</h5>
+                    <div class="mt-4">
                         <a href="https://t.me/your_username" class="btn btn-outline-info me-2">Telegram</a>
-                        <a href="https://wa.me/your_number" class="btn btn-outline-info">WhatsApp</a>
+                        <a href="#" class="btn btn-outline-info">WhatsApp</a>
                     </div>
                 </div>
-
                 <div class="col-lg-7">
                     <div class="p-4 p-md-5" style="background: var(--card-bg); border-radius: 20px; border: 1px solid #333;">
                         <form id="appointmentForm">
                             <div class="mb-3">
                                 <label class="form-label">Ваше ім'я</label>
-                                <input type="text" name="name" class="form-control bg-transparent text-light border-secondary" required>
+                                <input type="text" name="name" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Номер телефону</label>
-                                <input type="tel" name="phone" class="form-control bg-transparent text-light border-secondary" required>
+                                <input type="tel" name="phone" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Ваш запит (коротко)</label>
-                                <textarea name="message" class="form-control bg-transparent text-light border-secondary" rows="3"></textarea>
+                                <label class="form-label">Ваш запит</label>
+                                <textarea name="message" class="form-control" rows="3"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mt-3" id="submitBtn">Надіслати заявку</button>
                         </form>
@@ -282,39 +305,47 @@
             </div>
         </div>
     </section>
-    <footer class="py-4 text-center border-top border-secondary mt-5">
-        <p class="text-muted small">© 2024 Сергій Коржов. Усі права захищені. Етичність та конфіденційність понад усе.</p>
+
+    <footer class="py-4 text-center border-top border-secondary">
+        <p class="text-muted small mb-0">© 2026 Сергій Коржов. Усі права захищені.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    const scriptURL = https://script.google.com/macros/s/AKfycbw807InODFli2Re6oDX4eKSry3QLZV3SfejO-n3qCWV053wEdnQM9uag6Ohtoji7SYc/exec;
-    const form = document.getElementById('appointmentForm');
-    const btn = document.getElementById('submitBtn');
-    const msg = document.getElementById('responseMessage');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw807InODFli2Re6oDX4eKSry3QLZV3SfejO-n3qCWV053wEdnQM9uag6Ohtoji7SYc/exec';
+        const form = document.getElementById('appointmentForm');
+        const btn = document.getElementById('submitBtn');
+        const msg = document.getElementById('responseMessage');
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.innerText = 'Надсилається...';
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = 'Надсилається...';
 
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            // Створюємо FormData з форми
+            const formData = new FormData(form);
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: formData
+            })
             .then(response => {
                 msg.classList.remove('d-none', 'text-danger');
                 msg.classList.add('text-success');
                 msg.innerHTML = 'Дякую! Заявку отримано. Я зв\'яжуся з вами ближчим часом.';
                 form.reset();
-                btn.disabled = false;
-                btn.innerText = 'Надіслати заявку';
             })
             .catch(error => {
+                console.error('Error!', error.message);
                 msg.classList.remove('d-none');
                 msg.classList.add('text-danger');
-                msg.innerHTML = 'Помилка! Спробуйте ще раз або напишіть у месенджер.';
+                msg.innerHTML = 'Виникла помилка. Але ви можете написати мені в Telegram.';
+            })
+            .finally(() => {
                 btn.disabled = false;
                 btn.innerText = 'Надіслати заявку';
             });
-    });
-</script>
+        });
+    </script>
 </body>
 </html>
