@@ -1,90 +1,98 @@
 :root {
-    --primary-bg: #2B2D42;    /* Основний фон */
-    --secondary-bg: #1D1E33;  /* Темніший фон для карток */
-    --accent-color: #EF233C;  /* Колір акценту (можна змінити на #8D99AE, якщо хочете спокійніше) */
-    --text-main: #EDF2F4;     /* Основний текст (світлий) */
-    --text-muted: #8D99AE;    /* Допоміжний текст */
-    --nav-bg: rgba(43, 45, 66, 0.95);
+    --primary-bg: #2B2D42;
+    --secondary-bg: #1D1E33;
+    --accent-color: #00bcd4; /* Повернемо акцент для фокусу уваги */
+    --text-main: #EDF2F4;
+    --text-muted: #8D99AE;
+    --nav-bg: rgba(43, 45, 66, 0.98);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Базові налаштування */
 body {
     font-family: 'Open Sans', sans-serif;
     background-color: var(--primary-bg);
     color: var(--text-main);
-    line-height: 1.6;
+    line-height: 1.7;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, .navbar-brand {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    color: var(--text-main);
+}
+
+section {
+    padding: 100px 0; /* Більше відступів між секціями для "повітря" */
 }
 
 /* Навігація */
 .navbar {
     background-color: var(--nav-bg);
-    border-bottom: 1px solid rgba(141, 153, 174, 0.2);
-    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(141, 153, 174, 0.1);
+    padding: 15px 0;
 }
 
-.navbar-brand, .nav-link {
-    color: var(--text-main) !important;
+/* Картки Послуг - ВИПРАВЛЕНО */
+.service-card {
+    background: var(--secondary-bg);
+    border: 1px solid rgba(141, 153, 174, 0.1);
+    border-radius: 20px;
+    padding: 40px 30px; /* Збільшені внутрішні відступи */
+    height: 100%;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
-.nav-link:hover {
-    color: var(--accent-color) !important;
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* Кнопки */
 .btn-primary {
     background-color: transparent;
-    border: 2px solid var(--text-main);
-    color: var(--text-main);
-    padding: 12px 30px;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 14px 35px;
+    border-radius: 12px;
     font-weight: 600;
-    transition: 0.3s;
+    transition: var(--transition);
 }
 
 .btn-primary:hover {
-    background-color: var(--text-main);
+    background-color: var(--accent-color);
     color: var(--primary-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(237, 242, 244, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3);
 }
 
-/* Картки та блоки */
-.service-card, .p-5, .p-4 {
-    background: var(--secondary-bg) !important;
-    border: 1px solid rgba(141, 153, 174, 0.1) !important;
-    border-radius: 20px;
+/* Форма */
+.form-container {
+    background: var(--secondary-bg);
+    padding: 40px;
+    border-radius: 25px;
+    border: 1px solid rgba(141, 153, 174, 0.1);
 }
 
-.service-card:hover {
-    border-color: var(--text-muted) !important;
-}
-
-/* Форми */
 .form-control {
-    background-color: rgba(141, 153, 174, 0.05) !important;
-    border: 1px solid rgba(141, 153, 174, 0.2) !important;
-    color: var(--text-main) !important;
+    background-color: rgba(43, 45, 66, 0.5) !important;
+    border: 1px solid rgba(141, 153, 174, 0.3) !important;
+    color: white !important;
+    padding: 12px 15px;
+    margin-bottom: 10px;
 }
 
 .form-control:focus {
-    border-color: var(--text-main) !important;
+    border-color: var(--accent-color) !important;
     box-shadow: none;
 }
 
-.text-muted {
-    color: var(--text-muted) !important;
-}
-
-.accordion-item {
-    background: transparent !important;
-    border-bottom: 1px solid rgba(141, 153, 174, 0.2) !important;
-}
-
-.accordion-button {
-    background: transparent !important;
-    color: var(--text-main) !important;
+/* Адаптивність для мобільних */
+@media (max-width: 768px) {
+    section { padding: 60px 0; }
+    h1 { font-size: 2.5rem; }
+    .service-card { padding: 30px 20px; }
+    .form-container { padding: 25px; }
 }
