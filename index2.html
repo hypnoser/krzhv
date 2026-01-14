@@ -673,12 +673,6 @@
             <h2 class="section-title">Записатися на консультацію</h2>
             <p class="section-subtitle">Заповніть форму, і я зв'яжуся з вами найближчим часом</p>
             <div class="form-container">
-                <div id="successMessage" class="success-message">
-                    Дякую! Ваша заявка успішно відправлена. Я зв'яжуся з вами найближчим часом.
-                </div>
-                <div id="errorMessage" class="error-message">
-                    Виникла помилка при відправці форми. Будь ласка, спробуйте ще раз або зв'яжіться зі мною напряму.
-                </div>
                 <form id="contactForm">
                     <div class="form-row">
                         <div class="form-group">
@@ -725,6 +719,12 @@
                     </div>
                     <button type="submit" class="cta-button" style="width: 100%;">Відправити заявку</button>
                 </form>
+                <div id="successMessage" class="success-message">
+                    Дякую! Ваша заявка успішно відправлена. Я зв'яжуся з вами найближчим часом.
+                </div>
+                <div id="errorMessage" class="error-message">
+                    Виникла помилка при відправці форми. Будь ласка, спробуйте ще раз або зв'яжіться зі мною напряму.
+                </div>
             </div>
         </div>
     </section>
@@ -786,7 +786,7 @@
         });
 
         // Google Sheets Integration - ЗАМІНІТЬ URL НА ВАШ
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFgoT03AFnvYPkTzNFQdYAkI2fHiKhdDBPB6MqBTU2jTZ9kibFaPLUEtCopacX_uHJ/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwIsQJGwuu2_HBiF0giby3NWDabgau763diBxo0by4OOVqy7RXFvqiXXaNAWxI2N2Fd/exec';
 
         // Form Submission
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
