@@ -1,88 +1,112 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+:root {
+    --primary-bg: #FFFFFF;       /* Чистий білий для відкритості */
+    --secondary-bg: #F8F9FA;     /* Світло-сірий для розділення секцій */
+    --accent-main: #6C63FF;      /* М'який фіолетово-синій (професійність) */
+    --accent-soft: #E8EAF6;      /* Фон для карток */
+    --text-dark: #2D3436;        /* Глибокий сірий для легкого читання */
+    --text-muted: #636E72;       /* Для другорядних текстів */
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --transition: all 0.4s ease;
+}
 
 body {
-  height: auto;
-  min-height: 100px;
-  background-color: #2B2D42; /*#5271ff;*/
-  color:#fff;
-  padding-top:140px;
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-dark);
+    line-height: 1.8;
 }
 
-h1 {
-  min-height:52px;
-  font-family: "Montserrat Subrayada", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  text-align: center;
-  display: grid;
-  justify-items: center;
+h1, h2, h3, .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
 }
 
-h1 img {
-   margin-right:10px; 
+/* Навігація - Світла та прозора */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
 }
 
-.logos {
-  width:64px;
-  height:59px;
-  background: url(/images/logo.png) left center no-repeat;
-  display:block;
+.navbar-brand, .nav-link {
+    color: var(--text-dark) !important;
 }
 
-h2 {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  color: white;
-  text-align: center;
+.nav-link:hover {
+    color: var(--accent-main) !important;
 }
 
-#footer.container {
-  position: absolute;
-  left: 0%;
-  top: auto;
-  right: 0%;
-  bottom: 0%;
-  display: block;
-  padding-top: 10px;
-  padding-bottom: 40px;
-  flex-direction: column;
-  justify-content: flex-end;
-  flex-wrap: nowrap;
-  align-items: center;
+/* Hero-секція */
+header {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    padding: 120px 0;
 }
 
-.link {
-  color: white;
-  -webkit-text-stroke-color: white;
-  text-decoration: none;
-  font-size: 16px;
-  border-bottom: 1px dotted;
+/* Картки Послуг - Динамічні та відкриті */
+.service-card {
+    background: var(--white) !important;
+    border: none !important;
+    border-radius: 24px;
+    padding: 3rem 2rem !important;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    height: 100%;
 }
 
-a.link:hover{
-    color:#fff;
-    border-bottom: 1px solid;
-    text-decoration: none;
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(108, 99, 255, 0.1);
 }
 
-.timer {
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin-top: 100px;
-  margin-right: auto;
-  margin-left: auto;
-  text-align: center;
+.service-card h3 {
+    color: var(--accent-main);
+    font-size: 1.4rem;
 }
 
-#footer {
-    text-align: center; /* Центруємо блок */
+/* Кнопки - Сучасні та видимі */
+.btn-primary {
+    background-color: var(--accent-main) !important;
+    border: none !important;
+    color: var(--white) !important;
+    padding: 16px 40px !important;
+    border-radius: 50px !important; /* Округлі форми для довіри */
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    transition: var(--transition);
 }
 
-.text-block {
-    display: flex;
-    justify-content: center; /* Центруємо елементи */
-    gap: 50px; /* Відстань між посиланнями */
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+}
+
+/* Форми */
+.form-container {
+    background: var(--white) !important;
+    padding: 3rem !important;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+}
+
+.form-control {
+    background-color: #F1F3F5 !important;
+    border: 2px solid transparent !important;
+    color: var(--text-dark) !important;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.form-control:focus {
+    border-color: var(--accent-main) !important;
+    background-color: var(--white) !important;
+    box-shadow: none;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    header { padding: 80px 0; }
+    .service-card { padding: 2rem 1.5rem !important; }
 }
