@@ -142,7 +142,7 @@ nav {
 }
 
 /* Services */
-section { padding: 8rem 0; }
+section { padding: 8rem 0; } 
 
 .section-title {
     font-size: clamp(2rem, 4vw, 2.8rem);
