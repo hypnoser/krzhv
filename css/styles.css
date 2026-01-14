@@ -1,279 +1,607 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    /* Нова світла палітра */
-    --primary-bg: #FFFFFF;        /* Чистий білий */
-    --secondary-bg: #F8FAFC;      /* Дуже світлий блакитно-сірий для фону секцій */
-    --accent: #6366F1;            /* Сучасний індиго (замість тьмяного синього) */
-    --accent-light: #EEF2FF;      /* Світлий фон для елементів */
-    --highlight: #4F46E5;         /* Насичений колір для кнопок */
-    --text-dark: #1E293B;         /* Глибокий колір для заголовків (читабельність) */
-    --text-muted: #64748B;        /* М'який сірий для описів */
-    --white: #ffffff;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-    --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.05);
-}
-
-body {
-    /* Шрифт Inter або системний — більш сучасний вигляд */
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: var(--primary-bg);
-    color: var(--text-dark);
-    line-height: 1.7;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-}
-
-/* Header — Світлий та прозорий */
-header {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 0;
-}
-
-.logo {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--text-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-}
-
-.nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: all 0.3s;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.nav-links a:hover {
-    color: var(--accent);
-}
-
-/* Hero Section — Світлий градієнт */
-.hero {
-    margin-top: 0;
-    padding: 10rem 0 6rem; /* Збільшений відступ зверху для балансу */
-    background: radial-gradient(circle at top right, var(--accent-light), var(--primary-bg));
-    position: relative;
-}
-
-.hero-content {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.hero-text h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem); /* Адаптивний розмір шрифту */
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    color: var(--text-dark);
-    font-weight: 800;
-}
-
-.hero-text .subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-}
-
-.hero-text p {
-    color: var(--text-muted);
-    font-size: 1.15rem;
-    margin-bottom: 2.5rem;
-    max-width: 600px;
-}
-
-.cta-button {
-    display: inline-block;
-    background: var(--highlight);
-    color: white;
-    padding: 1.1rem 2.8rem;
-    border-radius: 12px; /* Більш сучасна форма замість повного овалу */
-    text-decoration: none;
-    font-weight: 700;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
-    background: var(--accent);
-}
-
-.hero-image-placeholder {
-    background: var(--white);
-    border-radius: 30px;
-    box-shadow: var(--shadow-md);
-    border: 8px solid var(--white);
-}
-
-/* Services */
-section { padding: 8rem 0; } 
-
-.section-title {
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.service-card {
-    background: var(--white);
-    padding: 3rem 2.5rem;
-    border-radius: 24px;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    box-shadow: var(--shadow-md);
-    transition: all 0.4s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--accent-light);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-}
-
-.service-icon {
-    background: var(--accent-light);
-    color: var(--accent);
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    font-size: 1.5rem;
-}
-
-.service-card h3 {
-    color: var(--text-dark);
-}
-
-/* About */
-#about { background: var(--secondary-bg); }
-
-.credentials {
-    background: var(--white);
-    border: none;
-    box-shadow: var(--shadow-sm);
-}
-
-/* FAQ */
-.faq-item {
-    background: var(--white);
-    border: 1px solid rgba(0,0,0,0.05);
-    margin-bottom: 1.2rem;
-}
-
-.faq-question {
-    color: var(--text-dark);
-    padding: 1.8rem;
-}
-
-/* Contact Form — Світлий та чистий */
-.form-container {
-    background: var(--white);
-    padding: clamp(2rem, 5vw, 4rem);
-    border-radius: 30px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
-}
-
-.form-group label { color: var(--text-dark); }
-
-.form-group input, .form-group textarea, .form-group select {
-    background: #F1F5F9;
-    border: 2px solid transparent;
-    color: var(--text-dark);
-}
-
-.form-group input:focus, .form-group textarea:focus {
-    border-color: var(--accent);
-    background: var(--white);
-}
-
-/* Footer */
-footer {
-    background: var(--text-dark);
-    color: var(--white);
-}
-
-footer .footer-section h3 { color: var(--white); }
-footer .footer-section a:hover { color: var(--accent-light); }
-
-/* --- ADAPTIVITY (Мобільні пристрої та планшети) --- */
-
-@media (max-width: 1024px) {
-    .hero-content, .about-content {
-        gap: 3rem;
+    /* 1. Скидання та Глобальні налаштування */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-}
 
-@media (max-width: 768px) {
-    nav { padding: 1rem 0; }
-    
-    .nav-links { display: none; } /* Можна додати бургер-меню пізніше */
+    :root {
+        /* Світла палітра для довіри та чистоти */
+        --primary-bg: #FFFFFF;        /* Чистий білий */
+        --secondary-bg: #F8FAFC;      /* Світло-блакитний відтінок для фону розділів */
+        --accent: #6366F1;            /* Сучасний Indigo (замість тьмяного сірого) */
+        --accent-light: #EEF2FF;      /* М'який фон для виділення елементів */
+        --highlight: #4F46E5;         /* Насичений колір дії (кнопки) */
+        --text-dark: #1E293B;         /* Глибокий сірий для легкого читання */
+        --text-muted: #64748B;        /* М'який сірий для другорядного тексту */
+        --white: #ffffff;
+        --border: rgba(226, 232, 240, 0.8);
+    }
 
-    .hero { padding: 8rem 0 4rem; }
-    
+    body {
+        /* Використання сучасних системних шрифтів для швидкості та чистоти */
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: var(--primary-bg);
+        color: var(--text-dark);
+        line-height: 1.7;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* 2. Header (Навігація) — Скляний ефект */
+    header {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid var(--border);
+        transition: all 0.3s ease;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 0;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        letter-spacing: -0.5px;
+        text-transform: uppercase;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+    }
+
+    .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.3s, transform 0.3s;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+        color: var(--accent);
+    }
+
+    /* 3. Hero Section — Енергія та Повітря */
+    .hero {
+        margin-top: 0;
+        padding: 10rem 0 7rem;
+        /* Градієнт, що створює глибину без похмурості */
+        background: radial-gradient(circle at top right, var(--accent-light), var(--primary-bg));
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+        top: -150px;
+        right: -150px;
+        border-radius: 50%;
+    }
+
     .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 1;
     }
 
-    .hero-text p { margin: 0 auto 2.5rem; }
+    .hero-text h1 {
+        /* clamp дозволяє шрифту адаптуватися під будь-який екран автоматично */
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+        font-weight: 800;
+        color: var(--text-dark);
+        letter-spacing: -1px;
+    }
+
+    .hero-text .subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        display: block;
+    }
+
+    .hero-text p {
+        color: var(--text-muted);
+        font-size: 1.15rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+        max-width: 550px;
+    }
+
+    /* Кнопка — Акцент на дії */
+    .cta-button {
+        display: inline-block;
+        background: var(--highlight);
+        color: white;
+        padding: 1.1rem 2.8rem;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        cursor: pointer;
+        font-size: 1.05rem;
+        box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.5);
+        background: var(--accent);
+    }
 
     .hero-image {
-        order: -1; /* Фото зверху на мобілках */
-        max-width: 300px;
-        margin: 0 auto;
+        position: relative;
+    }
+
+    .hero-image-placeholder {
+        width: 100%;
+        aspect-ratio: 0.9;
+        background: var(--white);
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    /* 4. Секції та Картки Послуг */
+    section {
+        padding: 8rem 0;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        margin-bottom: 1rem;
+        text-align: center;
+        color: var(--text-dark);
+        font-weight: 800;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        color: var(--text-muted);
+        margin-bottom: 5rem;
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .service-card {
+        background: var(--white);
+        padding: 3rem 2.5rem;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        transition: all 0.4s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent-light);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    }
+
+    .service-icon {
+        width: 64px;
+        height: 64px;
+        background: var(--accent-light);
+        color: var(--accent);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+        color: var(--text-dark);
+    }
+
+    .service-card p {
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+
+    /* 5. Блок "Про мене" */
+    #about {
+        background: var(--secondary-bg);
     }
 
     .about-content {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 5rem;
+        align-items: center;
     }
 
-    .section-title { font-size: 2rem; }
-    
-    section { padding: 4rem 0; }
-}
-
-@media (max-width: 480px) {
-    .container { padding: 0 20px; }
-    
-    .cta-button {
+    .about-image {
         width: 100%;
+        aspect-ratio: 0.85;
+        background: var(--white);
+        border-radius: 30px;
+        border: 1px solid var(--border);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+    }
+
+    .about-text h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-dark);
+    }
+
+    .about-text p {
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .credentials {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: var(--white);
+        border-radius: 20px;
+        border-left: 6px solid var(--accent);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .credentials h4 {
+        color: var(--text-dark);
+        margin-bottom: 1.2rem;
+        font-size: 1.2rem;
+    }
+
+    .credentials ul {
+        list-style: none;
+    }
+
+    .credentials li {
+        padding: 0.6rem 0;
+        padding-left: 2rem;
+        position: relative;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .credentials li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: bold;
+    }
+
+    /* 6. Відгуки */
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .testimonial-card {
+        background: var(--white);
+        padding: 3rem;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.02);
+    }
+
+    .testimonial-card::before {
+        content: '“';
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        font-size: 5rem;
+        color: var(--accent-light);
+        font-family: serif;
+        line-height: 1;
+    }
+
+    .testimonial-text {
+        color: var(--text-muted);
+        font-style: italic;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .testimonial-author {
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .testimonial-author::before {
+        content: "";
+        width: 30px;
+        height: 2px;
+        background: var(--accent);
+    }
+
+    /* 7. Питання та відповіді (FAQ) */
+    #faq {
+        background: var(--secondary-bg);
+    }
+
+    .faq-list {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        margin-bottom: 1.25rem;
+        background: var(--white);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+    }
+
+    .faq-question {
+        padding: 1.75rem 2rem;
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--text-dark);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .faq-question:hover {
+        background: var(--accent-light);
+    }
+
+    .faq-question::after {
+        content: '↓';
+        font-size: 1.2rem;
+        color: var(--accent);
+        transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        color: var(--text-muted);
+    }
+
+    .faq-answer.active {
+        max-height: 600px;
+        padding: 0 2rem 2rem 2rem;
+    }
+
+    /* 8. Контактна форма — Максимальна чистота */
+    .form-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: var(--white);
+        padding: clamp(2rem, 6vw, 4.5rem);
+        border-radius: 35px;
+        box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border);
+    }
+
+    .form-group {
+        margin-bottom: 1.75rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.6rem;
+        color: var(--text-dark);
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 1.1rem;
+        background: var(--secondary-bg);
+        border: 2px solid transparent;
+        border-radius: 14px;
+        color: var(--text-dark);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: var(--white);
+        box-shadow: 0 0 0 4px var(--accent-light);
+    }
+
+    .form-group textarea {
+        min-height: 150px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    /* 9. Footer (Футер) */
+    footer {
+        background: var(--text-dark);
+        padding: 5rem 0 2rem;
+        color: var(--white);
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .footer-section h3 {
+        color: var(--white);
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    .footer-section p,
+    .footer-section a {
+        color: var(--text-muted);
+        text-decoration: none;
+        display: block;
+        margin-bottom: 0.8rem;
+        transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+        color: var(--white);
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2.5rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    /* 10. Повідомлення про успіх */
+    .success-message {
+        background: #ECFDF5;
+        border: 1px solid #10B981;
+        color: #065F46;
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        display: none;
+        font-weight: 600;
         text-align: center;
     }
 
-    .form-container { padding: 2rem 1.5rem; }
-}
+    /* --- ADAPTIVITY (Адаптація під усі пристрої) --- */
+
+    /* Планшети (iPad, тощо) */
+    @media (max-width: 1024px) {
+        .hero-content {
+            gap: 3rem;
+        }
+        .about-content {
+            gap: 3rem;
+        }
+        section {
+            padding: 6rem 0;
+        }
+    }
+
+    /* Смартфони та маленькі екрани */
+    @media (max-width: 768px) {
+        .hero {
+            padding: 8rem 0 5rem;
+        }
+
+        .hero-content {
+            grid-template-columns: 1fr; /* Текст та фото в один стовпчик */
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .hero-text p {
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-image {
+            order: -1; /* Фото тепер зверху над текстом */
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: none; /* Для мобілок краще використовувати бургер-меню (потрібен JS) */
+        }
+
+        .about-content {
+            grid-template-columns: 1fr;
+        }
+
+        .about-image {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr; /* Поля форми в один стовпчик */
+        }
+
+        .cta-button {
+            width: 100%; /* Велика кнопка на весь екран для зручності пальця */
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+        }
+    }
+
+    /* Дуже малі екрани (iPhone SE, тощо) */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 20px;
+        }
+        .hero-text h1 {
+            font-size: 2.2rem;
+        }
+        .form-container {
+            padding: 2.5rem 1.5rem;
+        }
+    }
