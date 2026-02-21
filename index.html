@@ -232,7 +232,8 @@
 .hero-badge {
   position: absolute;
   bottom: 1.5rem;
-  right: 1rem;
+  left: 14rem;
+    bottom: -1rem;
   background: var(--warm-white);
   border: 1px solid var(--border);
   border-radius: 1rem;
@@ -596,6 +597,17 @@
       .about-aside { position: static; }
       .steps { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; text-align: center; }
+        .hero-badge {
+    position: static;
+    margin-top: 1rem;
+    align-self: flex-start;
+    margin-left: 1rem;
+  }
+
+  .hero-visual {
+    flex-direction: column;
+    align-items: center;
+  }
     }
   </style>
 </head>
