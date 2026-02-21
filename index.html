@@ -203,11 +203,13 @@
       opacity: 0;
       animation: fadeIn 1.2s 0.5s forwards;
     }
-    .hero-photo-wrap {
-      position: relative;
-      width: clamp(280px, 32vw, 460px);
-      aspect-ratio: 3/4;
-    }
+.hero-photo-wrap {
+  position: relative;
+  width: clamp(280px, 32vw, 460px);
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 1rem 1rem 8rem 1rem;
+}
     .hero-photo-placeholder {
       width: 100%;
       height: 100%;
@@ -573,13 +575,12 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
-    .hero-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 1rem 1rem 8rem 1rem; 
-    }
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
 
     /* MOBILE */
     @media (max-width: 900px) {
