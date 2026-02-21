@@ -573,6 +573,14 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 1rem 1rem 8rem 1rem; 
+    }
+
     /* MOBILE */
     @media (max-width: 900px) {
       nav { padding: 1.2rem 1.5rem; }
@@ -629,7 +637,7 @@
             <circle cx="12" cy="8" r="4"/>
             <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
           </svg>
-          <span>Ваше фото тут</span>
+          <span><img src="sergiy-photo.jpg" alt="Сергій Коржов" class="hero-photo" /></span>
         </div>
         <div class="hero-badge">
           <div class="hero-badge-label">Формат роботи</div>
