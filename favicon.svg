@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#4F7460"/>
+  <text x="32" y="48" 
+        font-family="Georgia, serif" 
+        font-size="46" 
+        font-weight="bold"
+        fill="#F5F0E8" 
+        text-anchor="middle">Ψ</text>
+</svg>
