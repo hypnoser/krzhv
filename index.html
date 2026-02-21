@@ -1,449 +1,855 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сергій Коржов - Клінічний психолог</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --dark-purple: #1A0F2E;
-            --deep-navy: #0D0A1F;
-            --violet: #6B4C9A;
-            --mint: #5FFBF1;
-            --mint-glow: rgba(95, 251, 241, 0.3);
-            --lavender: #B4A5D5;
-            --off-white: #E8E6F0;
-            --dark-text: #A599C8;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Сергій Коржов — Клінічний психолог, КПТ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    :root {
+      --cream: #F5F0E8;
+      --warm-white: #FDFAF4;
+      --sage: #7A9E87;
+      --sage-light: #A8C4B0;
+      --sage-dark: #4F7460;
+      --terracotta: #C17B5C;
+      --charcoal: #2C2C2A;
+      --charcoal-soft: #4A4A47;
+      --muted: #8A8A85;
+      --border: #DDD8CE;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--deep-navy);
-            color: var(--off-white);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
+    html { scroll-behavior: smooth; }
 
-        /* Animated gradient background */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(107, 76, 154, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(95, 251, 241, 0.08) 0%, transparent 50%);
-            animation: gradientShift 15s ease-in-out infinite alternate;
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      cursor: none;
+      overflow-x: hidden;
+    }
 
-        @keyframes gradientShift {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 30px) scale(1.1); }
-        }
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--sage);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--sage);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+      opacity: 0.5;
+    }
+    body:hover .cursor { opacity: 1; }
 
-        /* Scanning lines effect */
-        body::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                rgba(95, 251, 241, 0.03) 50%,
-                transparent 100%
-            );
-            background-size: 100% 4px;
-            animation: scan 8s linear infinite;
-            pointer-events: none;
-        }
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: transparent;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(253,250,244,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--charcoal-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sage-dark); }
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      background: var(--sage-dark);
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--terracotta); transform: translateY(-1px); }
 
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(ellipse, rgba(122,158,135,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-text { max-width: 560px; }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--charcoal);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.35s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--sage-dark);
+    }
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--charcoal-soft);
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.65s forwards;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--sage-dark);
+      color: var(--warm-white);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3rem;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--terracotta); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      color: var(--charcoal-soft);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 3rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--sage); color: var(--sage-dark); }
 
-        .container {
-            max-width: 1100px;
-            width: 100%;
-            padding: 60px 40px;
-            position: relative;
-            z-index: 1;
-        }
+    .hero-visual {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      opacity: 0;
+      animation: fadeIn 1.2s 0.5s forwards;
+    }
+    .hero-photo-wrap {
+      position: relative;
+      width: clamp(280px, 32vw, 460px);
+      aspect-ratio: 3/4;
+    }
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, var(--sage-light) 0%, var(--sage) 60%, var(--sage-dark) 100%);
+      border-radius: 1rem 1rem 8rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      gap: 0.5rem;
+    }
+    .hero-photo-placeholder svg {
+      width: 60px; height: 60px;
+      opacity: 0.5;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -2rem;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1rem 1.4rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+    .hero-badge-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+    .hero-badge-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--charcoal);
+    }
 
-        /* Header section */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 100px;
-            animation: slideDown 1s ease-out;
-        }
+    /* SECTION BASE */
+    section { padding: 6rem 4rem; }
+    .section-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    /* FOR WHOM */
+    .for-whom { background: var(--cream); }
+    .for-whom-inner {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .for-whom-header { margin-bottom: 3.5rem; }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--warm-white);
+      border-radius: 1.2rem;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+      color: var(--charcoal);
+    }
+    .card-text {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--charcoal-soft);
+      font-weight: 300;
+    }
 
-        .logo-mark {
-            font-size: 3rem;
-            color: var(--mint);
-            font-weight: 700;
-            font-family: 'Syne', sans-serif;
-            text-shadow: 0 0 40px var(--mint-glow);
-            animation: glow 3s ease-in-out infinite;
-            cursor: default;
-            user-select: none;
-        }
+    /* ABOUT */
+    .about { background: var(--warm-white); }
+    .about-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .about-aside {
+      position: sticky;
+      top: 6rem;
+    }
+    .about-aside .section-title { margin-bottom: 2rem; }
+    .about-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .tag {
+      font-size: 0.78rem;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      border: 1px solid var(--sage-light);
+      color: var(--sage-dark);
+      font-weight: 400;
+    }
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--charcoal-soft);
+      font-weight: 300;
+      margin-bottom: 1.4rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong {
+      color: var(--charcoal);
+      font-weight: 500;
+    }
 
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 40px var(--mint-glow); }
-            50% { text-shadow: 0 0 60px var(--mint-glow), 0 0 80px var(--mint-glow); }
-        }
+    /* HOW IT WORKS */
+    .how { background: var(--sage-dark); }
+    .how-inner {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .how .section-eyebrow { color: var(--sage-light); }
+    .how .section-title { color: var(--warm-white); margin-bottom: 3.5rem; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .step {
+      padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 1.2rem;
+      position: relative;
+    }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.12);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 0.8rem;
+    }
+    .step-text {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+    }
 
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            background: rgba(95, 251, 241, 0.1);
-            border: 1px solid var(--mint);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--mint);
-            animation: fadeIn 1s ease-out 0.3s backwards;
-        }
+    /* FAQ */
+    .faq { background: var(--cream); }
+    .faq-inner {
+      max-width: 760px; margin: 0 auto;
+    }
+    .faq-header { margin-bottom: 3rem; }
+    .faq-item {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+    .faq-item:last-child { border-bottom: 1px solid var(--border); }
+    .faq-question {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      user-select: none;
+    }
+    .faq-question::after {
+      content: '+';
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--sage);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-question::after { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; padding-top: 1rem; }
+    .faq-answer p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--charcoal-soft);
+      font-weight: 300;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    /* CONTACT */
+    .contact { background: var(--warm-white); }
+    .contact-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-info { padding-top: 0.5rem; }
+    .contact-info .section-title { margin-bottom: 1.2rem; }
+    .contact-info p {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--charcoal-soft);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: var(--charcoal);
+      font-size: 0.92rem;
+      padding: 1rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--sage); color: var(--sage-dark); transform: translateX(4px); }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      background: var(--cream);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .form-wrap {
+      background: var(--cream);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+    }
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .form-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      background: var(--warm-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--charcoal);
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--sage); }
+    .form-group textarea { height: 100px; }
+    .form-submit {
+      width: 100%;
+      padding: 0.95rem;
+      background: var(--sage-dark);
+      color: var(--warm-white);
+      border: none;
+      border-radius: 3rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .form-submit:hover { background: var(--terracotta); transform: translateY(-2px); }
 
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--mint);
-            border-radius: 50%;
-            animation: blink 2s ease-in-out infinite;
-        }
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--warm-white);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--charcoal);
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-        /* Main content */
-        .main-content {
-            max-width: 800px;
-            animation: fadeInUp 1.2s ease-out 0.5s backwards;
-        }
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: 5rem;
-            font-weight: 700;
-            color: var(--off-white);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -0.03em;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--mint) 0%, var(--lavender) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: var(--dark-text);
-            margin-bottom: 50px;
-            font-weight: 300;
-        }
-
-        .description {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: var(--lavender);
-            margin-bottom: 60px;
-            max-width: 600px;
-        }
-
-        /* CTA section */
-        .cta-section {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            padding: 18px 40px;
-            background: var(--mint);
-            color: var(--deep-navy);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(95, 251, 241, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 50px rgba(95, 251, 241, 0.5);
-        }
-
-        .contact-link {
-            color: var(--mint);
-            text-decoration: none;
-            font-size: 1rem;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s ease;
-        }
-
-        .contact-link:hover {
-            border-bottom-color: var(--mint);
-        }
-
-        /* Decorative elements */
-        .deco-circles {
-            position: absolute;
-            top: 50%;
-            right: 5%;
-            width: 400px;
-            height: 400px;
-            pointer-events: none;
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .deco-circle {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid;
-        }
-
-        .deco-circle:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: 50%;
-            left: 50%;
-            margin: -150px 0 0 -150px;
-            border-color: rgba(95, 251, 241, 0.15);
-        }
-
-        .deco-circle:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            top: 50%;
-            left: 50%;
-            margin: -100px 0 0 -100px;
-            border-color: rgba(180, 165, 213, 0.15);
-            animation: rotate 20s linear infinite reverse;
-        }
-
-        .deco-circle:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            top: 50%;
-            left: 50%;
-            margin: -50px 0 0 -50px;
-            border-color: rgba(107, 76, 154, 0.3);
-        }
-
-        /* Psi symbol - minimal */
-        .psy-minimal {
-            position: absolute;
-            bottom: 10%;
-            right: 10%;
-            font-size: 15rem;
-            color: rgba(95, 251, 241, 0.03);
-            font-weight: 300;
-            pointer-events: none;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
-        }
-
-        /* Grid overlay */
-        .grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(95, 251, 241, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(95, 251, 241, 0.02) 1px, transparent 1px);
-            background-size: 100px 100px;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .deco-circles {
-                width: 300px;
-                height: 300px;
-            }
-
-            .deco-circle:nth-child(1) {
-                width: 250px;
-                height: 250px;
-                margin: -125px 0 0 -125px;
-            }
-
-            .psy-minimal {
-                font-size: 10rem;
-                bottom: 5%;
-                right: 5%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 40px 24px;
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
-                margin-bottom: 60px;
-            }
-
-            .logo-mark {
-                font-size: 2rem;
-            }
-
-            h1 {
-                font-size: 3rem;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .description {
-                font-size: 1rem;
-            }
-
-            .cta-section {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .deco-circles {
-                display: none;
-            }
-
-            .psy-minimal {
-                font-size: 8rem;
-                bottom: 2%;
-                right: 2%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            .psy-minimal {
-                font-size: 5rem;
-            }
-        }
-    </style>
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+      .hero-visual { justify-content: center; }
+      section { padding: 4rem 1.5rem; }
+      .about-inner,
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-aside { position: static; }
+      .steps { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="grid-overlay"></div>
-    
-    <div class="container">
-        <header class="header">
-            <div class="logo-mark">Ψ</div>
-            <div class="status-pill">
-                <span class="status-dot"></span>
-                <span>В розробці</span>
-            </div>
-        </header>
 
-        <main class="main-content">
-            <h1>
-                <span class="gradient-text">Сергій</span><br>
-                Коржов
-            </h1>
-            <p class="subtitle">Клінічний психолог</p>
-            
-            <p class="description">
-                Створюємо цифровий простір для психологічної підтримки та професійних консультацій. 
-                Тут ви зможете дізнатися про сучасні підходи до психотерапії та записатися на сеанс.
-            </p>
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-            <div class="cta-section">
-                <a href="mailto:krzhv@proton.me" class="cta-button">
-                    Зв'язатися (email)
-                </a>
-                <a href="https://t.me/korzhovs" class="contact-link" target="_blank">Telegram</a>
-            </div>
-        </main>
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Сергій Коржов</a>
+    <ul class="nav-links">
+      <li><a href="#for-whom">Для кого</a></li>
+      <li><a href="#about">Про мене</a></li>
+      <li><a href="#how">Процес</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Записатись</a>
+  </nav>
 
-        <div class="deco-circles">
-            <div class="deco-circle"></div>
-            <div class="deco-circle"></div>
-            <div class="deco-circle"></div>
-        </div>
-
-        <div class="psy-minimal">Ψ</div>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Клінічний психолог · КПТ · Онлайн</p>
+      <h1 class="hero-title">
+        Місце, де можна<br><em>розібратись</em><br>із собою
+      </h1>
+      <p class="hero-sub">
+        Я допомагаю людям, які застрягли у тривозі, втомі або болючих стосунках — 
+        знайти вихід через структурну роботу з мисленням і поведінкою.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Записатись на зустріч</a>
+        <a href="#about" class="btn-ghost">Дізнатись більше</a>
+      </div>
     </div>
+    <div class="hero-visual">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span>Ваше фото тут</span>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-label">Формат роботи</div>
+          <div class="hero-badge-value">Онлайн · Весь світ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR WHOM -->
+  <section class="for-whom" id="for-whom">
+    <div class="for-whom-inner">
+      <div class="for-whom-header reveal">
+        <p class="section-eyebrow">Для кого</p>
+        <h2 class="section-title">Ви впізнаєте себе<br>в одному з цих станів?</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card reveal reveal-delay-1">
+          <div class="card-icon">🌀</div>
+          <div class="card-title">Тривога і страхи</div>
+          <p class="card-text">Постійне відчуття загрози, панічні атаки, нав'язливі думки, які не дають спокою.</p>
+        </div>
+        <div class="card reveal reveal-delay-2">
+          <div class="card-icon">🌧</div>
+          <div class="card-title">Депресія</div>
+          <p class="card-text">Порожнеча, апатія, відчуття що нічого не змінится і зусилля безглузді.</p>
+        </div>
+        <div class="card reveal reveal-delay-3">
+          <div class="card-icon">💔</div>
+          <div class="card-title">Стосунки і самооцінка</div>
+          <p class="card-text">Повторювані болючі патерни, залежність від схвалення, відчуття власної недостатності.</p>
+        </div>
+        <div class="card reveal reveal-delay-4">
+          <div class="card-icon">🔥</div>
+          <div class="card-title">Вигорання і стрес</div>
+          <p class="card-text">Хронічна втома, неможливість відновитись, роздратованість і відчуття глухого кута.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-aside reveal">
+        <p class="section-eyebrow">Про мене</p>
+        <h2 class="section-title">Сергій<br>Коржов</h2>
+        <div class="about-tags">
+          <span class="tag">КПТ</span>
+          <span class="tag">Клінічна психологія</span>
+          <span class="tag">Онлайн</span>
+          <span class="tag">Індивідуальна терапія</span>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-1">
+        <p>
+          Я — клінічний психолог і психотерапевт, який працює в рамках 
+          <strong>когнітивно-поведінкового підходу (КПТ)</strong>. Обрав цей напрям не випадково: 
+          КПТ — це одна з найкраще досліджених і ефективних форм терапії, де є чіткість, 
+          структура і вимірюваний прогрес.
+        </p>
+        <p>
+          Мені важливо, щоб терапія була не просто розмовою про проблеми, 
+          а реальною роботою: ми розбираємось, як влаштоване ваше мислення, 
+          де воно вас підводить, і що конкретно можна змінити.
+        </p>
+        <p>
+          Я працюю онлайн з людьми з усього світу. 
+          <strong>Зараз я приймаю обмежену кількість клієнтів безкоштовно</strong> — 
+          якщо ви в ситуації, де фінансовий бар'єр є реальним, напишіть мені, 
+          і ми обговоримо це особисто.
+        </p>
+        <p>
+          Одна сесія триває <strong>60 хвилин</strong>. 
+          Перша зустріч — це можливість познайомитись, без жодних зобов'язань.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="how" id="how">
+    <div class="how-inner">
+      <p class="section-eyebrow">Процес</p>
+      <h2 class="section-title">Як виглядає терапія</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div class="step-title">Перший контакт</div>
+          <p class="step-text">Ви пишете мені в Telegram або email. Коротко розповідаєте що відбувається — я відповідаю і ми домовляємось про час.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">02</div>
+          <div class="step-title">Перша сесія</div>
+          <p class="step-text">Знайомимось. Я слухаю, ставлю питання, розбираємось з вашим запитом. Разом вирішуємо чи є сенс продовжувати роботу.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">03</div>
+          <div class="step-title">Регулярна робота</div>
+          <p class="step-text">Зустрічаємось раз на тиждень. Між сесіями — невелике домашнє завдання. Прогрес помітний і відчутний.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-inner">
+      <div class="faq-header reveal">
+        <p class="section-eyebrow">Питання</p>
+        <h2 class="section-title">Часто запитують</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-question">Чи справді безкоштовно?</div>
+          <div class="faq-answer"><p>Так, але я приймаю обмежену кількість безкоштовних клієнтів — вибірково. Якщо фінансовий бар'єр є реальним для вас, напишіть і ми поговоримо особисто. Я не питаю доказів, просто ситуацію.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-question">Як відбувається онлайн-сесія?</div>
+          <div class="faq-answer"><p>Відеозв'язок — Google Meet або Zoom, на ваш вибір. Достатньо тихого місця і стабільного інтернету. Локація не важлива — я працюю з клієнтами з різних країн.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-question">Що таке КПТ і чи підійде мені?</div>
+          <div class="faq-answer"><p>Когнітивно-поведінкова терапія — це структурований підхід, де ми працюємо з думками та поведінкою, які підтримують ваш стан. КПТ добре досліджена при тривозі, депресії, стресі. На першій сесії ми разом зрозуміємо чи підходить вам цей підхід.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-question">Скільки сесій потрібно?</div>
+          <div class="faq-answer"><p>Залежить від запиту. КПТ зазвичай коротша за інші підходи — від 8 до 20 сесій для конкретних проблем. Ми обговоримо орієнтири після першої зустрічі.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-question">Чи конфіденційно те, що я розповідаю?</div>
+          <div class="faq-answer"><p>Так. Все, що відбувається на сесії — залишається між нами. Це основа терапевтичних відносин.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-question">Якою мовою можна спілкуватись?</div>
+          <div class="faq-answer"><p>Українською або російською — на ваш вибір і комфорт.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <p class="section-eyebrow">Контакт</p>
+        <h2 class="section-title">Зробіть перший крок</h2>
+        <p>Напишіть мені — коротко або докладно, як вам зручно. Я відповідаю протягом доби.</p>
+        <div class="contact-links">
+          <a href="https://t.me/korzhovs" class="contact-link" target="_blank">
+            <span class="contact-link-icon">✈️</span>
+            Telegram @korzhovs
+          </a>
+          <a href="mailto:krzhv@proton.me" class="contact-link">
+            <span class="contact-link-icon">✉️</span>
+            krzhv@proton.me
+          </a>
+        </div>
+      </div>
+      <div class="form-wrap reveal reveal-delay-2">
+        <div class="form-title">Написати напряму</div>
+        <div class="form-sub">Відправте повідомлення — я зв'яжусь з вами найближчим часом</div>
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-group">
+            <label>Ім'я</label>
+            <input type="text" name="name" placeholder="Як до вас звертатись?" required />
+          </div>
+          <div class="form-group">
+            <label>Telegram або email</label>
+            <input type="text" name="contact" placeholder="@username або email" required />
+          </div>
+          <div class="form-group">
+            <label>Ваш запит (необов'язково)</label>
+            <textarea name="message" placeholder="Коротко: що зараз відбувається?"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Надіслати повідомлення</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Сергій Коржов</div>
+    <div class="footer-copy">© 2026 · Клінічний психолог · КПТ</div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+    function animateRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
+    animateRing();
+    document.querySelectorAll('a, button, .faq-question').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.width = '16px'; cursor.style.height = '16px'; cursor.style.background = 'var(--terracotta)'; ring.style.width = '50px'; ring.style.height = '50px'; });
+      el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; cursor.style.background = 'var(--sage)'; ring.style.width = '36px'; ring.style.height = '36px'; });
+    });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
 </body>
 </html>
