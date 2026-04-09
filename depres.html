@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Депресія: ти не один</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f6f2;
+  --white: #ffffff;
+  --ink: #1e1e1e;
+  --ink-soft: #3a3a3a;
+  --ink-muted: #717171;
+  --ink-dim: #aaaaaa;
+  --sage: #4a7c6f;
+  --sage-mid: #6a9e8f;
+  --sage-light: #c8dfd9;
+  --sage-pale: #edf5f3;
+  --warm: #8b6f4e;
+  --warm-light: #e8ddd0;
+  --warm-pale: #f7f2ec;
+  --gold: #b5852a;
+  --gold-light: #f0e0b8;
+  --gold-pale: #fdf7ec;
+  --rose: #9e5a5a;
+  --rose-light: #f0d5d5;
+  --rose-pale: #fdf2f2;
+  --border: #e2ddd6;
+  --border-light: #ede9e3;
+  --crisis-bg: #1a3a2a;
+  --crisis-border: #2d6b4a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ─── CRISIS BANNER ─── */
+.crisis-banner {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--crisis-bg);
+  border-bottom: 1px solid var(--crisis-border);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.crisis-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+
+.crisis-text strong {
+  color: #7dd4a8;
+  font-weight: 600;
+}
+
+.crisis-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(125,212,168,0.15);
+  border: 1px solid rgba(125,212,168,0.3);
+  color: #7dd4a8;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.crisis-phone:hover { background: rgba(125,212,168,0.25); }
+
+/* ─── NAV ─── */
+.nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.nav-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  padding: 12px 0;
+}
+
+.nav a {
+  font-size: 13px;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 20px;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.nav a:hover {
+  background: var(--sage-pale);
+  color: var(--sage);
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--white);
+  padding: 64px 24px 56px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sage) 0%, var(--sage-mid) 100%);
+}
+
+.hero-label {
+  display: inline-block;
+  background: var(--sage-pale);
+  color: var(--sage);
+  border: 1px solid var(--sage-light);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 20px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero h1 em {
+  color: var(--sage);
+  font-style: normal;
+}
+
+.hero-lead {
+  font-size: 17px;
+  color: var(--ink-muted);
+  max-width: 520px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.h-stat-num {
+  font-family: 'Lora', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--sage);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.h-stat-label {
+  font-size: 12px;
+  color: var(--ink-dim);
+  line-height: 1.4;
+  max-width: 110px;
+}
+
+/* ─── LAYOUT ─── */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ─── SECTION ─── */
+.section {
+  padding: 56px 0 0;
+}
+
+.section-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(20px, 3.5vw, 28px);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  color: var(--ink);
+}
+
+.section-lead {
+  font-size: 15px;
+  color: var(--ink-muted);
+  margin-bottom: 24px;
+  line-height: 1.7;
+  max-width: 680px;
+}
+
+/* ─── SYMPTOMS ─── */
+.symptoms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 560px) { .symptoms-grid { grid-template-columns: 1fr; } }
+
+.symptom-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  transition: border-color 0.2s;
+}
+
+.symptom-item:hover { border-color: var(--sage-light); }
+
+.symptom-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+.symptom-text {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.symptom-text strong {
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.hope-box {
+  background: var(--sage-pale);
+  border: 1px solid var(--sage-light);
+  border-left: 4px solid var(--sage);
+  border-radius: 0 10px 10px 0;
+  padding: 18px 20px;
+  font-size: 15px;
+  color: var(--sage);
+  line-height: 1.6;
+}
+
+.hope-box strong { font-weight: 600; }
+
+/* ─── NEURO ─── */
+.neuro-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.neuro-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.neuro-num {
+  font-family: 'Lora', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--sage-light);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.neuro-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.neuro-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.neuro-quote {
+  background: var(--warm-pale);
+  border: 1px solid var(--warm-light);
+  border-radius: 10px;
+  padding: 18px 20px;
+  font-size: 15px;
+  color: var(--warm);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ─── ONE STEP ─── */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.step-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.step-item:hover {
+  border-color: var(--sage-light);
+  box-shadow: 0 4px 16px rgba(74,124,111,0.08);
+}
+
+.step-badge {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--sage-pale);
+  border: 1px solid var(--sage-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.step-content {}
+
+.step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.step-tip {
+  background: var(--sage-pale);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--sage);
+  line-height: 1.5;
+}
+
+.step-tip strong { font-weight: 600; }
+
+/* ─── MINIMUM ─── */
+.minimum-box {
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 20px;
+}
+
+.minimum-title {
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #d4c9b8;
+}
+
+.minimum-subtitle {
+  font-size: 13px;
+  color: rgba(212,201,184,0.6);
+  margin-bottom: 24px;
+}
+
+.minimum-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.min-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 13px 16px;
+}
+
+.min-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--sage-mid);
+  flex-shrink: 0;
+}
+
+.min-text {
+  font-size: 14px;
+  color: rgba(248,246,242,0.85);
+  line-height: 1.4;
+}
+
+.min-text span {
+  display: block;
+  font-size: 11px;
+  color: rgba(248,246,242,0.4);
+  margin-top: 2px;
+}
+
+.minimum-note {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 13px;
+  color: rgba(212,201,184,0.5);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ─── HELPS ─── */
+.helps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 560px) { .helps-grid { grid-template-columns: 1fr; } }
+
+.help-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.help-card-head {
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.help-card-icon { font-size: 20px; }
+
+.help-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.help-card-body {
+  padding: 14px 18px 16px;
+}
+
+.help-card-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.help-card-evidence {
+  font-size: 11px;
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+.help-card-tip {
+  background: var(--sage-pale);
+  border-radius: 6px;
+  padding: 8px 11px;
+  font-size: 12px;
+  color: var(--sage);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* ─── TRAPS ─── */
+.traps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trap-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+@media (max-width: 540px) { .trap-item { grid-template-columns: 1fr; } }
+
+.trap-wrong {
+  background: var(--rose-pale);
+  padding: 14px 16px;
+  border-right: 1px solid var(--rose-light);
+}
+
+.trap-right {
+  background: var(--sage-pale);
+  padding: 14px 16px;
+}
+
+.trap-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.trap-wrong .trap-label { color: var(--rose); }
+.trap-right .trap-label { color: var(--sage); }
+
+.trap-text {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.trap-wrong .trap-text { color: var(--rose); }
+.trap-right .trap-text { color: var(--sage); }
+
+/* ─── WHEN HELP ─── */
+.when-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.when-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.when-icon { font-size: 22px; flex-shrink: 0; }
+
+.when-text {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.when-text strong {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.when-note {
+  background: var(--gold-pale);
+  border: 1px solid var(--gold-light);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 14px;
+  color: var(--gold);
+  line-height: 1.6;
+}
+
+/* ─── FOR CLOSE ONES ─── */
+.close-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.close-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.close-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+
+.close-text {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.close-text strong { font-weight: 600; color: var(--ink); }
+
+/* ─── SOURCE ─── */
+.source-bar {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.source-bar-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  font-size: 11px;
+  color: var(--ink-dim);
+  line-height: 1.7;
+}
+
+.source-bar-inner strong { color: var(--ink-muted); font-weight: 500; }
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 48px 0 0;
+}
+
+/* ─── ANIMATIONS ─── */
+.section { animation: fadeUp 0.5s ease both; }
+.section:nth-child(1) { animation-delay: 0.05s; }
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.15s; }
+.section:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- 0. CRISIS BANNER -->
+<div class="crisis-banner">
+  <div class="crisis-text">Якщо тобі дуже важко прямо зараз — <strong>ти можеш зателефонувати</strong></div>
+  <a href="tel:0800500335" class="crisis-phone">📞 0-800-500-335</a>
+  <div class="crisis-text" style="color:rgba(255,255,255,0.5);font-size:12px">Безкоштовна лінія психологічної допомоги · цілодобово</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#symptoms">Впізнати себе</a>
+    <a href="#neuro">Чому так важко</a>
+    <a href="#steps">Перший крок</a>
+    <a href="#minimum">Мінімум на день</a>
+    <a href="#helps">Що допомагає</a>
+    <a href="#traps">Пастки</a>
+    <a href="#when">Коли до фахівця</a>
+    <a href="#close">Для близьких</a>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<div class="hero">
+  <div class="hero-label">Науково підтверджена інформація</div>
+  <h1>Депресія — це не слабкість.<br>Це <em>хвороба</em>, яка лікується.</h1>
+  <p class="hero-lead">Ця сторінка створена для тих, кому зараз важко. Тут немає порад «просто думай позитивно». Тільки те, що реально допомагає.</p>
+  <div class="hero-stats">
+    <div>
+      <div class="h-stat-num">280 млн</div>
+      <div class="h-stat-label">людей у світі живуть з депресією</div>
+    </div>
+    <div>
+      <div class="h-stat-num">80%</div>
+      <div class="h-stat-label">значно покращують стан при лікуванні</div>
+    </div>
+    <div>
+      <div class="h-stat-num">1 з 5</div>
+      <div class="h-stat-label">людей переживе депресію протягом життя</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 2. SYMPTOMS -->
+  <div class="section" id="symptoms">
+    <div class="section-tag" style="color:var(--sage)">Впізнай себе</div>
+    <h2 class="section-title">Як виглядає депресія зсередини</h2>
+    <p class="section-lead">Депресія рідко схожа на те, що показують у кіно. Частіше це — порожнеча, а не сльози. Втома, а не смуток.</p>
+    <div class="symptoms-grid">
+      <div class="symptom-item">
+        <div class="symptom-icon">🌫️</div>
+        <div class="symptom-text"><strong>Порожнеча або тупість</strong>Не сум, а відчуття що нічого не відчуваєш взагалі</div>
+      </div>
+      <div class="symptom-item">
+        <div class="symptom-icon">🛏️</div>
+        <div class="symptom-text"><strong>Постійна втома</strong>Навіть після сну — ніби сили не відновлюються</div>
+      </div>
+      <div class="symptom-item">
+        <div class="symptom-icon">🔇</div>
+        <div class="symptom-text"><strong>Все перестало приносити радість</strong>Те, що раніше подобалось — тепер байдуже</div>
+      </div>
+      <div class="symptom-item">
+        <div class="symptom-icon">🐌</div>
+        <div class="symptom-text"><strong>Важко почати будь-що</strong>Навіть прості речі вимагають величезних зусиль</div>
+      </div>
+      <div class="symptom-item">
+        <div class="symptom-icon">🌀</div>
+        <div class="symptom-text"><strong>Думки крутяться по колу</strong>Часто про провину, безнадію або власні недоліки</div>
+      </div>
+      <div class="symptom-item">
+        <div class="symptom-icon">🚪</div>
+        <div class="symptom-text"><strong>Бажання ізолюватися</strong>Спілкування здається виснажливим або безглуздим</div>
+      </div>
+      <div class="symptom-item">
+        <div class="symptom-icon">💤</div>
+        <div class="symptom-text"><strong>Порушення сну</strong>Або дуже багато, або зовсім не можеш заснути</div>
+      </div>
+      <div class="symptom-item">
+        <div class="symptom-icon">🪨</div>
+        <div class="symptom-text"><strong>Відчуття що так буде завжди</strong>Важко повірити що колись може бути інакше</div>
+      </div>
+    </div>
+    <div class="hope-box">
+      <strong>Якщо ти впізнаєш себе тут — це важливо.</strong> Не тому що з тобою щось не так, а тому що тепер є розуміння з чим ти маєш справу. А депресія, на відміну від того що вона тобі нашіптує, <strong>піддається лікуванню.</strong>
+      <br><small style="opacity:0.7;font-size:12px;margin-top:6px;display:block">DSM-5, American Psychiatric Association (2013) · WHO (2023)</small>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3. NEURO -->
+  <div class="section" id="neuro">
+    <div class="section-tag" style="color:var(--warm)">Чому так важко</div>
+    <h2 class="section-title">Це не характер. Це — мозок.</h2>
+    <p class="section-lead">Депресія змінює роботу мозку фізично. Тому порада «просто налаштуйся» — це як просити людину із зламаною ногою «просто піти».</p>
+    <div class="neuro-cards">
+      <div class="neuro-card">
+        <div class="neuro-num">01</div>
+        <div class="neuro-title">Нейромедіатори знижені</div>
+        <div class="neuro-desc">Серотонін, дофамін і норадреналін — речовини, які відповідають за радість і мотивацію — при депресії виробляються менше. Це не «примха» — це хімія.</div>
+      </div>
+      <div class="neuro-card">
+        <div class="neuro-num">02</div>
+        <div class="neuro-title">Гіпокамп зменшується</div>
+        <div class="neuro-desc">При тривалій депресії гіпокамп — частина мозку, пов'язана з пам'яттю та навчанням — буквально зменшується в розмірі. Хороша новина: він відновлюється при лікуванні.</div>
+      </div>
+      <div class="neuro-card">
+        <div class="neuro-num">03</div>
+        <div class="neuro-title">Мозок бачить лише темне</div>
+        <div class="neuro-desc">Депресія змінює спосіб мислення — мозок починає бачити все в найтемніших тонах. Це симптом, не істина. Ці думки — не об'єктивна реальність, а прояв хвороби.</div>
+      </div>
+    </div>
+    <div class="neuro-quote">
+      «Депресія переконує тебе що ти завжди так почувався і завжди будеш. Це брехня — але дуже переконлива брехня.»
+      <div style="font-size:12px;margin-top:8px;opacity:0.6;font-style:normal">Beck, A.T. (1979). Cognitive Therapy of Depression · LeDoux, J. (1996). The Emotional Brain</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 4. ONE STEP -->
+  <div class="section" id="steps">
+    <div class="section-tag" style="color:var(--sage)">Перший крок</div>
+    <h2 class="section-title">Один маленький крок</h2>
+    <p class="section-lead">Не список завдань. Просто кілька речей, які деякі люди знаходять корисними — навіть коли все здається безглуздим. Спробуй одне. Тільки одне.</p>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-badge">🌬️</div>
+        <div class="step-content">
+          <div class="step-title">Дихання 4–4–4</div>
+          <div class="step-desc">Вдих на 4 рахунки, затримка на 4, видих на 4. Повторити 3–4 рази. Це безпосередньо знижує активність амігдали — частини мозку що підсилює тривогу.</div>
+          <div class="step-tip"><strong>Прямо зараз:</strong> Поклади руку на живіт. Відчуй як він рухається при диханні.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">☀️</div>
+        <div class="step-content">
+          <div class="step-title">Два хвилини на вулиці</div>
+          <div class="step-desc">Не прогулянка. Просто вийти і постояти на свіжому повітрі 2 хвилини. Природне світло регулює рівень серотоніну і циркадні ритми.</div>
+          <div class="step-tip"><strong>Якщо важко навіть це:</strong> Відкрий вікно і постій поруч.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">💧</div>
+        <div class="step-content">
+          <div class="step-title">Склянка води прямо зараз</div>
+          <div class="step-desc">Звучить просто — але при депресії базовий догляд за собою часто падає першим. Вода — це мінімальний акт турботи про себе, який нічого не вимагає.</div>
+          <div class="step-tip"><strong>Без оцінки:</strong> Не «я молодець», просто — я зробив це.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">✍️</div>
+        <div class="step-content">
+          <div class="step-title">Три речі що сталися сьогодні</div>
+          <div class="step-desc">Не «хороші речі» — просто три речі що відбулися. Встав. Поїв. Читаю це. Це активує частини мозку відповідальні за фіксацію реальності, а не лише негативу.</div>
+          <div class="step-tip"><strong>Варіант:</strong> Скажи вголос, не обов'язково записувати.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 5. MINIMUM -->
+  <div class="section" id="minimum">
+    <div class="section-tag" style="color:var(--ink-muted)">Мінімум на день</div>
+    <h2 class="section-title">Коли сил майже немає</h2>
+    <p class="section-lead">Не план продуктивності. Це — мінімум виживання в важкі дні. Якщо зробив хоча б це — день не пройшов марно.</p>
+    <div class="minimum-box">
+      <div class="minimum-title">Мій мінімум на сьогодні</div>
+      <div class="minimum-subtitle">Достатньо зробити хоча б одне з цього</div>
+      <div class="minimum-items">
+        <div class="min-item">
+          <div class="min-check"></div>
+          <div class="min-text">Встати з ліжка і умитися
+            <span>Навіть якщо потім ліг знову — це вже крок</span>
+          </div>
+        </div>
+        <div class="min-item">
+          <div class="min-check"></div>
+          <div class="min-text">З'їсти щось — будь-що
+            <span>Не корисно, не по розкладу — просто поїсти</span>
+          </div>
+        </div>
+        <div class="min-item">
+          <div class="min-check"></div>
+          <div class="min-text">Написати або зателефонувати одній людині
+            <span>Не обов'язково про те як тобі — просто контакт</span>
+          </div>
+        </div>
+        <div class="min-item">
+          <div class="min-check"></div>
+          <div class="min-text">Вийти на 5 хвилин надвір
+            <span>Або відкрити вікно якщо вийти важко</span>
+          </div>
+        </div>
+        <div class="min-item">
+          <div class="min-check"></div>
+          <div class="min-text">Лягти спати приблизно в той самий час
+            <span>Режим сну — один з найважливіших факторів при депресії</span>
+          </div>
+        </div>
+      </div>
+      <div class="minimum-note">«Поведінкова активація навіть у мінімальному обсязі розриває цикл бездіяльності та поглиблення депресії» — Beck et al. (1979); Martell et al. (2010)</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 6. HELPS -->
+  <div class="section" id="helps">
+    <div class="section-tag" style="color:var(--sage)">Що реально допомагає</div>
+    <h2 class="section-title">Науково підтверджені методи самодопомоги</h2>
+    <p class="section-lead">Не народна мудрість — а те, що підтверджено в клінічних дослідженнях.</p>
+    <div class="helps-grid">
+      <div class="help-card">
+        <div class="help-card-head">
+          <div class="help-card-icon">🏃</div>
+          <div class="help-card-title">Фізична активність</div>
+        </div>
+        <div class="help-card-body">
+          <div class="help-card-desc">30 хвилин помірної активності 3 рази на тиждень порівнянні з антидепресантами за ефективністю при легкій та помірній депресії. Механізм: підвищення серотоніну, дофаміну та BDNF (фактор росту нейронів).</div>
+          <div class="help-card-tip">Починай з 5–10 хвилин прогулянки. Не «тренування» — просто рух.</div>
+          <div class="help-card-evidence">Blumenthal et al. (1999, 2007) · JAMA · Effect size d=0.82</div>
+        </div>
+      </div>
+      <div class="help-card">
+        <div class="help-card-head">
+          <div class="help-card-icon">🔆</div>
+          <div class="help-card-title">Режим сну</div>
+        </div>
+        <div class="help-card-body">
+          <div class="help-card-desc">Депресія руйнує сон, а поганий сон поглиблює депресію. Одне з найважливіших — лягати і вставати приблизно в один час, навіть у вихідні. Не змушуй себе спати — просто лежи в темряві.</div>
+          <div class="help-card-tip">Уникай екрану за 30 хвилин до сну — синє світло пригнічує мелатонін.</div>
+          <div class="help-card-evidence">Harvey et al. (2011) · Journal of Abnormal Psychology</div>
+        </div>
+      </div>
+      <div class="help-card">
+        <div class="help-card-head">
+          <div class="help-card-icon">👥</div>
+          <div class="help-card-title">Соціальний контакт</div>
+        </div>
+        <div class="help-card-body">
+          <div class="help-card-desc">Депресія штовхає до ізоляції — але ізоляція її поглиблює. Навіть невеликий контакт з людиною яка не вимагає від тебе нічого — суттєво знижує симптоми. Не потрібно пояснювати як тобі.</div>
+          <div class="help-card-tip">Написати «привіт» — це вже контакт. Більше не потрібно.</div>
+          <div class="help-card-evidence">Cacioppo & Hawkley (2003) · American Psychologist</div>
+        </div>
+      </div>
+      <div class="help-card">
+        <div class="help-card-head">
+          <div class="help-card-icon">📅</div>
+          <div class="help-card-title">Планування маленьких задоволень</div>
+        </div>
+        <div class="help-card-body">
+          <div class="help-card-desc">Поведінкова активація — ключовий метод КПТ при депресії. Суть: не чекати поки з'явиться настрій, а планувати приємні і важливі дії наперед. Настрій приходить після дії, не до.</div>
+          <div class="help-card-tip">Запиши одну маленьку приємну річ на завтра. Не велику — маленьку.</div>
+          <div class="help-card-evidence">Martell et al. (2010) · Behavioral Activation for Depression · Effect size d=0.87</div>
+        </div>
+      </div>
+      <div class="help-card">
+        <div class="help-card-head">
+          <div class="help-card-icon">🧘</div>
+          <div class="help-card-title">Майндфулнес (усвідомленість)</div>
+        </div>
+        <div class="help-card-body">
+          <div class="help-card-desc">Не медитація годинами. Просто — 5 хвилин уваги до того що відбувається прямо зараз: що чуєш, що відчуваєш в тілі. MBCT (майндфулнес-КПТ) знижує ризик рецидиву депресії на 43%.</div>
+          <div class="help-card-tip">Спробуй: назви 5 речей які бачиш прямо зараз.</div>
+          <div class="help-card-evidence">Segal et al. (2002) · MBCT for Depression · Kuyken et al. (2016)</div>
+        </div>
+      </div>
+      <div class="help-card">
+        <div class="help-card-head">
+          <div class="help-card-icon">🌿</div>
+          <div class="help-card-title">Природа та світло</div>
+        </div>
+        <div class="help-card-body">
+          <div class="help-card-desc">Перебування на природі або навіть у парку знижує рівень кортизолу та активність відділів мозку пов'язаних з руминацією (прокручуванням думок). Навіть 20 хвилин на тиждень мають ефект.</div>
+          <div class="help-card-tip">Ранкове світло першої години після пробудження — найважливіше для настрою дня.</div>
+          <div class="help-card-evidence">Bratman et al. (2015) · PNAS · Lam et al. (2006) · JAMA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 7. TRAPS -->
+  <div class="section" id="traps">
+    <div class="section-tag" style="color:var(--rose)">Пастки депресії</div>
+    <h2 class="section-title">Що здається логічним — але погіршує стан</h2>
+    <p class="section-lead">Депресія дуже переконливо пояснює чому не варто нічого робити. Ось найчастіші пастки — і що замість них.</p>
+    <div class="traps-list">
+      <div class="trap-item">
+        <div class="trap-wrong">
+          <div class="trap-label">Пастка</div>
+          <div class="trap-text">«Почекаю поки буде настрій — тоді щось зроблю»</div>
+        </div>
+        <div class="trap-right">
+          <div class="trap-label">Реальність</div>
+          <div class="trap-text">При депресії настрій приходить після дії, не до. Чекати настрою — це чекати вічно.</div>
+        </div>
+      </div>
+      <div class="trap-item">
+        <div class="trap-wrong">
+          <div class="trap-label">Пастка</div>
+          <div class="trap-text">«Мені потрібно побути на самоті, люди виснажують»</div>
+        </div>
+        <div class="trap-right">
+          <div class="trap-label">Реальність</div>
+          <div class="trap-text">Ізоляція поглиблює депресію. Невеликий контакт — навіть текстовий — допомагає, навіть якщо здається що ні.</div>
+        </div>
+      </div>
+      <div class="trap-item">
+        <div class="trap-wrong">
+          <div class="trap-label">Пастка</div>
+          <div class="trap-text">«Треба зрозуміти чому мені так погано — і тоді стане краще»</div>
+        </div>
+        <div class="trap-right">
+          <div class="trap-label">Реальність</div>
+          <div class="trap-text">Нескінченний аналіз причин — це руминація. Вона поглиблює депресію. Краще діяти, ніж аналізувати.</div>
+        </div>
+      </div>
+      <div class="trap-item">
+        <div class="trap-wrong">
+          <div class="trap-label">Пастка</div>
+          <div class="trap-text">«Я не заслуговую на допомогу / іншим гірше»</div>
+        </div>
+        <div class="trap-right">
+          <div class="trap-label">Реальність</div>
+          <div class="trap-text">Це голос депресії, не факт. Страждання не потребує виправдання. Кожна людина заслуговує на підтримку.</div>
+        </div>
+      </div>
+      <div class="trap-item">
+        <div class="trap-wrong">
+          <div class="trap-label">Пастка</div>
+          <div class="trap-text">«Якщо я не можу зробити все — немає сенсу робити взагалі нічого»</div>
+        </div>
+        <div class="trap-right">
+          <div class="trap-label">Реальність</div>
+          <div class="trap-text">Зробити 10% — краще ніж 0%. Маленькі кроки накопичуються і поступово відновлюють відчуття контролю.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 8. WHEN HELP -->
+  <div class="section" id="when">
+    <div class="section-tag" style="color:var(--gold)">Коли звертатись до фахівця</div>
+    <h2 class="section-title">Самодопомога — це важливо. Але не завжди достатньо.</h2>
+    <p class="section-lead">Є ситуації, коли потрібна допомога живої людини. Це не означає що ти не впорався — це означає що ти піклуєшся про себе.</p>
+    <div class="when-grid">
+      <div class="when-item">
+        <div class="when-icon">📅</div>
+        <div class="when-text"><strong>Довше 2 тижнів</strong>Симптоми тривають більше двох тижнів і не зменшуються</div>
+      </div>
+      <div class="when-item">
+        <div class="when-icon">🚧</div>
+        <div class="when-text"><strong>Заважає жити</strong>Депресія впливає на роботу, навчання або стосунки</div>
+      </div>
+      <div class="when-item">
+        <div class="when-icon">💭</div>
+        <div class="when-text"><strong>Думки про смерть</strong>З'являються думки що не хочеться жити або про самоушкодження</div>
+      </div>
+      <div class="when-item">
+        <div class="when-icon">📉</div>
+        <div class="when-text"><strong>Стає гірше</strong>Незважаючи на зусилля — стан не покращується або погіршується</div>
+      </div>
+      <div class="when-item">
+        <div class="when-icon">🍷</div>
+        <div class="when-text"><strong>Алкоголь або речовини</strong>Починаєш частіше вживати щоб «приглушити» стан</div>
+      </div>
+      <div class="when-item">
+        <div class="when-icon">🫂</div>
+        <div class="when-text"><strong>Просто хочеться підтримки</strong>Бажання поговорити з фахівцем — вже достатня причина</div>
+      </div>
+    </div>
+    <div class="when-note">
+      💛 <strong>Куди звернутись:</strong> Сімейний лікар, психіатр або психолог з КПТ-підготовкою. В Україні працює безкоштовна психологічна допомога через програму «Ти як?» — <strong>0-800-500-335</strong>. Психотерапія, зокрема КПТ, — найбільш доказово підтверджений метод лікування депресії. (NICE, 2022; APA, 2021)
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 9. FOR CLOSE ONES -->
+  <div class="section" id="close">
+    <div class="section-tag" style="color:var(--warm)">Для близьких</div>
+    <h2 class="section-title">Якщо хтось поруч із тобою в депресії</h2>
+    <p class="section-lead">Ти не можеш «вилікувати» людину в депресії — але ти можеш зробити величезну різницю просто своєю присутністю.</p>
+    <div class="close-list">
+      <div class="close-item">
+        <div class="close-icon">👂</div>
+        <div class="close-text"><strong>Слухай без порад.</strong> Фраза «я поруч» важливіша за будь-яку пораду. Не кажи «думай позитивно» — це поглиблює відчуття нерозуміння.</div>
+      </div>
+      <div class="close-item">
+        <div class="close-icon">🍽️</div>
+        <div class="close-text"><strong>Допоможи з конкретними речами.</strong> Не «дай знати якщо щось треба» — а «я принесу їжу о 7, підходить?». Конкретна пропозиція знімає необхідність просити.</div>
+      </div>
+      <div class="close-item">
+        <div class="close-icon">🔄</div>
+        <div class="close-text"><strong>Не зникай якщо людина відмовляється.</strong> Депресія ізолює. Повторна спроба через день — важлива. Відмова зараз не означає що контакт не потрібен.</div>
+      </div>
+      <div class="close-item">
+        <div class="close-icon">🚨</div>
+        <div class="close-text"><strong>Якщо є думки про самоушкодження — дій.</strong> Запитай прямо «ти думаєш про те щоб завдати собі шкоди?». Пряме запитання не провокує — воно рятує. Зателефонуй разом на лінію допомоги.</div>
+      </div>
+      <div class="close-item">
+        <div class="close-icon">💚</div>
+        <div class="close-text"><strong>Подбай і про себе.</strong> Підтримка людини в депресії виснажує. Твій стан теж важливий — звертайся за підтримкою якщо тобі важко.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SOURCE BAR -->
+<div class="source-bar">
+  <div class="source-bar-inner">
+    <strong>Наукова база:</strong> Beck, A.T. et al. (1979) · Blumenthal et al. (1999, 2007) · Martell et al. (2010) · Segal et al. (2002) · Harvey et al. (2011) · Bratman et al. (2015) · WHO (2023) · NICE Guidelines (2022) · DSM-5 APA (2013)<br>
+    Матеріал носить інформаційний характер і не замінює консультацію лікаря або психотерапевта.
+  </div>
+</div>
+
+</body>
+</html>
