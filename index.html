@@ -53,7 +53,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <!-- ===== STYLES ===== -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" href="styles.css" as="style" />
+<link rel="preload" href="sergiy-photo.jpg" as="image" fetchpriority="high" />
+<link rel="dns-prefetch" href="https://formspree.io" />
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="styles.css" />
 
   <!-- ===== SCHEMA.ORG JSON-LD ===== -->
   <script type="application/ld+json">
@@ -428,7 +432,10 @@
             <circle cx="12" cy="8" r="4"/>
             <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
           </svg>
-          <span><img src="sergiy-photo.jpg" alt="Сергій Коржов — клінічний психолог, спеціаліст КПТ, психотерапевт" class="hero-photo" width="460" height="613" loading="eager" fetchpriority="high" /></span>
+          <span><picture>
+            <source srcset="sergiy-photo.webp" type="image/webp">
+            <img src="sergiy-photo.jpg" alt="Сергій Коржов — клінічний психолог, спеціаліст КПТ, психотерапевт" class="hero-photo" width="460" height="613" loading="eager" fetchpriority="high" decoding="async" />
+          </picture></span>
         </div>
       </div>
       <div class="hero-badge">
@@ -665,38 +672,33 @@
   </footer>
 
   <script>
-    // Custom cursor
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
-    function animateRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
-    animateRing();
-    document.querySelectorAll('a, button, .faq-question').forEach(el => {
-      el.addEventListener('mouseenter', () => { cursor.style.width = '16px'; cursor.style.height = '16px'; cursor.style.background = 'var(--terracotta)'; ring.style.width = '50px'; ring.style.height = '50px'; });
-      el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; cursor.style.background = 'var(--sage)'; ring.style.width = '36px'; ring.style.height = '36px'; });
-    });
+// Custom cursor (desktop only)
+const c=document.getElementById('cursor'),r=document.getElementById('cursorRing');
+if(c&&r&&window.matchMedia('(hover:hover)').matches){
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.faq-question').forEach(el=>{
+el.addEventListener('mouseenter',()=>{c.style.cssText='width:16px;height:16px;background:var(--terracotta)';r.style.cssText='width:50px;height:50px';});
+el.addEventListener('mouseleave',()=>{c.style.cssText='width:10px;height:10px;background:var(--sage)';r.style.cssText='width:36px;height:36px';});
+});
+}else if(c){c.style.display='none';}if(r)r.style.display='none';
 
-    // Nav scroll
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
 
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
+// Reveal on scroll (intersection observer)
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-    // FAQ accordion
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        const wasOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-        if (!wasOpen) item.classList.add('open');
-      });
-    });
-  </script>
+// FAQ accordion (event delegation)
+document.querySelector('.faq-list').addEventListener('click',function(e){
+const q=e.target.closest('.faq-question');if(!q)return;
+const item=q.parentElement,was=item.classList.contains('open');
+document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+if(!was)item.classList.add('open');
+});
+</script>
 </body>
 </html>
