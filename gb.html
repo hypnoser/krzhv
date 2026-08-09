@@ -377,6 +377,21 @@ body { background: var(--bg); color: var(--ink); font-family: 'Source Sans 3', s
   </div>
 </nav>
 
+<!-- BREADCRUMBS -->
+<nav aria-label="Breadcrumb" style="background:#0d1b2a;padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.05);">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="max-width:900px;margin:0 auto;display:flex;gap:8px;list-style:none;padding:0;font-size:12px;color:rgba(255,255,255,0.5);flex-wrap:wrap;">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="https://krzhv.pp.ua/" style="color:#aed6f1;text-decoration:none;"><span itemprop="name">Головна</span></a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li style="color:rgba(255,255,255,0.3);">/</li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+      <span itemprop="name" style="color:rgba(255,255,255,0.85);">Головний біль у IT-спеціалістів</span>
+      <meta itemprop="position" content="2" />
+    </li>
+  </ol>
+</nav>
+
 <!-- HEADER -->
 <div class="page-header">
   <div class="header-inner">
