@@ -1,0 +1,19 @@
+{% macro categoryIcon(name) %}
+{%- if name == "Тривожні розлади" or name == "Тривога" -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4.2"/></svg>
+{%- elif name == "Настрій" or name == "Депресія" -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 16a4 4 0 0 1 .3-8 5 5 0 0 1 9.6-1.4A4.2 4.2 0 0 1 17.5 16h-11z"/><path d="M8 19.5v.01M12 19.5v.01M16 19.5v.01"/></svg>
+{%- elif name == "ОКР" -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 12a5.5 5.5 0 1 1-1.6-3.9"/><path d="M17.5 4.5v4h-4"/></svg>
+{%- elif name == "Тіло і стрес" -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.8 3.6 4.4 6.3 4.4 9a4.4 4.4 0 1 1-8.8 0c0-1 .3-1.9.8-2.8.4.8 1 1.3 1.7 1.3.9 0 1.4-.8 1.2-1.8-.3-1.6-.2-3.3.7-5.7z"/></svg>
+{%- elif name == "Сон" -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.2 6.2 0 0 0 10.5 10.5z"/></svg>
+{%- elif name == "Стосунки" -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.2" cy="9.5" r="2.4"/><path d="M3.5 19.5c.4-3 2.4-5 5-5s4.6 2 5 5"/><path d="M14 15.2c1.9.3 3.4 1.9 3.8 4.3"/></svg>
+{%- elif name == "Вигорання" -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.8 3.6 4.4 6.3 4.4 9a4.4 4.4 0 1 1-8.8 0c0-1 .3-1.9.8-2.8.4.8 1 1.3 1.7 1.3.9 0 1.4-.8 1.2-1.8-.3-1.6-.2-3.3.7-5.7z"/></svg>
+{%- else -%}
+<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/></svg>
+{%- endif -%}
+{% endmacro %}

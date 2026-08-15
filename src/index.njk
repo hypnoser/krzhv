@@ -53,11 +53,7 @@ schema:
         </div>
       </div>
       <div class="hero-photo">
-        <svg viewBox="0 0 400 500" style="width:100%;aspect-ratio:4/5;border-radius:8px;display:block;position:relative;z-index:1;">
-          <rect width="400" height="500" fill="#EDE7DA"/>
-          <circle cx="200" cy="195" r="82" fill="#D8CFB8"/>
-          <path d="M60 500c8-110 68-165 140-165s132 55 140 165z" fill="#D8CFB8"/>
-        </svg>
+        <img src="/assets/images/profile/sergiy.jpg" alt="Сергій Коржов — клінічний психолог" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;display:block;position:relative;z-index:1;">
         <div class="photo-tag"><strong>Онлайн · Весь світ</strong>Формат роботи — відеозв'язок</div>
       </div>
     </div>
@@ -126,7 +122,7 @@ schema:
       {% for post in collections.statti | reverse %}
       {% if loop.index <= 3 %}
       <div class="article-card">
-        <span class="article-tag">{{ post.data.category }}</span>
+        <span class="article-tag">{% from "icons.njk" import categoryIcon %}{{ categoryIcon(post.data.category) }}{{ post.data.category }}</span>
         <h3>{{ post.data.title }}</h3>
         <p>{{ post.data.description }}</p>
         <a href="{{ post.url }}" class="article-link">Читати посібник →</a>
@@ -151,6 +147,7 @@ schema:
           <span class="tag alt">Клінічна психологія</span>
           <span class="tag">Онлайн</span>
         </div>
+        <img src="/assets/images/profile/sergiy-about.jpg" alt="Сергій Коржов" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;margin-top:24px;">
       </div>
       <div class="about-body">
         <p>Я — клінічний психолог і психотерапевт, який працює в рамках <strong>когнітивно-поведінкового підходу (КПТ)</strong>. Обрав цей напрям не випадково: КПТ — одна з найкраще досліджених і ефективних форм психотерапії, де є чіткість, структура і вимірюваний прогрес.</p>

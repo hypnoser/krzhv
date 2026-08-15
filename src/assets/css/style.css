@@ -138,8 +138,10 @@ section{padding:92px 0;}
 .article-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(60,50,30,.08);}
 .article-tag{
   font-size:11px;letter-spacing:.04em;font-weight:600;color:var(--accent);
-  background:var(--accent-tint);padding:5px 12px;border-radius:20px;margin-bottom:16px;display:inline-block;
+  background:var(--accent-tint);padding:5px 12px;border-radius:20px;margin-bottom:16px;
+  display:inline-flex;align-items:center;gap:6px;
 }
+.article-tag svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
 .article-card h3{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:10px;line-height:1.35;}
 .article-card p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;}
 .article-link{font-size:13px;color:var(--terracotta);font-weight:600;}
@@ -177,7 +179,8 @@ section{padding:92px 0;}
 .testi-card:nth-child(3n+1){--c:var(--terracotta);}
 .testi-card:nth-child(3n+2){--c:var(--accent);}
 .testi-card:nth-child(3n+3){--c:var(--sand);}
-.testi-topic{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--c);margin-bottom:14px;display:block;}
+.testi-topic{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--c);margin-bottom:14px;display:inline-flex;align-items:center;gap:6px;}
+.testi-topic svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
 .testi-card p{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:20px;}
 .testi-who{font-size:13px;color:var(--ink-mute);font-weight:500;}
 .trust-row{display:flex;justify-content:center;gap:48px;padding:36px 0 56px;border-bottom:1px solid var(--line);margin-bottom:56px;}

@@ -22,7 +22,7 @@ schema:
   <div class="testi-grid" style="padding:56px 0 80px;">
     {% for t in testimonials %}
     <div class="testi-card">
-      <span class="testi-topic">{{ t.topic }}</span>
+      <span class="testi-topic">{% from "icons.njk" import categoryIcon %}{{ categoryIcon(t.topic) }}{{ t.topic }}</span>
       <p>«{{ t.text }}»</p>
       <div class="testi-who">{{ t.who }}</div>
     </div>

@@ -14,7 +14,7 @@ section: statti
   <div class="articles-grid" style="margin-bottom:80px;">
     {% for post in collections.statti %}
     <div class="article-card">
-      <span class="article-tag">{{ post.data.category }}</span>
+      <span class="article-tag">{% from "icons.njk" import categoryIcon %}{{ categoryIcon(post.data.category) }}{{ post.data.category }}</span>
       <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
       <p>{{ post.data.description }}</p>
       <a href="{{ post.url }}" class="article-link">Читати посібник →</a>
