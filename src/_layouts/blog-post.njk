@@ -4,6 +4,16 @@ ogType: article
 section: blog
 sectionLabel: "Блог"
 ---
+{% set blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "datePublished": date,
+  "dateModified": date,
+  "author": {"@type": "Person", "name": "Сергій Коржов"}
+} %}
+<script type="application/ld+json">{{ blogSchema | dump | safe }}</script>
 <div class="article-wrap">
   <div class="breadcrumb">
     <a href="/">Головна</a><span>/</span><a href="/blog/">Блог</a><span>/</span><span>{{ title }}</span>

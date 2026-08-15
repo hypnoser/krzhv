@@ -13,10 +13,28 @@
 <meta property="og:type" content="{{ ogType or 'website' }}">
 <meta property="og:url" content="https://krzhv.pp.ua{{ page.url }}">
 <meta property="og:locale" content="uk_UA">
+<meta property="og:image" content="https://krzhv.pp.ua/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Сергій Коржов — Клінічний психолог">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="https://krzhv.pp.ua/assets/images/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
+
+{# Google tag (gtag.js) #}
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EC6CST6KSZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EC6CST6KSZ');
+</script>
 
 {% if schema %}
 <script type="application/ld+json">{{ schema | dump | safe }}</script>
