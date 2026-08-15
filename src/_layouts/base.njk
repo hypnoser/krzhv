@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}{% if title != "Сергій Коржов — Клінічний психолог, КПТ онлайн" %} — Сергій Коржов{% endif %}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="https://krzhv.pp.ua{{ page.url }}">
+
+{# Open Graph / social preview #}
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:type" content="{{ ogType or 'website' }}">
+<meta property="og:url" content="https://krzhv.pp.ua{{ page.url }}">
+<meta property="og:locale" content="uk_UA">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+{% if schema %}
+<script type="application/ld+json">{{ schema | dump | safe }}</script>
+{% endif %}
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="/" class="logo">Сергій Коржов</a>
+    <nav class="nav-links">
+      <a href="/statti/" {% if section == 'statti' %}class="active"{% endif %}>Матеріали</a>
+      <a href="/blog/" {% if section == 'blog' %}class="active"{% endif %}>Блог</a>
+      <a href="/vidguky/" {% if section == 'vidguky' %}class="active"{% endif %}>Відгуки</a>
+      <a href="/#about">Про мене</a>
+    </nav>
+    <a href="/#contact" class="nav-cta">Записатись</a>
+  </div>
+</header>
+
+{{ content | safe }}
+
+<footer>
+  <p>Сергій Коржов · © {{ currentYear }} · Клінічний психолог · КПТ</p>
+</footer>
+
+</body>
+</html>

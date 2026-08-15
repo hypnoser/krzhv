@@ -1,0 +1,58 @@
+---
+layout: base.njk
+ogType: article
+---
+<div class="article-wrap">
+  <div class="breadcrumb">
+    <a href="/">Головна</a><span>/</span><a href="/{{ section }}/">{{ sectionLabel }}</a><span>/</span><span>{{ title }}</span>
+  </div>
+
+  <div class="article-header">
+    <span class="eyebrow">{{ category }}</span>
+    <h1>{{ title }}</h1>
+    <div class="article-meta">
+      <div class="author-chip">
+        <div class="author-avatar"></div>
+        <span>Сергій Коржов</span>
+      </div>
+      <div class="article-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/></svg>
+        <span>Оновлено {{ date | ukDate }}</span>
+      </div>
+      <div class="article-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <span>{{ content | readingTime }} хв читання</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    {{ content | safe }}
+
+    <div class="author-box">
+      <div class="author-photo" style="background:var(--accent-tint);"></div>
+      <div>
+        <h4>Сергій Коржов</h4>
+        <p>Клінічний психолог, працюю в підході КПТ. Допомагаю людям онлайн.</p>
+        <a href="/#about" class="btn-ghost">Про мене →</a>
+      </div>
+    </div>
+
+    {% if sources %}
+    <div class="sources">
+      <h3>Джерела</h3>
+      <ol>
+        {% for src in sources %}<li>{{ src }}</li>{% endfor %}
+      </ol>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="cta-band">
+    <h2>Потрібна підтримка фахівця?</h2>
+    <p>Якщо це відгукується — я можу допомогти. Напишіть мені, і ми обговоримо, з чого почати.</p>
+    <a href="/#contact" class="cta-btn">Записатись на консультацію</a>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+---
+layout: base.njk
+title: "Матеріали для клієнтів"
+description: "Доказові інформаційні матеріали з клінічної психології: тривога, депресія, ОКР та інші теми."
+section: statti
+---
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">Матеріали</span>
+    <h1>Корисні матеріали</h1>
+    <p>Доказові посібники з клінічної психології, які можуть допомогти вам краще зрозуміти свій стан.</p>
+  </div>
+
+  <div class="articles-grid" style="margin-bottom:80px;">
+    {% for post in collections.statti %}
+    <div class="article-card">
+      <span class="article-tag">{{ post.data.category }}</span>
+      <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+      <p>{{ post.data.description }}</p>
+      <a href="{{ post.url }}" class="article-link">Читати посібник →</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>

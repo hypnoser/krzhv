@@ -1,0 +1,32 @@
+---
+layout: base.njk
+title: "Блог"
+description: "Нотатки про КПТ-практику, клінічні спостереження та професійні роздуми клінічного психолога Сергія Коржова."
+section: blog
+---
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">Блог</span>
+    <h1>Нотатки з практики</h1>
+    <p>Професійні роздуми, спостереження з КПТ-практики та матеріали, які можуть бути цікаві колегам-психологам.</p>
+  </div>
+
+  <div class="filter-row">
+    <span class="filter-pill active">Усі записи</span>
+    <span class="filter-pill">Для колег</span>
+    <span class="filter-pill">Особистий журнал</span>
+  </div>
+
+  <div class="post-list">
+    {% for post in collections.blog %}
+    <div class="post-row">
+      <div class="post-date">{{ post.data.date | ukDate }}</div>
+      <div>
+        <span class="post-audience {% if post.data.audience == 'colleagues' %}colleagues{% else %}journal{% endif %}">{% if post.data.audience == 'colleagues' %}Для колег{% else %}Журнал{% endif %}</span>
+        <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+        <p>{{ post.data.description }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

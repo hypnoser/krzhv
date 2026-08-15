@@ -1,0 +1,29 @@
+---
+layout: base.njk
+title: "Відгуки клієнтів"
+description: "Відгуки клієнтів про терапію в підході КПТ з клінічним психологом Сергієм Коржовим."
+section: vidguky
+---
+<div class="wrap">
+  <div class="page-head" style="text-align:center;">
+    <span class="eyebrow">Відгуки</span>
+    <h1>Що кажуть клієнти</h1>
+    <p style="margin:0 auto;">Реальні відгуки людей, які пройшли терапію в підході КПТ.</p>
+  </div>
+
+  <div class="testi-grid" style="padding:56px 0 80px;">
+    {% for t in testimonials %}
+    <div class="testi-card">
+      <span class="testi-topic">{{ t.topic }}</span>
+      <p>«{{ t.text }}»</p>
+      <div class="testi-who">{{ t.who }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="cta-band" style="margin-bottom:80px;">
+    <h2>Готові зробити перший крок?</h2>
+    <p>Напишіть мені — коротко або докладно, як вам зручно. Я відповідаю протягом доби.</p>
+    <a href="/#contact" class="cta-btn">Записатись на консультацію</a>
+  </div>
+</div>
