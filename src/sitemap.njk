@@ -8,10 +8,14 @@ eleventyExcludeFromCollections: true
 <url><loc>https://krzhv.pp.ua/statti/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 <url><loc>https://krzhv.pp.ua/blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://krzhv.pp.ua/vidguky/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+<url><loc>https://krzhv.pp.ua/kviz/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 {%- for post in collections.statti %}
 <url><loc>https://krzhv.pp.ua{{ post.url }}</loc><lastmod>{{ post.data.date | isoDate }}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 {%- endfor %}
 {%- for post in collections.blog %}
 <url><loc>https://krzhv.pp.ua{{ post.url }}</loc><lastmod>{{ post.data.date | isoDate }}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+{%- endfor %}
+{%- for post in collections.kviz %}
+<url><loc>https://krzhv.pp.ua{{ post.url }}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 {%- endfor %}
 </urlset>

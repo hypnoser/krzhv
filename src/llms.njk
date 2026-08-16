@@ -10,11 +10,17 @@ eleventyExcludeFromCollections: true
 
 - [Головна](https://krzhv.pp.ua/): про терапевта, підхід до роботи, процес терапії, контакти
 - [Матеріали для клієнтів](https://krzhv.pp.ua/statti/): доказові інформаційні статті з клінічної психології
+- [Опитувальники](https://krzhv.pp.ua/kviz/): науково валідовані скринінгові опитувальники для самооцінки тривоги, депресії та ознак панічних атак
 - [Блог](https://krzhv.pp.ua/blog/): професійні нотатки для колег-психологів та особистий журнал практики
 - [Відгуки](https://krzhv.pp.ua/vidguky/): відгуки клієнтів про терапію
 
 ## Матеріали для клієнтів
 {% for post in collections.statti %}
+- [{{ post.data.title }}](https://krzhv.pp.ua{{ post.url }}): {{ post.data.description }}
+{%- endfor %}
+
+## Опитувальники
+{% for post in collections.kviz %}
 - [{{ post.data.title }}](https://krzhv.pp.ua{{ post.url }}): {{ post.data.description }}
 {%- endfor %}
 

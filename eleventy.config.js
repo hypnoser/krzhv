@@ -16,6 +16,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("blog", (collectionApi) => {
     return collectionApi.getFilteredByGlob("src/blog/*.md").sort((a, b) => b.date - a.date);
   });
+  
+  eleventyConfig.addCollection("kviz", (collectionApi) => {
+    return collectionApi.getFilteredByGlob("src/kviz/*.md");
+  });
 
   // Date formatting filter for Ukrainian locale
   eleventyConfig.addFilter("ukDate", (dateObj) => {
