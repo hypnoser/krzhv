@@ -321,7 +321,7 @@ section{padding:92px 0;}
 .related{background:var(--paper-alt);padding:64px 0;}
 .related-head{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:32px;}
 .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1080px;margin:0 auto;padding:0 32px;}
-.related-card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px;transition:transform .15s;}
+.related-card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px;transition:transform .15s;display:block;text-decoration:none;}
 .related-card:hover{transform:translateY(-2px);}
 .related-tag{font-size:11px;color:var(--terracotta);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;display:block;}
 .related-card h4{font-family:var(--serif);font-size:17px;font-weight:400;line-height:1.4;}

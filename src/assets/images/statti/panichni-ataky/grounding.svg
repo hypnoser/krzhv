@@ -1,0 +1,41 @@
+<svg width="720" height="240" viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="240" fill="#EEF2EF"/>
+
+  <!-- 5 columns for the grounding technique -->
+  <g>
+    <circle cx="105" cy="80" r="38" fill="#FBEAE0"/>
+    <text x="105" y="90" font-family="Merriweather, Georgia, serif" font-size="26" font-weight="700" fill="#C77A4F" text-anchor="middle">5</text>
+    <text x="105" y="140" font-family="Inter, sans-serif" font-size="12" fill="#221F1B" text-anchor="middle">речей, які</text>
+    <text x="105" y="156" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#221F1B" text-anchor="middle">БАЧУ</text>
+  </g>
+
+  <g>
+    <circle cx="250" cy="80" r="38" fill="#E4EDE6"/>
+    <text x="250" y="90" font-family="Merriweather, Georgia, serif" font-size="26" font-weight="700" fill="#3D5A4A" text-anchor="middle">4</text>
+    <text x="250" y="140" font-family="Inter, sans-serif" font-size="12" fill="#221F1B" text-anchor="middle">речі, які</text>
+    <text x="250" y="156" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#221F1B" text-anchor="middle">ЧУЮ</text>
+  </g>
+
+  <g>
+    <circle cx="395" cy="80" r="38" fill="#FBF3E0"/>
+    <text x="395" y="90" font-family="Merriweather, Georgia, serif" font-size="26" font-weight="700" fill="#8A6A2B" text-anchor="middle">3</text>
+    <text x="395" y="140" font-family="Inter, sans-serif" font-size="12" fill="#221F1B" text-anchor="middle">речі, яких</text>
+    <text x="395" y="156" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#221F1B" text-anchor="middle">ТОРКАЮСЬ</text>
+  </g>
+
+  <g>
+    <circle cx="540" cy="80" r="38" fill="#FBEAE0"/>
+    <text x="540" y="90" font-family="Merriweather, Georgia, serif" font-size="26" font-weight="700" fill="#C77A4F" text-anchor="middle">2</text>
+    <text x="540" y="140" font-family="Inter, sans-serif" font-size="12" fill="#221F1B" text-anchor="middle">запахи, які</text>
+    <text x="540" y="156" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#221F1B" text-anchor="middle">ВІДЧУВАЮ</text>
+  </g>
+
+  <g>
+    <circle cx="640" cy="80" r="38" fill="#E4EDE6"/>
+    <text x="640" y="90" font-family="Merriweather, Georgia, serif" font-size="26" font-weight="700" fill="#3D5A4A" text-anchor="middle">1</text>
+    <text x="640" y="140" font-family="Inter, sans-serif" font-size="12" fill="#221F1B" text-anchor="middle">смак, який</text>
+    <text x="640" y="156" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#221F1B" text-anchor="middle">ВІДЧУВАЮ</text>
+  </g>
+
+  <text x="360" y="205" font-family="Inter, sans-serif" font-size="12" fill="#94897E" text-anchor="middle">Техніка заземлення 5-4-3-2-1 — повертає увагу до реальності «тут і зараз»</text>
+</svg>

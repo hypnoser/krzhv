@@ -1,0 +1,42 @@
+<svg width="720" height="260" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="260" fill="#EEF2EF"/>
+
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#3D5A4A"/>
+    </marker>
+  </defs>
+
+  <!-- 4-step horizontal pathway -->
+  <g>
+    <rect x="30" y="90" width="150" height="70" rx="10" fill="#FDFDFB" stroke="#7A93A8" stroke-width="2"/>
+    <text x="105" y="118" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Статична поза</text>
+    <text x="105" y="136" font-family="Inter, sans-serif" font-size="11" fill="#5A5650" text-anchor="middle">за монітором</text>
+  </g>
+
+  <path d="M180 125 L212 125" fill="none" stroke="#3D5A4A" stroke-width="1.6" marker-end="url(#ah)"/>
+
+  <g>
+    <rect x="212" y="90" width="150" height="70" rx="10" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
+    <text x="287" y="118" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Напруження</text>
+    <text x="287" y="136" font-family="Inter, sans-serif" font-size="11" fill="#5A5650" text-anchor="middle">м'язів шиї</text>
+  </g>
+
+  <path d="M362 125 L394 125" fill="none" stroke="#3D5A4A" stroke-width="1.6" marker-end="url(#ah)"/>
+
+  <g>
+    <rect x="394" y="90" width="150" height="70" rx="10" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="469" y="118" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Больові</text>
+    <text x="469" y="136" font-family="Inter, sans-serif" font-size="11" fill="#5A5650" text-anchor="middle">рецептори активні</text>
+  </g>
+
+  <path d="M544 125 L576 125" fill="none" stroke="#3D5A4A" stroke-width="1.6" marker-end="url(#ah)"/>
+
+  <g>
+    <rect x="576" y="90" width="120" height="70" rx="10" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="636" y="120" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Головний</text>
+    <text x="636" y="136" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">біль</text>
+  </g>
+
+  <text x="360" y="210" font-family="Inter, sans-serif" font-size="12" fill="#94897E" text-anchor="middle">Спрощена схема механізму головного болю напруження (TTH)</text>
+</svg>
