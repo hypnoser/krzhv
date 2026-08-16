@@ -1,0 +1,48 @@
+<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="420" fill="#EEF2EF"/>
+
+  <!-- Divider -->
+  <line x1="360" y1="40" x2="360" y2="340" stroke="#D8CFB8" stroke-width="1.5" stroke-dasharray="4 6"/>
+
+  <!-- LEFT: healthy brain -->
+  <g>
+    <text x="180" y="40" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#3D5A4A" text-anchor="middle">ЗДОРОВИЙ СТАН</text>
+
+    <!-- simple brain silhouette -->
+    <path d="M110 100c-4-24 14-42 36-44 10-10 26-12 36-4 22-2 40 14 40 36 14 6 22 22 18 38 6 12 2 28-10 36 2 14-8 26-22 28-6 12-20 18-32 14-10 8-22 8-30-2-16 0-28-12-30-28-14-6-22-22-18-38-4-10 0-22 12-36z" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+
+    <!-- dense, bright connections -->
+    <circle cx="150" cy="110" r="4" fill="#3D5A4A"/>
+    <circle cx="180" cy="95" r="4" fill="#3D5A4A"/>
+    <circle cx="210" cy="115" r="4" fill="#3D5A4A"/>
+    <circle cx="165" cy="140" r="4" fill="#3D5A4A"/>
+    <circle cx="195" cy="150" r="4" fill="#3D5A4A"/>
+    <circle cx="225" cy="135" r="4" fill="#3D5A4A"/>
+    <path d="M150 110L180 95M180 95L210 115M150 110L165 140M180 95L195 150M210 115L225 135M165 140L195 150M195 150L225 135" stroke="#3D5A4A" stroke-width="1.8" opacity="0.85"/>
+
+    <text x="180" y="200" font-family="Inter, sans-serif" font-size="13" fill="#5A5650" text-anchor="middle">Активний обмін серотоніном</text>
+    <text x="180" y="218" font-family="Inter, sans-serif" font-size="13" fill="#5A5650" text-anchor="middle">і дофаміном між нейронами</text>
+  </g>
+
+  <!-- RIGHT: depressed brain -->
+  <g>
+    <text x="540" y="40" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#C77A4F" text-anchor="middle">ПРИ ДЕПРЕСІЇ</text>
+
+    <path d="M470 100c-4-24 14-42 36-44 10-10 26-12 36-4 22-2 40 14 40 36 14 6 22 22 18 38 6 12 2 28-10 36 2 14-8 26-22 28-6 12-20 18-32 14-10 8-22 8-30-2-16 0-28-12-30-28-14-6-22-22-18-38-4-10 0-22 12-36z" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2" opacity="0.7"/>
+
+    <!-- sparse, dim connections -->
+    <circle cx="510" cy="110" r="4" fill="#C77A4F" opacity="0.5"/>
+    <circle cx="555" cy="130" r="4" fill="#C77A4F" opacity="0.5"/>
+    <circle cx="585" cy="150" r="4" fill="#C77A4F" opacity="0.5"/>
+    <path d="M510 110L555 130M555 130L585 150" stroke="#C77A4F" stroke-width="1.5" opacity="0.35" stroke-dasharray="3 5"/>
+    <!-- broken/missing connections shown as faded dashes -->
+    <path d="M510 110L540 95" stroke="#C77A4F" stroke-width="1.2" opacity="0.15" stroke-dasharray="2 6"/>
+    <path d="M555 130L525 155" stroke="#C77A4F" stroke-width="1.2" opacity="0.15" stroke-dasharray="2 6"/>
+
+    <text x="540" y="200" font-family="Inter, sans-serif" font-size="13" fill="#5A5650" text-anchor="middle">Менше зв'язків, знижений</text>
+    <text x="540" y="218" font-family="Inter, sans-serif" font-size="13" fill="#5A5650" text-anchor="middle">обмін нейромедіаторами</text>
+  </g>
+
+  <!-- caption -->
+  <text x="360" y="380" font-family="Inter, sans-serif" font-size="12" fill="#94897E" text-anchor="middle">Спрощена ілюстрація: різниця в активності нейронних зв'язків — не медичне зображення</text>
+</svg>
