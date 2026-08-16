@@ -125,14 +125,14 @@ section{padding:92px 0;}
 .states-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .state-card{background:var(--paper);border-radius:10px;padding:30px 24px;border-top:3px solid var(--c);}
 .state-card:nth-child(1){--c:var(--terracotta);}
-.state-card:nth-child(2){--c:#7A93A8;}
+.state-card:nth-child(2){--c:var(--blue-gray);}
 .state-card:nth-child(3){--c:var(--accent);}
 .state-card-link{
   display:block;text-decoration:none;transition:transform .15s, box-shadow .15s;
 }
 .state-card-link:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(60,50,30,.08);}
 .state-card-cta{
-  display:block;margin-top:16px;font-size:13px;font-weight:600;color:var(--c);
+  display:block;margin-top:16px;font-size:13px;font-weight:600;color:var(--accent);
 }
 .states-disclaimer{
   text-align:center;font-size:13px;color:var(--ink-mute);margin-top:32px;max-width:520px;
@@ -168,7 +168,7 @@ section{padding:92px 0;}
 .article-tag svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
 .article-card h3{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:10px;line-height:1.35;}
 .article-card p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;}
-.article-link{font-size:13px;color:var(--terracotta);font-weight:600;}
+.article-link{font-size:13px;color:var(--accent);font-weight:600;}
 .articles-more{text-align:center;margin-top:44px;}
 
 /* ===== About ===== */
@@ -211,7 +211,7 @@ section{padding:92px 0;}
 .testi-card:nth-child(3n+1){--c:var(--terracotta);}
 .testi-card:nth-child(3n+2){--c:var(--accent);}
 .testi-card:nth-child(3n+3){--c:var(--sand);}
-.testi-topic{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--c);margin-bottom:14px;display:inline-flex;align-items:center;gap:6px;}
+.testi-topic{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);margin-bottom:14px;display:inline-flex;align-items:center;gap:6px;}
 .testi-topic svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
 .testi-card p{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:20px;}
 .testi-who{font-size:13px;color:var(--ink-mute);font-weight:500;}
