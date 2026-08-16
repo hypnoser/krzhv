@@ -1,0 +1,36 @@
+---
+layout: base.njk
+title: "Опитувальники"
+description: "Науково валідовані скринінгові опитувальники для самооцінки тривоги, депресії та ознак панічних атак."
+permalink: /kviz/
+---
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">Опитувальники</span>
+    <h1>Ви впізнаєте свій стан у симптомах — але не впевнені, наскільки це серйозно?</h1>
+    <p>Пройдіть науково валідований опитувальник — 2 хвилини — і отримайте орієнтовну відповідь: чи відповідає ваш стан ознакам тривожного, депресивного або панічного розладу. Це перший конкретний крок до розуміння себе, а не просто здогадка.</p>
+  </div>
+
+  <div class="articles-grid" style="margin-bottom:80px;">
+    <div class="article-card">
+      <span class="article-tag">{% from "icons.njk" import categoryIcon %}{{ categoryIcon("Тривога") }}Тривога і страхи</span>
+      <h3><a href="/kviz/tryvoga/">Опитувальник рівня тривоги (GAD-7)</a></h3>
+      <p>Науково валідований інструмент для оцінки рівня тривоги за останні два тижні.</p>
+      <a href="/kviz/tryvoga/" class="article-link">Пройти опитувальник →</a>
+    </div>
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("Депресія") }}Депресія</span>
+      <h3><a href="/kviz/depresiya/">Опитувальник рівня депресії (PHQ-9)</a></h3>
+      <p>Науково валідований інструмент для оцінки симптомів депресії за останні два тижні.</p>
+      <a href="/kviz/depresiya/" class="article-link">Пройти опитувальник →</a>
+    </div>
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("Тривожні розлади") }}Панічні атаки</span>
+      <h3><a href="/kviz/panichni-ataky/">Опитувальник ознак панічних атак</a></h3>
+      <p>Орієнтовний скринінг на основі діагностичних критеріїв DSM-5.</p>
+      <a href="/kviz/panichni-ataky/" class="article-link">Пройти опитувальник →</a>
+    </div>
+  </div>
+
+  <p class="states-disclaimer" style="margin-bottom:60px;">Це орієнтовний скринінг, а не діагностика. Точний діагноз може встановити лише фахівець після особистої консультації.</p>
+</div>

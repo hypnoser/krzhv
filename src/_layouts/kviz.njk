@@ -1,0 +1,25 @@
+---
+layout: base.njk
+---
+<div class="article-wrap kviz-wrap">
+  <div class="breadcrumb">
+    <a href="/">Головна</a><span>/</span><a href="/kviz/">Опитувальники</a><span>/</span><span>{{ title }}</span>
+  </div>
+
+  <div class="kviz-header">
+    <span class="eyebrow">{{ category }}</span>
+    <h1>{{ title }}</h1>
+    <p class="kviz-intro">{{ intro }}</p>
+  </div>
+
+  <div class="kviz-disclaimer">
+    <strong>Це орієнтовний скринінг, а не діагностика.</strong> Результат допомагає краще зрозуміти власний стан, але точний діагноз може встановити лише фахівець після особистої консультації. Опитувальник науково валідований і використовується в клінічній практиці по всьому світу.
+  </div>
+
+  <div id="kviz-app" data-quiz-id="{{ quizId }}"></div>
+</div>
+
+<script>
+  window.KVIZ_DATA = {{ quizData | dump | safe }};
+</script>
+<script src="/assets/js/kviz.js"></script>
