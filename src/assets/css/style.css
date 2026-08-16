@@ -125,11 +125,14 @@ section{padding:92px 0;}
 .state-card:nth-child(3){--c:var(--sand);}
 .state-card:nth-child(4){--c:var(--accent);}
 .state-icon{
-  width:48px;height:48px;border-radius:12px;background:var(--c);opacity:.13;
+  width:48px;height:48px;border-radius:12px;
   margin-bottom:18px;display:flex;align-items:center;justify-content:center;
   position:relative;
 }
-.state-icon svg{position:absolute;width:24px;height:24px;stroke:var(--c);opacity:1;}
+.state-icon::before{
+  content:'';position:absolute;inset:0;background:var(--c);opacity:.13;border-radius:12px;
+}
+.state-icon svg{position:relative;width:24px;height:24px;stroke:var(--c);}
 .state-card h3{font-size:16px;font-weight:600;margin-bottom:10px;color:var(--ink);}
 .state-card p{font-size:14px;color:var(--ink-soft);line-height:1.6;}
 
