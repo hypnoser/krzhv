@@ -1,4 +1,6 @@
 const { DateTime } = require("luxon");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = function (eleventyConfig) {
   // Copy static assets as-is
@@ -8,6 +10,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/images");
   eleventyConfig.addPassthroughCopy("src/assets/fonts");
   eleventyConfig.addPassthroughCopy({ "src/static": "/" }); // for favicon.ico, CNAME, etc.
+
+  // Inline critical CSS: read style.css at build time so it can be embedded
+  // directly in <head> instead of a render-blocking <link> request.
+  eleventyConfig.addGlobalData("inlineCss", () => {
+    return fs.readFileSync(path.join(__dirname, "src/assets/css/style.css"), "utf-8");
+  });
 
   // Collections: articles (statti) and blog posts, newest first
   eleventyConfig.addCollection("statti", (collectionApi) => {
