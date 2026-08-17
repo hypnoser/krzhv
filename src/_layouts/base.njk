@@ -91,14 +91,28 @@
 </main>
 
 {% if maintenanceOverlay %}
-<div class="maintenance-overlay">
+<div class="maintenance-overlay" id="maintenanceOverlay">
   <div class="maintenance-box">
     <span class="eyebrow">Технічні роботи</span>
     <h1>Сайт на реконструкції</h1>
     <p>Ми оновлюємо сайт і скоро повернемось. Дякуємо за терпіння.</p>
     <p class="maintenance-contact">Зв'язатись напряму: <a href="https://t.me/krzhvs">Telegram</a></p>
   </div>
+  <div class="maintenance-hidden-toggle" id="maintenanceToggle"></div>
 </div>
+<script>
+  (function () {
+    var KEY = 'krzhv_maintenance_bypass';
+    var overlay = document.getElementById('maintenanceOverlay');
+    if (localStorage.getItem(KEY) === '1') {
+      overlay.style.display = 'none';
+    }
+    document.getElementById('maintenanceToggle').addEventListener('click', function () {
+      localStorage.setItem(KEY, '1');
+      overlay.style.display = 'none';
+    });
+  })();
+</script>
 {% endif %}
 
 <footer>

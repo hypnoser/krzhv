@@ -460,3 +460,7 @@ footer p{font-size:13px;color:var(--ink-mute);}
 .maintenance-box p{font-size:16px;color:var(--ink-soft);line-height:1.7;margin-bottom:8px;}
 .maintenance-contact{margin-top:20px;}
 .maintenance-contact a{color:var(--accent);font-weight:600;}
+.maintenance-hidden-toggle{
+  position:absolute;top:0;right:0;width:48px;height:48px;
+  cursor:default;background:transparent;
+}
