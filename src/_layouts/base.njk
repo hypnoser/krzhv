@@ -90,6 +90,17 @@
 {{ content | safe }}
 </main>
 
+{% if maintenanceOverlay %}
+<div class="maintenance-overlay">
+  <div class="maintenance-box">
+    <span class="eyebrow">Технічні роботи</span>
+    <h1>Сайт на реконструкції</h1>
+    <p>Ми оновлюємо сайт і скоро повернемось. Дякуємо за терпіння.</p>
+    <p class="maintenance-contact">Зв'язатись напряму: <a href="https://t.me/krzhvs">Telegram</a></p>
+  </div>
+</div>
+{% endif %}
+
 <footer>
   <p>Сергій Коржов · © {{ currentYear }} · Клінічний психолог · КПТ</p>
 </footer>
