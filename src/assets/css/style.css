@@ -444,3 +444,19 @@ footer p{font-size:13px;color:var(--ink-mute);}
 @media(max-width:560px){
   .kviz-result-cta{flex-direction:column;}
 }
+
+/* ===== Maintenance overlay ===== */
+.maintenance-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--paper);
+  display:flex;align-items:center;justify-content:center;
+  padding:32px;
+}
+.maintenance-box{text-align:center;max-width:440px;}
+.maintenance-box h1{
+  font-family:var(--serif);font-weight:300;font-size:32px;
+  margin:16px 0 14px;color:var(--ink);
+}
+.maintenance-box p{font-size:16px;color:var(--ink-soft);line-height:1.7;margin-bottom:8px;}
+.maintenance-contact{margin-top:20px;}
+.maintenance-contact a{color:var(--accent);font-weight:600;}
