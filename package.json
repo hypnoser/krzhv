@@ -14,5 +14,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "luxon": "^3.7.2"
+  },
+  "dependencies": {
+    "slugify": "^1.6.9"
   }
 }

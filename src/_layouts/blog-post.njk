@@ -3,6 +3,7 @@ layout: base.njk
 ogType: article
 section: blog
 sectionLabel: "Блог"
+permalink: "/blog/{{ title | autoSlug }}/"
 ---
 {% set blogSchema = {
   "@context": "https://schema.org",
