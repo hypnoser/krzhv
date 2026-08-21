@@ -1,0 +1,41 @@
+<svg width="720" height="260" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="260" fill="#EEF2EF"/>
+
+  <defs>
+    <marker id="ah5" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#3D5A4A"/>
+    </marker>
+  </defs>
+
+  <g>
+    <rect x="30" y="90" width="150" height="70" rx="10" fill="#FDFDFB" stroke="#7A93A8" stroke-width="2"/>
+    <text x="105" y="118" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Неповна</text>
+    <text x="105" y="136" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">інформація</text>
+  </g>
+
+  <path d="M180 125 L212 125" fill="none" stroke="#3D5A4A" stroke-width="1.6" marker-end="url(#ah5)"/>
+
+  <g>
+    <rect x="212" y="90" width="170" height="70" rx="10" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
+    <text x="297" y="118" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Система тривоги</text>
+    <text x="297" y="136" font-family="Inter, sans-serif" font-size="11" fill="#5A5650" text-anchor="middle">залишається активною</text>
+  </g>
+
+  <path d="M382 125 L414 125" fill="none" stroke="#3D5A4A" stroke-width="1.6" marker-end="url(#ah5)"/>
+
+  <g>
+    <rect x="414" y="90" width="170" height="70" rx="10" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="499" y="118" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Неможливість</text>
+    <text x="499" y="136" font-family="Inter, sans-serif" font-size="11" fill="#5A5650" text-anchor="middle">завершити реакцію</text>
+  </g>
+
+  <path d="M584 125 L616 125" fill="none" stroke="#3D5A4A" stroke-width="1.6" marker-end="url(#ah5)"/>
+
+  <g>
+    <rect x="616" y="90" width="90" height="70" rx="10" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="661" y="120" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">Виснаж-</text>
+    <text x="661" y="136" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#221F1B" text-anchor="middle">ення</text>
+  </g>
+
+  <text x="360" y="220" font-family="Inter, sans-serif" font-size="12" fill="#94897E" text-anchor="middle">На відміну від конкретної загрози, тривала невизначеність не дає реакції "завершитись"</text>
+</svg>
