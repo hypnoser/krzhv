@@ -73,8 +73,8 @@ if(d<=-5){cls="dgood";txt="\u2212"+Math.abs(d)+" — клінічно значу
 else if(d<5&&d>-5){cls="dnone";txt=(d>=0?"+":"\u2212")+Math.abs(d)+" — у межах похибки";}
 else{cls="dbad";txt="+"+d+" — клінічно значуще погіршення";}
 dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
-function save(){try{localStorage.setItem("phq9",JSON.stringify({a:ans,f:fnAns}));}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem("phq9"));if(!d)return;if(d.a)for(var i=0;i<d.a.length;i++)if(d.a[i]!==undefined&&d.a[i]!==null)pick(i,d.a[i]);if(d.f!==null&&d.f!==undefined)pickFn(d.f);}catch(e){}}
-function reset(){ans=[];fnAns=null;try{localStorage.removeItem("phq9");}catch(e){}build();calc();}
+function save(){}
+function load(){}
+function reset(){ans=[];fnAns=null;build();calc();}
 build();load();calc();
 </script></body></html>
