@@ -134,10 +134,8 @@ else if(pct>0){cls="dnone";txt="\u2212"+pct+"% — нижче порогу 30%";
 else if(pct===0){cls="dnone";txt="без змін";}
 else{cls="dbad";txt="+"+Math.abs(pct)+"% — погіршення";}
 dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
-function save(){try{localStorage.setItem("lsas",JSON.stringify({f:f,a:a}));}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem("lsas"));if(!d)return;
-if(d.f)for(var i=0;i<d.f.length;i++)if(d.f[i]!==undefined&&d.f[i]!==null)pf(i,d.f[i]);
-if(d.a)for(var j=0;j<d.a.length;j++)if(d.a[j]!==undefined&&d.a[j]!==null)pa(j,d.a[j]);}catch(e){}}
-function reset(){f=[];a=[];try{localStorage.removeItem("lsas");}catch(e){}build();calc();}
+function save(){}
+function load(){}
+function reset(){f=[];a=[];build();calc();}
 build();load();calc();
 </script></body></html>
