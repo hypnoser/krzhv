@@ -83,8 +83,8 @@ else if(pct===0){cls="dnone";txt="без змін";}
 else{cls="dbad";txt="+"+Math.abs(pct)+"% — погіршення";}
 if(sum<=remThr&&pct>0)txt+=" · критерій ремісії досягнуто";
 dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
-function save(){try{localStorage.setItem("pdss",JSON.stringify(ans));}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem("pdss"));if(!d)return;for(var i=0;i<d.length;i++)if(d[i]!==undefined&&d[i]!==null)pick(i,d[i]);}catch(e){}}
-function reset(){ans=[];try{localStorage.removeItem("pdss");}catch(e){}build();calc();}
+function save(){}
+function load(){}
+function reset(){ans=[];build();calc();}
 build();load();calc();
 </script></body></html>
