@@ -185,27 +185,15 @@ function calc() {
 }
 
 function save() {
-  try {
-    localStorage.setItem("gad7", JSON.stringify({a: ans, f: fnAns}));
-  } catch (e) {}
+  // навмисно порожня: стан не зберігається між відкриттями (див. журнал Фази 5)
 }
 
 function load() {
-  try {
-    var d = JSON.parse(localStorage.getItem("gad7"));
-    if (!d) return;
-    if (d.a) {
-      for (var i = 0; i < d.a.length; i++) {
-        if (d.a[i] !== undefined && d.a[i] !== null) pick(i, d.a[i]);
-      }
-    }
-    if (d.f !== null && d.f !== undefined) pickFn(d.f);
-  } catch (e) {}
+  // навмисно порожня
 }
 
 function reset() {
   ans = []; fnAns = null;
-  try { localStorage.removeItem("gad7"); } catch (e) {}
   build(); calc();
 }
 
