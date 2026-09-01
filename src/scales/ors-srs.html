@@ -125,10 +125,8 @@ function calc(){
   document.getElementById("sSev").textContent=st<36?"Потребує обговорення":"У межах норми";
   document.getElementById("sNote").textContent=st<36?"Бал нижче 36 — привід прямо запитати клієнта, що варто змінити.":"Бал 36 і вище — типовий для робочого альянсу.";
 }
-function save(){try{localStorage.setItem("orssrs",JSON.stringify({o:o,s:s}));}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem("orssrs"));if(!d)return;
-if(d.o)for(var i=0;i<4;i++){o[i]=d.o[i];document.getElementById("or"+i).value=o[i];document.getElementById("ov"+i).textContent=o[i].toFixed(1);}
-if(d.s)for(var j=0;j<4;j++){s[j]=d.s[j];document.getElementById("sr"+j).value=s[j];document.getElementById("sv"+j).textContent=s[j].toFixed(1);}}catch(e){}}
-function reset(){o=[5,5,5,5];s=[5,5,5,5];try{localStorage.removeItem("orssrs");}catch(e){}build();calc();}
+function save(){}
+function load(){}
+function reset(){o=[5,5,5,5];s=[5,5,5,5];build();calc();}
 build();load();calc();
 </script></body></html>
