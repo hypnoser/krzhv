@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="UTF-8"><title>Інтерпретатор балів</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.5; color: #1a1a1a; background: transparent; padding: 4px; }
+  h1 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .cluster { font-size: 12px; font-weight: 600; color: #2b7fbf; text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; }
+  .q { border: 1px solid #e0e0e0; border-radius: 8px; padding: 9px 11px; margin-bottom: 6px; background: #fff; }
+  .q.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .qt { font-size: 13px; margin-bottom: 7px; }
+  .qn { color: #999; font-weight: 600; margin-right: 6px; }
+  .opts { display: flex; gap: 5px; flex-wrap: wrap; }
+  .opt { flex: 1; min-width: 88px; border: 1px solid #ddd; border-radius: 6px; padding: 5px 6px; font-size: 11.5px; cursor: pointer; background: #fafafa; text-align: center; user-select: none; transition: all .12s; }
+  .opt:hover { border-color: #999; background: #f0f0f0; }
+  .opt.sel { background: #2b7fbf; border-color: #2b7fbf; color: #fff; font-weight: 500; }
+  .res { margin-top: 16px; border-radius: 8px; padding: 14px; border: 1.5px solid #ddd; background: #fafafa; }
+  .res.ready { border-color: #2b7fbf; background: #f2f8fd; }
+  .score { font-size: 30px; font-weight: 700; line-height: 1; }
+  .score .max { font-size: 15px; font-weight: 400; color: #888; }
+  .sev { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .note { font-size: 12px; color: #666; margin-top: 8px; }
+  .subs { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; }
+  .srow { display: flex; justify-content: space-between; font-size: 12.5px; padding: 3px 0; }
+  .dyn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; font-size: 12.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dyn input { width: 70px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 5px; font-size: 12.5px; font-family: inherit; }
+  .dlt { font-weight: 600; }
+  .dgood { color: #1a7a4a; } .dbad { color: #b02020; } .dnone { color: #888; }
+  .prog { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .bar { height: 4px; background: #e8e8e8; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fill { height: 100%; background: #2b7fbf; width: 0%; transition: width .2s; }
+  .btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+  .btn:hover { background: #f0f0f0; }
+  .fn { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e8e8e8; font-size: 11.5px; color: #888; }
+  .warn { margin-top: 10px; padding: 8px 10px; background: #fff8e6; border: 1px solid #f0d9a0; border-radius: 6px; font-size: 12px; color: #6a4a05; }
+  .alert { margin-top: 10px; padding: 10px 12px; background: #fdecec; border: 1.5px solid #e8a0a0; border-radius: 6px; font-size: 12.5px; color: #8a1a1a; }
+  .alert b { display: block; margin-bottom: 3px; }
+  .pick { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .pk { padding: 7px 14px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; cursor: pointer; font-size: 12.5px; }
+  .pk.on { background: #2b7fbf; border-color: #2b7fbf; color: #fff; font-weight: 500; }
+  .inp { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .inp input { width: 90px; padding: 7px 9px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; font-family: inherit; }
+  .inp label { font-size: 13px; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 10px; }
+  .tbl td { padding: 5px 8px; border-bottom: 1px solid #eee; }
+  .tbl tr.hit { background: #e8f2fb; font-weight: 600; }
+  .tbl tr:last-child td { border-bottom: none; }
+</style></head><body>
+<h1>Інтерпретатор балів</h1>
+<div class="sub">Для шкал, пункти яких захищені авторським правом. Заповніть офіційний бланк, введіть загальний бал сюди.</div>
+
+<div class="adm" style="background:#fff8e6;border:1px solid #f0d9a0;border-radius:6px;padding:8px 10px;font-size:12px;color:#6a4a05;margin-bottom:14px">
+  <b>BDI-II та BAI</b> — комерційні інструменти Pearson. Бланки купуються окремо; відтворювати їхні пункти не можна. Цей модуль лише інтерпретує вже підрахований бал.
+</div>
+
+<div class="pick">
+  <div class="pk on" id="k0" onclick="sel(0)">BDI-II</div>
+  <div class="pk" id="k1" onclick="sel(1)">BAI</div>
+</div>
+
+<div class="inp">
+  <label>Поточний бал:</label><input type="number" id="cur" oninput="calc()" placeholder="—">
+  <label>Baseline:</label><input type="number" id="base" oninput="calc()" placeholder="—">
+</div>
+
+<div class="res" id="res">
+  <div class="score"><span id="sc">—</span><span class="max" id="max"> / 63</span></div>
+  <div class="sev" id="sev">Введіть бал</div>
+  <div class="note" id="note"></div>
+  <div class="dyn"><span id="delta"></span></div>
+  <table class="tbl" id="tbl"></table>
+</div>
+
+<div class="fn" id="fn"></div>
+
+<script>
+var S=[
+{n:"BDI-II",max:63,
+ r:[[0,13,"Мінімальна депресія"],[14,19,"Легка депресія"],[20,28,"Помірна депресія"],[29,63,"Важка депресія"]],
+ f:"Beck AT, Steer RA, Brown GK. Manual for the Beck Depression Inventory-II. San Antonio, TX: Psychological Corporation; 1996.",
+ mcid:5},
+{n:"BAI",max:63,
+ r:[[0,7,"Мінімальна тривога"],[8,15,"Легка тривога"],[16,25,"Помірна тривога"],[26,63,"Важка тривога"]],
+ f:"Beck AT, Steer RA. Manual for the Beck Anxiety Inventory. San Antonio, TX: Psychological Corporation; 1993.",
+ mcid:5}
+];
+var cur=0;
+function sel(i){cur=i;document.getElementById("k0").className=i===0?"pk on":"pk";document.getElementById("k1").className=i===1?"pk on":"pk";document.getElementById("max").textContent=" / "+S[i].max;document.getElementById("fn").textContent=S[i].f;calc();}
+function calc(){
+var sc=document.getElementById("sc"),sev=document.getElementById("sev"),note=document.getElementById("note"),res=document.getElementById("res"),dl=document.getElementById("delta"),tbl=document.getElementById("tbl");
+var v=parseInt(document.getElementById("cur").value,10);
+var sp=S[cur];
+var h="";
+for(var i=0;i<sp.r.length;i++){
+  var hit=(!isNaN(v)&&v>=sp.r[i][0]&&v<=sp.r[i][1]);
+  h+='<tr class="'+(hit?"hit":"")+'"><td>'+sp.r[i][0]+"–"+sp.r[i][1]+'</td><td>'+sp.r[i][2]+'</td></tr>';
+}
+tbl.innerHTML=h;
+if(isNaN(v)){res.className="res";sc.textContent="—";sev.textContent="Введіть бал";note.textContent="";dl.innerHTML="";return;}
+if(v<0||v>sp.max){res.className="res";sc.textContent=v;sev.textContent="Бал поза діапазоном 0–"+sp.max;note.textContent="";dl.innerHTML="";return;}
+res.className="res ready";sc.textContent=v;
+for(var j=0;j<sp.r.length;j++)if(v>=sp.r[j][0]&&v<=sp.r[j][1]){sev.textContent=sp.r[j][2];note.textContent="Діапазон "+sp.r[j][0]+"–"+sp.r[j][1]+".";}
+var b=parseInt(document.getElementById("base").value,10);
+if(isNaN(b)){dl.innerHTML="";return;}
+var d=v-b,cls,txt;
+if(d<=-sp.mcid){cls="dgood";txt="\u2212"+Math.abs(d)+" — клінічно значуще покращення";}
+else if(d<sp.mcid&&d>-sp.mcid){cls="dnone";txt=(d>=0?"+":"\u2212")+Math.abs(d)+" — у межах похибки";}
+else{cls="dbad";txt="+"+d+" — погіршення";}
+dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
+sel(0);
+</script></body></html>

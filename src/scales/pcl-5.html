@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>PCL-5</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.5; color: #1a1a1a; background: transparent; padding: 4px; }
+  h1 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .cluster { font-size: 12px; font-weight: 600; color: #2b7fbf; text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; padding-left: 2px; }
+  .q { border: 1px solid #e0e0e0; border-radius: 8px; padding: 9px 11px; margin-bottom: 6px; background: #fff; }
+  .q.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .qt { font-size: 13px; margin-bottom: 7px; }
+  .qn { color: #999; font-weight: 600; margin-right: 6px; }
+  .opts { display: flex; gap: 5px; flex-wrap: wrap; }
+  .opt { flex: 1; min-width: 88px; border: 1px solid #ddd; border-radius: 6px; padding: 5px 6px; font-size: 11.5px; cursor: pointer; background: #fafafa; text-align: center; user-select: none; transition: all .12s; }
+  .opt:hover { border-color: #999; background: #f0f0f0; }
+  .opt.sel { background: #2b7fbf; border-color: #2b7fbf; color: #fff; font-weight: 500; }
+  .res { margin-top: 16px; border-radius: 8px; padding: 14px; border: 1.5px solid #ddd; background: #fafafa; }
+  .res.ready { border-color: #2b7fbf; background: #f2f8fd; }
+  .score { font-size: 30px; font-weight: 700; line-height: 1; }
+  .score .max { font-size: 15px; font-weight: 400; color: #888; }
+  .sev { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .note { font-size: 12px; color: #666; margin-top: 8px; }
+  .clusters { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; }
+  .crow { display: flex; justify-content: space-between; font-size: 12px; padding: 3px 0; }
+  .crow b { font-weight: 600; }
+  .cok { color: #1a7a4a; }
+  .prog { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .bar { height: 4px; background: #e8e8e8; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fill { height: 100%; background: #2b7fbf; width: 0%; transition: width .2s; }
+  .btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+  .btn:hover { background: #f0f0f0; }
+  .fn { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e8e8e8; font-size: 11.5px; color: #888; }
+  .dyn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; font-size: 12.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dyn input { width: 70px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 5px; font-size: 12.5px; font-family: inherit; }
+  .dlt { font-weight: 600; }
+  .dgood { color: #1a7a4a; }
+  .dbad { color: #b02020; }
+  .dnone { color: #888; }
+  .warn { margin-top: 10px; padding: 8px 10px; background: #fff8e6; border: 1px solid #f0d9a0; border-radius: 6px; font-size: 12px; color: #6a4a05; }
+</style>
+</head>
+<body>
+
+<h1>PCL-5</h1>
+<div class="sub">Наскільки сильно вас турбували ці проблеми протягом <b>останнього місяця</b>?</div>
+
+<div class="prog">
+  <span id="cnt">0 / 20</span>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+</div>
+
+<div id="qs"></div>
+
+<div class="res" id="res">
+  <div class="score"><span id="sc">—</span><span class="max"> / 80</span></div>
+  <div class="sev" id="sev">Заповніть усі пункти</div>
+  <div class="note" id="note"></div>
+  <div class="clusters" id="cl" style="display:none">
+    <div class="crow"><span>B — Вторгнення (1–5)</span><b id="cB">—</b></div>
+    <div class="crow"><span>C — Уникання (6–7)</span><b id="cC">—</b></div>
+    <div class="crow"><span>D — Когніції та настрій (8–14)</span><b id="cD">—</b></div>
+    <div class="crow"><span>E — Збудження (15–20)</span><b id="cE">—</b></div>
+  </div>
+  <div id="dsm"></div>
+  <div class="dyn">
+    <label>Попередній бал: <input type="number" id="prev" min="0" max="80" oninput="calc()" placeholder="—"></label>
+    <span id="delta"></span>
+  </div>
+</div>
+
+<button class="btn" onclick="reset()">Очистити</button>
+
+<div class="fn">
+  Weathers FW, Litz BT, Keane TM, Palmieri PA, Marx BP, Schnurr PP. The PTSD Checklist for DSM-5 (PCL-5). National Center for PTSD, 2013.<br>
+  Скринінговий інструмент. Не замінює клінічне інтерв'ю (CAPS-5).<br>
+  Зміна на 5 балів — клінічно значуща, на 10 балів — надійна (поза межами похибки вимірювання).
+</div>
+
+<script>
+var Q = [
+  "Повторювані, тривожні й небажані спогади про стресову подію",
+  "Повторювані тривожні сни про стресову подію",
+  "Раптове відчуття або поведінка, ніби стресова подія повторюється зараз",
+  "Сильне засмучення, коли щось нагадує про стресову подію",
+  "Сильні тілесні реакції, коли щось нагадує про подію (серцебиття, пітливість, утруднене дихання)",
+  "Уникання спогадів, думок або почуттів, пов'язаних зі стресовою подією",
+  "Уникання зовнішніх нагадувань (люди, місця, розмови, дії, предмети, ситуації)",
+  "Труднощі з пригадуванням важливих частин стресової події",
+  "Сильні негативні переконання про себе, інших людей або світ",
+  "Звинувачення себе або інших у тому, що сталось",
+  "Сильні негативні почуття: страх, жах, гнів, провина, сором",
+  "Втрата інтересу до занять, які раніше подобались",
+  "Відчуття відстороненості або відрізаності від інших людей",
+  "Труднощі з переживанням позитивних почуттів",
+  "Дратівлива поведінка, спалахи гніву або агресивні дії",
+  "Надмірна ризикована поведінка або те, що може завдати вам шкоди",
+  "Стан надмірної настороженості, підвищеної пильності",
+  "Здригання, легке лякання",
+  "Труднощі з концентрацією уваги",
+  "Проблеми зі сном: важко заснути або втримати сон"
+];
+var OPT = ["Зовсім ні", "Трохи", "Помірно", "Досить сильно", "Надзвичайно"];
+var GROUPS = [
+  {n: "B — Вторгнення", s: 0, e: 5},
+  {n: "C — Уникання", s: 5, e: 7},
+  {n: "D — Негативні зміни в когніціях та настрої", s: 7, e: 14},
+  {n: "E — Зміни в збудженні та реактивності", s: 14, e: 20}
+];
+var ans = [];
+
+function build() {
+  var h = "";
+  for (var g = 0; g < GROUPS.length; g++) {
+    h += '<div class="cluster">' + GROUPS[g].n + '</div>';
+    for (var i = GROUPS[g].s; i < GROUPS[g].e; i++) {
+      h += '<div class="q" id="q' + i + '"><div class="qt"><span class="qn">' + (i+1) + '</span>' + Q[i] + '</div><div class="opts">';
+      for (var j = 0; j < 5; j++) {
+        h += '<div class="opt" id="o' + i + '_' + j + '" onclick="pick(' + i + ',' + j + ')">' + OPT[j] + '</div>';
+      }
+      h += '</div></div>';
+    }
+  }
+  document.getElementById("qs").innerHTML = h;
+}
+
+function pick(i, v) {
+  if (ans[i] !== undefined) document.getElementById("o" + i + "_" + ans[i]).className = "opt";
+  ans[i] = v;
+  document.getElementById("o" + i + "_" + v).className = "opt sel";
+  document.getElementById("q" + i).className = "q done";
+  save(); calc();
+}
+
+function sub(s, e) {
+  var t = 0;
+  for (var i = s; i < e; i++) if (ans[i] !== undefined) t += ans[i];
+  return t;
+}
+
+function symp(s, e) {
+  var c = 0;
+  for (var i = s; i < e; i++) if (ans[i] !== undefined && ans[i] >= 2) c++;
+  return c;
+}
+
+function calc() {
+  var n = 0, sum = 0;
+  for (var i = 0; i < 20; i++) if (ans[i] !== undefined) { n++; sum += ans[i]; }
+
+  document.getElementById("cnt").textContent = n + " / 20";
+  document.getElementById("fill").style.width = (n / 20 * 100) + "%";
+
+  var res = document.getElementById("res");
+  var sc = document.getElementById("sc");
+  var sev = document.getElementById("sev");
+  var note = document.getElementById("note");
+  var cl = document.getElementById("cl");
+  var dsm = document.getElementById("dsm");
+
+  if (n < 20) {
+    res.className = "res";
+    sc.textContent = n > 0 ? sum : "—";
+    sev.textContent = "Заповнено " + n + " з 20";
+    note.textContent = "";
+    cl.style.display = "none";
+    dsm.innerHTML = "";
+    return;
+  }
+
+  res.className = "res ready";
+  sc.textContent = sum;
+  sev.textContent = sum >= 33 ? "Ймовірний ПТСР — вище порогу" : "Нижче орієнтовного порогу";
+  note.textContent = "Орієнтовний cut-off — 31–33 бали. Точний поріг залежить від популяції; звіряти з актуальними рекомендаціями National Center for PTSD.";
+
+  cl.style.display = "block";
+  var B = sub(0,5), C = sub(5,7), D = sub(7,14), E = sub(14,20);
+  var sB = symp(0,5), sC = symp(5,7), sD = symp(7,14), sE = symp(14,20);
+
+  document.getElementById("cB").innerHTML = B + " / 20 &nbsp;<span class="+'"'+(sB>=1?"cok":"")+'"'+">(" + sB + " симпт.)</span>";
+  document.getElementById("cC").innerHTML = C + " / 8 &nbsp;<span class="+'"'+(sC>=1?"cok":"")+'"'+">(" + sC + " симпт.)</span>";
+  document.getElementById("cD").innerHTML = D + " / 28 &nbsp;<span class="+'"'+(sD>=2?"cok":"")+'"'+">(" + sD + " симпт.)</span>";
+  document.getElementById("cE").innerHTML = E + " / 24 &nbsp;<span class="+'"'+(sE>=2?"cok":"")+'"'+">(" + sE + " симпт.)</span>";
+
+  var meets = sB >= 1 && sC >= 1 && sD >= 2 && sE >= 2;
+  dsm.innerHTML = '<div class="warn">Орієнтовна відповідність критеріям DSM-5 (симптом = бал 2+): ' +
+    (meets ? '<b>усі кластери задоволені</b>' : '<b>не всі кластери задоволені</b>') +
+    '. Це не діагноз — тільки скринінг.</div>';
+
+  var pv = document.getElementById("prev").value;
+  var dl = document.getElementById("delta");
+  if (pv === "" || isNaN(parseInt(pv, 10))) { dl.innerHTML = ""; return; }
+  var d = sum - parseInt(pv, 10);
+  var cls, txt;
+  if (d <= -10)      { cls = "dgood"; txt = "−" + Math.abs(d) + " — надійне покращення"; }
+  else if (d <= -5)  { cls = "dgood"; txt = "−" + Math.abs(d) + " — клінічно значуще покращення"; }
+  else if (d < 5 && d > -5) { cls = "dnone"; txt = (d >= 0 ? "+" : "−") + Math.abs(d) + " — у межах похибки"; }
+  else if (d < 10)   { cls = "dbad"; txt = "+" + d + " — клінічно значуще погіршення"; }
+  else               { cls = "dbad"; txt = "+" + d + " — надійне погіршення"; }
+  dl.innerHTML = '<span class="dlt ' + cls + '">' + txt + '</span>';
+}
+
+function save() { try { localStorage.setItem("pcl5", JSON.stringify(ans)); } catch(e){} }
+function load() {
+  try {
+    var d = JSON.parse(localStorage.getItem("pcl5"));
+    if (!d) return;
+    for (var i = 0; i < d.length; i++) if (d[i] !== undefined && d[i] !== null) pick(i, d[i]);
+  } catch(e){}
+}
+function reset() {
+  ans = [];
+  try { localStorage.removeItem("pcl5"); } catch(e){}
+  build(); calc();
+}
+
+build(); load(); calc();
+</script>
+
+</body>
+</html>

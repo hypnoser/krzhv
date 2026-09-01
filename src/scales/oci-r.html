@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="UTF-8"><title>OCI-R</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.5; color: #1a1a1a; background: transparent; padding: 4px; }
+  h1 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .cluster { font-size: 12px; font-weight: 600; color: #2b7fbf; text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; }
+  .q { border: 1px solid #e0e0e0; border-radius: 8px; padding: 9px 11px; margin-bottom: 6px; background: #fff; }
+  .q.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .qt { font-size: 13px; margin-bottom: 7px; }
+  .qn { color: #999; font-weight: 600; margin-right: 6px; }
+  .opts { display: flex; gap: 5px; flex-wrap: wrap; }
+  .opt { flex: 1; min-width: 88px; border: 1px solid #ddd; border-radius: 6px; padding: 5px 6px; font-size: 11.5px; cursor: pointer; background: #fafafa; text-align: center; user-select: none; transition: all .12s; }
+  .opt:hover { border-color: #999; background: #f0f0f0; }
+  .opt.sel { background: #2b7fbf; border-color: #2b7fbf; color: #fff; font-weight: 500; }
+  .res { margin-top: 16px; border-radius: 8px; padding: 14px; border: 1.5px solid #ddd; background: #fafafa; }
+  .res.ready { border-color: #2b7fbf; background: #f2f8fd; }
+  .score { font-size: 30px; font-weight: 700; line-height: 1; }
+  .score .max { font-size: 15px; font-weight: 400; color: #888; }
+  .sev { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .note { font-size: 12px; color: #666; margin-top: 8px; }
+  .subs { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; }
+  .srow { display: flex; justify-content: space-between; font-size: 12.5px; padding: 3px 0; }
+  .dyn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; font-size: 12.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dyn input { width: 70px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 5px; font-size: 12.5px; font-family: inherit; }
+  .dlt { font-weight: 600; }
+  .dgood { color: #1a7a4a; } .dbad { color: #b02020; } .dnone { color: #888; }
+  .prog { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .bar { height: 4px; background: #e8e8e8; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fill { height: 100%; background: #2b7fbf; width: 0%; transition: width .2s; }
+  .btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+  .btn:hover { background: #f0f0f0; }
+  .fn { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e8e8e8; font-size: 11.5px; color: #888; }
+  .warn { margin-top: 10px; padding: 8px 10px; background: #fff8e6; border: 1px solid #f0d9a0; border-radius: 6px; font-size: 12px; color: #6a4a05; }
+  .alert { margin-top: 10px; padding: 10px 12px; background: #fdecec; border: 1.5px solid #e8a0a0; border-radius: 6px; font-size: 12.5px; color: #8a1a1a; }
+  .alert b { display: block; margin-bottom: 3px; }
+</style></head><body>
+<h1>OCI-R</h1>
+<div class="sub">Наскільки вас турбувало або засмучувало це протягом <b>останнього місяця</b>?</div>
+<div class="prog"><span id="cnt">0 / 18</span><div class="bar"><div class="fill" id="fill"></div></div></div>
+<div id="qs"></div>
+<div class="res" id="res">
+  <div class="score"><span id="sc">—</span><span class="max"> / 72</span></div>
+  <div class="sev" id="sev">Заповніть усі пункти</div>
+  <div class="note" id="note"></div>
+  <div class="subs" id="subs" style="display:none">
+    <div class="srow"><span>Миття / забруднення</span><b id="s0">—</b></div>
+    <div class="srow"><span>Нав'язливі думки</span><b id="s1">—</b></div>
+    <div class="srow"><span>Накопичення</span><b id="s2">—</b></div>
+    <div class="srow"><span>Впорядкування</span><b id="s3">—</b></div>
+    <div class="srow"><span>Перевірка</span><b id="s4">—</b></div>
+    <div class="srow"><span>Нейтралізація</span><b id="s5">—</b></div>
+  </div>
+  <div class="dyn"><label>Попередній бал: <input type="number" id="prev" min="0" max="72" oninput="calc()" placeholder="—"></label><span id="delta"></span></div>
+</div>
+<button class="btn" onclick="reset()">Очистити</button>
+<div class="fn">Foa EB, Huppert JD, Leiberg S, et al. The Obsessive-Compulsive Inventory: Development and validation of a short version. <i>Psychol Assess.</i> 2002;14(4):485-496.<br>Самозвіт для скринінгу. Для оцінки тяжкості й динаміки лікування використовувати Y-BOCS.</div>
+<script>
+var Q=[
+["Я накопичив стільки речей, що вони заважають",2],
+["Я перевіряю речі частіше, ніж потрібно",4],
+["Мене засмучує, якщо предмети не розставлені належним чином",3],
+["Я відчуваю змушеність рахувати під час якихось дій",5],
+["Мені важко торкатись предмета, якого торкались незнайомці або певні люди",0],
+["Мені важко контролювати власні думки",1],
+["Я збираю речі, які мені не потрібні",2],
+["Я неодноразово перевіряю двері, вікна, шухляди тощо",4],
+["Мене засмучує, якщо хтось змінює порядок розставлених мною речей",3],
+["Я відчуваю змушеність повторювати певні числа",5],
+["Іноді доводиться митись або чиститись просто тому, що відчуваю забрудненість",0],
+["Мене засмучують неприємні думки, що виникають проти моєї волі",1],
+["Я уникаю викидати речі, бо боюсь, що вони знадобляться",2],
+["Я неодноразово перевіряю газ, воду, електрику після вимкнення",4],
+["Мені потрібно, щоб речі були розставлені в певному порядку",3],
+["Я відчуваю, що є хороші й погані числа",5],
+["Я мию руки частіше й довше, ніж потрібно",0],
+["У мене часто виникають огидні думки, і мені важко їх позбутись",1]
+];
+var SUB=["Миття","Нав'язливі думки","Накопичення","Впорядкування","Перевірка","Нейтралізація"];
+var OPT=["Зовсім ні","Трохи","Помірно","Сильно","Надзвичайно"];
+var ans=[];
+function build(){var h="";for(var i=0;i<18;i++){
+h+='<div class="q" id="q'+i+'"><div class="qt"><span class="qn">'+(i+1)+'</span>'+Q[i][0]+'</div><div class="opts">';
+for(var j=0;j<5;j++)h+='<div class="opt" id="o'+i+'_'+j+'" onclick="pick('+i+','+j+')">'+OPT[j]+'</div>';
+h+='</div></div>';}
+document.getElementById("qs").innerHTML=h;}
+function pick(i,v){if(ans[i]!==undefined)document.getElementById("o"+i+"_"+ans[i]).className="opt";ans[i]=v;document.getElementById("o"+i+"_"+v).className="opt sel";document.getElementById("q"+i).className="q done";save();calc();}
+function calc(){var n=0,sum=0,sb=[0,0,0,0,0,0];
+for(var i=0;i<18;i++)if(ans[i]!==undefined){n++;sum+=ans[i];sb[Q[i][1]]+=ans[i];}
+document.getElementById("cnt").textContent=n+" / 18";document.getElementById("fill").style.width=(n/18*100)+"%";
+var res=document.getElementById("res"),sc=document.getElementById("sc"),sev=document.getElementById("sev"),note=document.getElementById("note"),subs=document.getElementById("subs"),dl=document.getElementById("delta");
+if(n<18){res.className="res";sc.textContent=n>0?sum:"—";sev.textContent="Заповнено "+n+" з 18";note.textContent="";subs.style.display="none";dl.innerHTML="";return;}
+res.className="res ready";sc.textContent=sum;
+sev.textContent=sum>=21?"Вище скринінгового порогу":"Нижче скринінгового порогу";
+note.textContent="Орієнтовний поріг — 21 бал. Це скринінг, не діагноз.";
+subs.style.display="block";
+for(var k=0;k<6;k++)document.getElementById("s"+k).textContent=sb[k]+" / 12";
+var pv=document.getElementById("prev").value;
+if(pv===""||isNaN(parseInt(pv,10))){dl.innerHTML="";return;}
+var d=sum-parseInt(pv,10),cls,txt;
+if(d<=-6){cls="dgood";txt="\u2212"+Math.abs(d)+" — помітне покращення";}
+else if(d<6&&d>-6){cls="dnone";txt=(d>=0?"+":"\u2212")+Math.abs(d)+" — у межах похибки";}
+else{cls="dbad";txt="+"+d+" — погіршення";}
+dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
+function save(){try{localStorage.setItem("ocir",JSON.stringify(ans));}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem("ocir"));if(!d)return;for(var i=0;i<d.length;i++)if(d[i]!==undefined&&d[i]!==null)pick(i,d[i]);}catch(e){}}
+function reset(){ans=[];try{localStorage.removeItem("ocir");}catch(e){}build();calc();}
+build();load();calc();
+</script></body></html>

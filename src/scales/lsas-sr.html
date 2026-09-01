@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="UTF-8"><title>LSAS-SR</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.5; color: #1a1a1a; background: transparent; padding: 4px; }
+  h1 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .cluster { font-size: 12px; font-weight: 600; color: #2b7fbf; text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; }
+  .q { border: 1px solid #e0e0e0; border-radius: 8px; padding: 9px 11px; margin-bottom: 6px; background: #fff; }
+  .q.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .qt { font-size: 13px; margin-bottom: 7px; }
+  .qn { color: #999; font-weight: 600; margin-right: 6px; }
+  .opts { display: flex; gap: 5px; flex-wrap: wrap; }
+  .opt { flex: 1; min-width: 88px; border: 1px solid #ddd; border-radius: 6px; padding: 5px 6px; font-size: 11.5px; cursor: pointer; background: #fafafa; text-align: center; user-select: none; transition: all .12s; }
+  .opt:hover { border-color: #999; background: #f0f0f0; }
+  .opt.sel { background: #2b7fbf; border-color: #2b7fbf; color: #fff; font-weight: 500; }
+  .res { margin-top: 16px; border-radius: 8px; padding: 14px; border: 1.5px solid #ddd; background: #fafafa; }
+  .res.ready { border-color: #2b7fbf; background: #f2f8fd; }
+  .score { font-size: 30px; font-weight: 700; line-height: 1; }
+  .score .max { font-size: 15px; font-weight: 400; color: #888; }
+  .sev { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .note { font-size: 12px; color: #666; margin-top: 8px; }
+  .subs { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; }
+  .srow { display: flex; justify-content: space-between; font-size: 12.5px; padding: 3px 0; }
+  .dyn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; font-size: 12.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dyn input { width: 70px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 5px; font-size: 12.5px; font-family: inherit; }
+  .dlt { font-weight: 600; }
+  .dgood { color: #1a7a4a; } .dbad { color: #b02020; } .dnone { color: #888; }
+  .prog { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .bar { height: 4px; background: #e8e8e8; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fill { height: 100%; background: #2b7fbf; width: 0%; transition: width .2s; }
+  .btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+  .btn:hover { background: #f0f0f0; }
+  .fn { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e8e8e8; font-size: 11.5px; color: #888; }
+  .warn { margin-top: 10px; padding: 8px 10px; background: #fff8e6; border: 1px solid #f0d9a0; border-radius: 6px; font-size: 12px; color: #6a4a05; }
+  .alert { margin-top: 10px; padding: 10px 12px; background: #fdecec; border: 1.5px solid #e8a0a0; border-radius: 6px; font-size: 12.5px; color: #8a1a1a; }
+  .alert b { display: block; margin-bottom: 3px; }
+
+  .lq { border: 1px solid #e0e0e0; border-radius: 8px; padding: 8px 10px; margin-bottom: 5px; background: #fff; }
+  .lq.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .lqt { font-size: 12.5px; margin-bottom: 6px; }
+  .pair { display: flex; gap: 10px; flex-wrap: wrap; }
+  .half { flex: 1; min-width: 200px; }
+  .lbl { font-size: 10.5px; color: #888; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+  .row { display: flex; gap: 3px; }
+  .cell { flex: 1; border: 1px solid #ddd; border-radius: 5px; padding: 3px 2px; font-size: 10.5px; cursor: pointer; background: #fafafa; text-align: center; user-select: none; }
+  .cell:hover { border-color: #999; background: #f0f0f0; }
+  .cell.sf { background: #c94f4f; border-color: #c94f4f; color: #fff; }
+  .cell.sa { background: #2b7fbf; border-color: #2b7fbf; color: #fff; }
+</style></head><body>
+<h1>LSAS-SR</h1>
+<div class="sub">Оцініть кожну ситуацію за <b>останній тиждень</b> двома параметрами: страх і уникання.</div>
+<div class="prog"><span id="cnt">0 / 24</span><div class="bar"><div class="fill" id="fill"></div></div></div>
+<div id="qs"></div>
+<div class="res" id="res">
+  <div class="score"><span id="sc">—</span><span class="max"> / 144</span></div>
+  <div class="sev" id="sev">Заповніть усі пункти</div>
+  <div class="note" id="note"></div>
+  <div class="subs" id="subs" style="display:none">
+    <div class="srow"><span>Страх / тривога</span><b id="sF">—</b></div>
+    <div class="srow"><span>Уникання</span><b id="sA">—</b></div>
+    <div class="srow"><span>Виступ / виконання</span><b id="sP">—</b></div>
+    <div class="srow"><span>Соціальна взаємодія</span><b id="sI">—</b></div>
+  </div>
+  <div class="dyn"><label>Бал baseline: <input type="number" id="prev" min="0" max="144" oninput="calc()" placeholder="—"></label><span id="delta"></span></div>
+</div>
+<button class="btn" onclick="reset()">Очистити</button>
+<div class="fn">Liebowitz MR. Social Phobia. <i>Mod Probl Pharmacopsychiatry.</i> 1987;22:141-173.<br>Клінічно значуще покращення — зниження загального балу на 30% і більше.</div>
+<script>
+var Q=[
+["Телефонувати в присутності інших","P"],
+["Брати участь у невеликих групах","I"],
+["Їсти в публічних місцях","P"],
+["Пити в компанії в публічному місці","P"],
+["Розмовляти з людьми, наділеними владою","I"],
+["Виступати перед аудиторією","P"],
+["Йти на вечірку","I"],
+["Працювати під наглядом інших","P"],
+["Писати під наглядом інших","P"],
+["Телефонувати малознайомій людині","I"],
+["Розмовляти з малознайомими людьми","I"],
+["Зустрічатись із незнайомцями","I"],
+["Користуватись громадським туалетом","P"],
+["Входити до кімнати, де вже сидять люди","P"],
+["Бути в центрі уваги","I"],
+["Виступати на зборах","P"],
+["Складати іспит або тест","P"],
+["Висловлювати незгоду малознайомій людині","I"],
+["Дивитись у вічі малознайомим людям","I"],
+["Робити доповідь перед групою","P"],
+["Намагатись познайомитись романтично","I"],
+["Повертати товар до магазину","I"],
+["Влаштовувати вечірку","I"],
+["Опиратись тиску продавця","I"]
+];
+var FEAR=["Немає","Легкий","Помірний","Сильний"];
+var AVOID=["Ніколи 0%","Іноді 1-33%","Часто 34-66%","Зазвичай 67-100%"];
+var f=[],a=[];
+function build(){var h="";for(var i=0;i<24;i++){
+h+='<div class="lq" id="q'+i+'"><div class="lqt"><span class="qn">'+(i+1)+'</span>'+Q[i][0]+'</div><div class="pair">';
+h+='<div class="half"><div class="lbl">Страх</div><div class="row">';
+for(var j=0;j<4;j++)h+='<div class="cell" id="f'+i+'_'+j+'" onclick="pf('+i+','+j+')">'+FEAR[j]+'</div>';
+h+='</div></div><div class="half"><div class="lbl">Уникання</div><div class="row">';
+for(var k=0;k<4;k++)h+='<div class="cell" id="a'+i+'_'+k+'" onclick="pa('+i+','+k+')">'+AVOID[k]+'</div>';
+h+='</div></div></div></div>';}
+document.getElementById("qs").innerHTML=h;}
+function mark(i){if(f[i]!==undefined&&a[i]!==undefined)document.getElementById("q"+i).className="lq done";}
+function pf(i,v){if(f[i]!==undefined)document.getElementById("f"+i+"_"+f[i]).className="cell";f[i]=v;document.getElementById("f"+i+"_"+v).className="cell sf";mark(i);save();calc();}
+function pa(i,v){if(a[i]!==undefined)document.getElementById("a"+i+"_"+a[i]).className="cell";a[i]=v;document.getElementById("a"+i+"_"+v).className="cell sa";mark(i);save();calc();}
+function calc(){
+var n=0,sum=0,sf=0,sa=0,sp=0,si=0;
+for(var i=0;i<24;i++){if(f[i]!==undefined&&a[i]!==undefined){n++;var t=f[i]+a[i];sum+=t;sf+=f[i];sa+=a[i];if(Q[i][1]==="P")sp+=t;else si+=t;}}
+document.getElementById("cnt").textContent=n+" / 24";document.getElementById("fill").style.width=(n/24*100)+"%";
+var res=document.getElementById("res"),sc=document.getElementById("sc"),sev=document.getElementById("sev"),note=document.getElementById("note"),subs=document.getElementById("subs"),dl=document.getElementById("delta");
+if(n<24){res.className="res";sc.textContent=n>0?sum:"—";sev.textContent="Заповнено "+n+" з 24";note.textContent="";subs.style.display="none";dl.innerHTML="";return;}
+res.className="res ready";sc.textContent=sum;
+var s,r;
+if(sum<30){s="Соціальна тривога малоймовірна";r="менше 30";}
+else if(sum<=49){s="Легка соціальна тривога";r="30-49";}
+else if(sum<=64){s="Помірна соціальна тривога";r="50-64";}
+else if(sum<=79){s="Виражена соціальна тривога";r="65-79";}
+else if(sum<=94){s="Важка соціальна тривога";r="80-94";}
+else{s="Дуже важка соціальна тривога";r="95-144";}
+sev.textContent=s;note.textContent=r+" балів. Поріг генералізованої форми — близько 60.";
+subs.style.display="block";
+document.getElementById("sF").textContent=sf+" / 72";
+document.getElementById("sA").textContent=sa+" / 72";
+document.getElementById("sP").textContent=sp;
+document.getElementById("sI").textContent=si;
+var pv=document.getElementById("prev").value;
+if(pv===""||isNaN(parseInt(pv,10))||parseInt(pv,10)===0){dl.innerHTML="";return;}
+var base=parseInt(pv,10),pct=Math.round((base-sum)/base*100),cls,txt;
+if(pct>=30){cls="dgood";txt="\u2212"+pct+"% — клінічно значуще покращення";}
+else if(pct>0){cls="dnone";txt="\u2212"+pct+"% — нижче порогу 30%";}
+else if(pct===0){cls="dnone";txt="без змін";}
+else{cls="dbad";txt="+"+Math.abs(pct)+"% — погіршення";}
+dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
+function save(){try{localStorage.setItem("lsas",JSON.stringify({f:f,a:a}));}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem("lsas"));if(!d)return;
+if(d.f)for(var i=0;i<d.f.length;i++)if(d.f[i]!==undefined&&d.f[i]!==null)pf(i,d.f[i]);
+if(d.a)for(var j=0;j<d.a.length;j++)if(d.a[j]!==undefined&&d.a[j]!==null)pa(j,d.a[j]);}catch(e){}}
+function reset(){f=[];a=[];try{localStorage.removeItem("lsas");}catch(e){}build();calc();}
+build();load();calc();
+</script></body></html>

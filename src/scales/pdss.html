@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="UTF-8"><title>PDSS</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.5; color: #1a1a1a; background: transparent; padding: 4px; }
+  h1 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .cluster { font-size: 12px; font-weight: 600; color: #2b7fbf; text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; }
+  .q { border: 1px solid #e0e0e0; border-radius: 8px; padding: 9px 11px; margin-bottom: 6px; background: #fff; }
+  .q.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .qt { font-size: 13px; margin-bottom: 7px; }
+  .qn { color: #999; font-weight: 600; margin-right: 6px; }
+  .opts { display: flex; gap: 5px; flex-wrap: wrap; }
+  .opt { flex: 1; min-width: 88px; border: 1px solid #ddd; border-radius: 6px; padding: 5px 6px; font-size: 11.5px; cursor: pointer; background: #fafafa; text-align: center; user-select: none; transition: all .12s; }
+  .opt:hover { border-color: #999; background: #f0f0f0; }
+  .opt.sel { background: #2b7fbf; border-color: #2b7fbf; color: #fff; font-weight: 500; }
+  .res { margin-top: 16px; border-radius: 8px; padding: 14px; border: 1.5px solid #ddd; background: #fafafa; }
+  .res.ready { border-color: #2b7fbf; background: #f2f8fd; }
+  .score { font-size: 30px; font-weight: 700; line-height: 1; }
+  .score .max { font-size: 15px; font-weight: 400; color: #888; }
+  .sev { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .note { font-size: 12px; color: #666; margin-top: 8px; }
+  .subs { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; }
+  .srow { display: flex; justify-content: space-between; font-size: 12.5px; padding: 3px 0; }
+  .dyn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; font-size: 12.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dyn input { width: 70px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 5px; font-size: 12.5px; font-family: inherit; }
+  .dlt { font-weight: 600; }
+  .dgood { color: #1a7a4a; } .dbad { color: #b02020; } .dnone { color: #888; }
+  .prog { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .bar { height: 4px; background: #e8e8e8; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fill { height: 100%; background: #2b7fbf; width: 0%; transition: width .2s; }
+  .btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+  .btn:hover { background: #f0f0f0; }
+  .fn { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e8e8e8; font-size: 11.5px; color: #888; }
+  .warn { margin-top: 10px; padding: 8px 10px; background: #fff8e6; border: 1px solid #f0d9a0; border-radius: 6px; font-size: 12px; color: #6a4a05; }
+  .alert { margin-top: 10px; padding: 10px 12px; background: #fdecec; border: 1.5px solid #e8a0a0; border-radius: 6px; font-size: 12.5px; color: #8a1a1a; }
+  .alert b { display: block; margin-bottom: 3px; }
+</style></head><body>
+<h1>PDSS</h1>
+<div class="sub">Тяжкість панічного розладу за <b>останній тиждень</b>.</div>
+<div class="prog"><span id="cnt">0 / 7</span><div class="bar"><div class="fill" id="fill"></div></div></div>
+<div id="qs"></div>
+<div class="res" id="res">
+  <div class="score"><span id="sc">—</span><span class="max"> / 28</span></div>
+  <div class="sev" id="sev">Заповніть усі пункти</div>
+  <div class="note" id="note"></div>
+  <div class="dyn">
+    <label><input type="checkbox" id="ago" onchange="calc()"> з агорафобією</label>
+  </div>
+  <div class="dyn"><label>Бал baseline: <input type="number" id="prev" min="0" max="28" oninput="calc()" placeholder="—"></label><span id="delta"></span></div>
+</div>
+<button class="btn" onclick="reset()">Очистити</button>
+<div class="fn">Shear MK, Brown TA, Barlow DH, et al. Multicenter Collaborative Panic Disorder Severity Scale. <i>Am J Psychiatry.</i> 1997;154(11):1571-1575.<br>Відповідь на лікування — зниження на 40% і більше. Ремісія — 5 балів і менше (7 і менше при агорафобії).</div>
+<script>
+var Q=[
+{t:"Частота панічних і обмежених нападів",a:["Немає","Легка: менше 1 нападу/тиждень","Помірна: 1-2 напади/тиждень","Виражена: більше 2 нападів/тиждень, але не щодня","Крайня: щоденні напади"]},
+{t:"Дистрес під час нападів",a:["Немає або нападів не було","Легкий, помірний дистрес","Помірний, але керований","Виражений, значний дистрес","Крайній, надзвичайний дистрес протягом усіх нападів"]},
+{t:"Тривога очікування нового нападу",a:["Немає","Легка: епізодичне занепокоєння","Помірна: часте занепокоєння","Виражена: постійне занепокоєння, помітно порушує функціонування","Крайня: майже безперервна, втрата працездатності"]},
+{t:"Уникання ситуацій (агорафобічне)",a:["Немає","Легке: рідкісне уникання","Помірне: помітне уникання, але керується","Виражене: значне уникання, суттєве порушення","Крайнє: настільки поширене, що майже не виходить із дому"]},
+{t:"Уникання тілесних відчуттів (інтероцептивне)",a:["Немає","Легке: рідкісне уникання","Помірне: помітне уникання, але керується","Виражене: значне уникання, суттєве порушення","Крайнє: уникає всіх дій, що викликають відчуття"]},
+{t:"Порушення роботи або навчання",a:["Немає","Легке: незначне погіршення","Помірне: помітне, але керується","Виражене: суттєве погіршення продуктивності","Крайнє: нездатність працювати або навчатись"]},
+{t:"Порушення соціального функціонування",a:["Немає","Легке: незначне погіршення","Помірне: помітне, але керується","Виражене: суттєве погіршення стосунків","Крайнє: майже повна соціальна ізоляція"]}
+];
+var ans=[];
+function build(){var h="";for(var i=0;i<7;i++){h+='<div class="q" id="q'+i+'"><div class="qt"><span class="qn">'+(i+1)+'</span><b>'+Q[i].t+'</b></div><div class="opts" style="flex-direction:column">';for(var j=0;j<5;j++){h+='<div class="opt" style="text-align:left" id="o'+i+'_'+j+'" onclick="pick('+i+','+j+')"><b style="color:#999;margin-right:6px">'+j+'</b>'+Q[i].a[j]+'</div>';}h+='</div></div>';}
+document.getElementById("qs").innerHTML=h;}
+function pick(i,v){if(ans[i]!==undefined)document.getElementById("o"+i+"_"+ans[i]).className="opt";ans[i]=v;document.getElementById("o"+i+"_"+v).className="opt sel";document.getElementById("q"+i).className="q done";save();calc();}
+function calc(){var n=0,sum=0;for(var i=0;i<7;i++)if(ans[i]!==undefined){n++;sum+=ans[i];}
+document.getElementById("cnt").textContent=n+" / 7";document.getElementById("fill").style.width=(n/7*100)+"%";
+var res=document.getElementById("res"),sc=document.getElementById("sc"),sev=document.getElementById("sev"),note=document.getElementById("note"),dl=document.getElementById("delta");
+if(n<7){res.className="res";sc.textContent=n>0?sum:"—";sev.textContent="Заповнено "+n+" з 7";note.textContent="";dl.innerHTML="";return;}
+res.className="res ready";sc.textContent=sum;
+var s,r;if(sum<=5){s="У межах норми";r="0-5";}else if(sum<=7){s="Межовий стан";r="6-7";}else if(sum<=10){s="Легкий панічний розлад";r="8-10";}else if(sum<=15){s="Помірний панічний розлад";r="11-15";}else{s="Виражений панічний розлад";r="16-28";}
+var ago=document.getElementById("ago").checked;
+var remThr=ago?7:5;
+sev.textContent=s;
+note.textContent=r+" балів. Поріг ремісії: "+remThr+" і менше"+(ago?" (з агорафобією)":" (без агорафобії)")+".";
+var pv=document.getElementById("prev").value;
+if(pv===""||isNaN(parseInt(pv,10))||parseInt(pv,10)===0){dl.innerHTML="";return;}
+var base=parseInt(pv,10),pct=Math.round((base-sum)/base*100),cls,txt;
+if(pct>=40){cls="dgood";txt="\u2212"+pct+"% — відповідь на лікування";}
+else if(pct>0){cls="dnone";txt="\u2212"+pct+"% — нижче порогу відповіді (40%)";}
+else if(pct===0){cls="dnone";txt="без змін";}
+else{cls="dbad";txt="+"+Math.abs(pct)+"% — погіршення";}
+if(sum<=remThr&&pct>0)txt+=" · критерій ремісії досягнуто";
+dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
+function save(){try{localStorage.setItem("pdss",JSON.stringify(ans));}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem("pdss"));if(!d)return;for(var i=0;i<d.length;i++)if(d[i]!==undefined&&d[i]!==null)pick(i,d[i]);}catch(e){}}
+function reset(){ans=[];try{localStorage.removeItem("pdss");}catch(e){}build();calc();}
+build();load();calc();
+</script></body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Y-BOCS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.5; color: #1a1a1a; background: transparent; padding: 4px; }
+  h1 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: #666; margin-bottom: 10px; }
+  .adm { background: #fff8e6; border: 1px solid #f0d9a0; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #6a4a05; margin-bottom: 14px; }
+  .cluster { font-size: 12px; font-weight: 600; color: #2b7fbf; text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; }
+  .q { border: 1px solid #e0e0e0; border-radius: 8px; padding: 9px 11px; margin-bottom: 6px; background: #fff; }
+  .q.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .qt { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .qn { color: #999; margin-right: 6px; }
+  .opts { display: flex; flex-direction: column; gap: 4px; }
+  .opt { border: 1px solid #ddd; border-radius: 6px; padding: 5px 9px; font-size: 12px; cursor: pointer; background: #fafafa; user-select: none; transition: all .12s; }
+  .opt:hover { border-color: #999; background: #f0f0f0; }
+  .opt.sel { background: #2b7fbf; border-color: #2b7fbf; color: #fff; }
+  .on { display: inline-block; width: 16px; font-weight: 700; color: #999; }
+  .opt.sel .on { color: #cfe4f5; }
+  .res { margin-top: 16px; border-radius: 8px; padding: 14px; border: 1.5px solid #ddd; background: #fafafa; }
+  .res.ready { border-color: #2b7fbf; background: #f2f8fd; }
+  .score { font-size: 30px; font-weight: 700; line-height: 1; }
+  .score .max { font-size: 15px; font-weight: 400; color: #888; }
+  .sev { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .note { font-size: 12px; color: #666; margin-top: 8px; }
+  .subs { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; }
+  .srow { display: flex; justify-content: space-between; font-size: 12.5px; padding: 3px 0; }
+  .dyn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; font-size: 12.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dyn input { width: 70px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 5px; font-size: 12.5px; font-family: inherit; }
+  .dlt { font-weight: 600; }
+  .dgood { color: #1a7a4a; }
+  .dbad { color: #b02020; }
+  .dnone { color: #888; }
+  .prog { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .bar { height: 4px; background: #e8e8e8; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fill { height: 100%; background: #2b7fbf; width: 0%; transition: width .2s; }
+  .btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+  .btn:hover { background: #f0f0f0; }
+  .fn { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e8e8e8; font-size: 11.5px; color: #888; }
+</style>
+</head>
+<body>
+
+<h1>Y-BOCS</h1>
+<div class="sub">Тяжкість симптомів ОКР за <b>останній тиждень</b>. Обсесії — пункти 1–5, компульсії — 6–10.</div>
+
+<div class="adm">
+  <b>Спосіб проведення:</b> структуроване інтерв'ю фахівцем, не форма для самозаповнення.
+  Кожен пункт прив'язувати до конкретних прикладів із життя клієнта.
+</div>
+
+<div class="prog">
+  <span id="cnt">0 / 10</span>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+</div>
+
+<div id="qs"></div>
+
+<div class="res" id="res">
+  <div class="score"><span id="sc">—</span><span class="max"> / 40</span></div>
+  <div class="sev" id="sev">Заповніть усі пункти</div>
+  <div class="note" id="note"></div>
+  <div class="subs" id="subs" style="display:none">
+    <div class="srow"><span>Обсесії (1–5)</span><b id="sO">—</b></div>
+    <div class="srow"><span>Компульсії (6–10)</span><b id="sC">—</b></div>
+  </div>
+  <div class="dyn">
+    <label>Бал baseline: <input type="number" id="prev" min="0" max="40" oninput="calc()" placeholder="—"></label>
+    <span id="delta"></span>
+  </div>
+</div>
+
+<button class="btn" onclick="reset()">Очистити</button>
+
+<div class="fn">
+  Goodman WK, Price LH, Rasmussen SA, et al. The Yale-Brown Obsessive Compulsive Scale: Development, Use, and Reliability. <i>Arch Gen Psychiatry.</i> 1989;46(11):1006–1011.<br>
+  Відповідь на лікування: зниження ≥35% — значуща відповідь, 25–34% — часткова. Ремісія — бал ≤16.
+</div>
+
+<script>
+var Q = [
+  {t: "Час, зайнятий обсесіями", a: ["Немає", "Менше 1 год/день або епізодично", "1–3 год/день або часто", "3–8 год/день або дуже часто", "Понад 8 год/день або майже безперервно"]},
+  {t: "Втручання обсесій у функціонування", a: ["Немає", "Незначне", "Помітне, але керується", "Суттєве порушення", "Втрата працездатності"]},
+  {t: "Дистрес від обсесій", a: ["Немає", "Незначний", "Помірний, але керований", "Сильний", "Майже постійний, виснажливий"]},
+  {t: "Опір обсесіям", a: ["Завжди чинить опір", "Чинить опір здебільшого", "Докладає певних зусиль", "Поступається неохоче", "Поступається повністю й охоче"]},
+  {t: "Контроль над обсесіями", a: ["Повний контроль", "Значний контроль", "Помірний контроль", "Слабкий контроль", "Контролю немає"]},
+  {t: "Час, витрачений на компульсії", a: ["Немає", "Менше 1 год/день або епізодично", "1–3 год/день або часто", "3–8 год/день або дуже часто", "Понад 8 год/день або майже безперервно"]},
+  {t: "Втручання компульсій у функціонування", a: ["Немає", "Незначне", "Помітне, але керується", "Суттєве порушення", "Втрата працездатності"]},
+  {t: "Дистрес при перешкоджанні компульсіям", a: ["Немає", "Незначний", "Помірний, але керований", "Сильний", "Майже постійний, виснажливий"]},
+  {t: "Опір компульсіям", a: ["Завжди чинить опір", "Чинить опір здебільшого", "Докладає певних зусиль", "Поступається неохоче", "Поступається повністю й охоче"]},
+  {t: "Контроль над компульсіями", a: ["Повний контроль", "Значний контроль", "Помірний контроль", "Слабкий контроль", "Контролю немає"]}
+];
+var ans = [];
+
+function build() {
+  var h = "";
+  for (var i = 0; i < 10; i++) {
+    if (i === 0) h += '<div class="cluster">Обсесії</div>';
+    if (i === 5) h += '<div class="cluster">Компульсії</div>';
+    h += '<div class="q" id="q' + i + '"><div class="qt"><span class="qn">' + (i+1) + '</span>' + Q[i].t + '</div><div class="opts">';
+    for (var j = 0; j < 5; j++) {
+      h += '<div class="opt" id="o' + i + '_' + j + '" onclick="pick(' + i + ',' + j + ')"><span class="on">' + j + '</span>' + Q[i].a[j] + '</div>';
+    }
+    h += '</div></div>';
+  }
+  document.getElementById("qs").innerHTML = h;
+}
+
+function pick(i, v) {
+  if (ans[i] !== undefined) document.getElementById("o" + i + "_" + ans[i]).className = "opt";
+  ans[i] = v;
+  document.getElementById("o" + i + "_" + v).className = "opt sel";
+  document.getElementById("q" + i).className = "q done";
+  save(); calc();
+}
+
+function sub(s, e) {
+  var t = 0;
+  for (var i = s; i < e; i++) if (ans[i] !== undefined) t += ans[i];
+  return t;
+}
+
+function calc() {
+  var n = 0, sum = 0;
+  for (var i = 0; i < 10; i++) if (ans[i] !== undefined) { n++; sum += ans[i]; }
+
+  document.getElementById("cnt").textContent = n + " / 10";
+  document.getElementById("fill").style.width = (n / 10 * 100) + "%";
+
+  var res = document.getElementById("res");
+  var sc = document.getElementById("sc");
+  var sev = document.getElementById("sev");
+  var note = document.getElementById("note");
+  var subs = document.getElementById("subs");
+  var dl = document.getElementById("delta");
+
+  if (n < 10) {
+    res.className = "res";
+    sc.textContent = n > 0 ? sum : "—";
+    sev.textContent = "Заповнено " + n + " з 10";
+    note.textContent = "";
+    subs.style.display = "none";
+    dl.innerHTML = "";
+    return;
+  }
+
+  res.className = "res ready";
+  sc.textContent = sum;
+
+  var s, r;
+  if (sum <= 7)       { s = "Субклінічний рівень"; r = "0–7"; }
+  else if (sum <= 15) { s = "Легкий ОКР";          r = "8–15"; }
+  else if (sum <= 23) { s = "Помірний ОКР";        r = "16–23"; }
+  else if (sum <= 31) { s = "Важкий ОКР";          r = "24–31"; }
+  else                { s = "Екстремальний ОКР";   r = "32–40"; }
+
+  sev.textContent = s;
+  note.textContent = r + " балів. Класифікація Goodman (1989).";
+
+  subs.style.display = "block";
+  document.getElementById("sO").textContent = sub(0,5) + " / 20";
+  document.getElementById("sC").textContent = sub(5,10) + " / 20";
+
+  var pv = document.getElementById("prev").value;
+  if (pv === "" || isNaN(parseInt(pv, 10)) || parseInt(pv, 10) === 0) { dl.innerHTML = ""; return; }
+  var base = parseInt(pv, 10);
+  var pct = Math.round((base - sum) / base * 100);
+  var cls, txt;
+  if (pct >= 35)      { cls = "dgood"; txt = "−" + pct + "% — значуща відповідь на лікування"; }
+  else if (pct >= 25) { cls = "dgood"; txt = "−" + pct + "% — часткова відповідь"; }
+  else if (pct > 0)   { cls = "dnone"; txt = "−" + pct + "% — нижче порогу відповіді"; }
+  else if (pct === 0) { cls = "dnone"; txt = "без змін"; }
+  else                { cls = "dbad";  txt = "+" + Math.abs(pct) + "% — погіршення"; }
+  if (sum <= 16 && pct > 0) txt += " · бал ≤16 — критерій ремісії";
+  dl.innerHTML = '<span class="dlt ' + cls + '">' + txt + '</span>';
+}
+
+function save() { try { localStorage.setItem("ybocs", JSON.stringify(ans)); } catch(e){} }
+function load() {
+  try {
+    var d = JSON.parse(localStorage.getItem("ybocs"));
+    if (!d) return;
+    for (var i = 0; i < d.length; i++) if (d[i] !== undefined && d[i] !== null) pick(i, d[i]);
+  } catch(e){}
+}
+function reset() {
+  ans = [];
+  try { localStorage.removeItem("ybocs"); } catch(e){}
+  build(); calc();
+}
+
+build(); load(); calc();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="UTF-8"><title>PHQ-9</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 1.5; color: #1a1a1a; background: transparent; padding: 4px; }
+  h1 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .cluster { font-size: 12px; font-weight: 600; color: #2b7fbf; text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; }
+  .q { border: 1px solid #e0e0e0; border-radius: 8px; padding: 9px 11px; margin-bottom: 6px; background: #fff; }
+  .q.done { border-color: #b8ddc8; background: #f6fcf8; }
+  .qt { font-size: 13px; margin-bottom: 7px; }
+  .qn { color: #999; font-weight: 600; margin-right: 6px; }
+  .opts { display: flex; gap: 5px; flex-wrap: wrap; }
+  .opt { flex: 1; min-width: 88px; border: 1px solid #ddd; border-radius: 6px; padding: 5px 6px; font-size: 11.5px; cursor: pointer; background: #fafafa; text-align: center; user-select: none; transition: all .12s; }
+  .opt:hover { border-color: #999; background: #f0f0f0; }
+  .opt.sel { background: #2b7fbf; border-color: #2b7fbf; color: #fff; font-weight: 500; }
+  .res { margin-top: 16px; border-radius: 8px; padding: 14px; border: 1.5px solid #ddd; background: #fafafa; }
+  .res.ready { border-color: #2b7fbf; background: #f2f8fd; }
+  .score { font-size: 30px; font-weight: 700; line-height: 1; }
+  .score .max { font-size: 15px; font-weight: 400; color: #888; }
+  .sev { font-size: 14px; font-weight: 600; margin-top: 6px; }
+  .note { font-size: 12px; color: #666; margin-top: 8px; }
+  .subs { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; }
+  .srow { display: flex; justify-content: space-between; font-size: 12.5px; padding: 3px 0; }
+  .dyn { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dde; font-size: 12.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dyn input { width: 70px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 5px; font-size: 12.5px; font-family: inherit; }
+  .dlt { font-weight: 600; }
+  .dgood { color: #1a7a4a; } .dbad { color: #b02020; } .dnone { color: #888; }
+  .prog { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .bar { height: 4px; background: #e8e8e8; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+  .fill { height: 100%; background: #2b7fbf; width: 0%; transition: width .2s; }
+  .btn { margin-top: 12px; padding: 7px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+  .btn:hover { background: #f0f0f0; }
+  .fn { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e8e8e8; font-size: 11.5px; color: #888; }
+  .warn { margin-top: 10px; padding: 8px 10px; background: #fff8e6; border: 1px solid #f0d9a0; border-radius: 6px; font-size: 12px; color: #6a4a05; }
+  .alert { margin-top: 10px; padding: 10px 12px; background: #fdecec; border: 1.5px solid #e8a0a0; border-radius: 6px; font-size: 12.5px; color: #8a1a1a; }
+  .alert b { display: block; margin-bottom: 3px; }
+</style></head><body>
+<h1>PHQ-9</h1>
+<div class="sub">Як часто протягом <b>останніх 2 тижнів</b> вас турбували наступні проблеми?</div>
+<div class="prog"><span id="cnt">0 / 9</span><div class="bar"><div class="fill" id="fill"></div></div></div>
+<div id="qs"></div>
+<div class="res" id="res">
+  <div class="score"><span id="sc">—</span><span class="max"> / 27</span></div>
+  <div class="sev" id="sev">Заповніть усі пункти</div>
+  <div class="note" id="note"></div>
+  <div id="risk"></div>
+  <div class="dyn"><label>Попередній бал: <input type="number" id="prev" min="0" max="27" oninput="calc()" placeholder="—"></label><span id="delta"></span></div>
+</div>
+<button class="btn" onclick="reset()">Очистити</button>
+<div class="q" style="margin-top:14px"><div class="qt"><b>Функціональність.</b> Наскільки ці проблеми ускладнювали роботу, домашні справи або спілкування з людьми?</div><div class="opts" id="fnopts"></div></div>
+<div class="fn">Kroenke K, Spitzer RL, Williams JBW. The PHQ-9: Validity of a Brief Depression Severity Measure. <i>J Gen Intern Med.</i> 2001;16(9):606-613.<br>Зміна на 5 балів — клінічно значуща.</div>
+<script>
+var Q=["Мало інтересу або задоволення від справ","Пригніченість, депресія або безнадійність","Труднощі із засинанням, переривчастий сон або надмірний сон","Втома або брак енергії","Поганий апетит або переїдання","Погане ставлення до себе: відчуття невдахи або що підвели себе чи сім'ю","Труднощі з концентрацією уваги (читання, перегляд ТБ)","Уповільненість рухів чи мовлення, помітна іншим; або навпаки — неспокій, неможливість всидіти","Думки про те, що краще б померли, або про заподіяння собі шкоди"];
+var OPT=["Жодного разу","Декілька днів","Більше половини днів","Майже щодня"];
+var FN=["Зовсім ні","Дещо","Значно","Дуже сильно"];
+var ans=[],fnAns=null;
+function build(){var h="";for(var i=0;i<9;i++){h+='<div class="q" id="q'+i+'"><div class="qt"><span class="qn">'+(i+1)+'</span>'+Q[i]+'</div><div class="opts">';for(var j=0;j<4;j++){h+='<div class="opt" id="o'+i+'_'+j+'" onclick="pick('+i+','+j+')">'+OPT[j]+'</div>';}h+='</div></div>';}
+document.getElementById("qs").innerHTML=h;var f="";for(var k=0;k<4;k++){f+='<div class="opt" id="f'+k+'" onclick="pickFn('+k+')">'+FN[k]+'</div>';}document.getElementById("fnopts").innerHTML=f;}
+function pick(i,v){if(ans[i]!==undefined)document.getElementById("o"+i+"_"+ans[i]).className="opt";ans[i]=v;document.getElementById("o"+i+"_"+v).className="opt sel";document.getElementById("q"+i).className="q done";save();calc();}
+function pickFn(v){if(fnAns!==null)document.getElementById("f"+fnAns).className="opt";fnAns=v;document.getElementById("f"+v).className="opt sel";save();calc();}
+function calc(){var n=0,sum=0;for(var i=0;i<9;i++)if(ans[i]!==undefined){n++;sum+=ans[i];}
+document.getElementById("cnt").textContent=n+" / 9";document.getElementById("fill").style.width=(n/9*100)+"%";
+var res=document.getElementById("res"),sc=document.getElementById("sc"),sev=document.getElementById("sev"),note=document.getElementById("note"),rk=document.getElementById("risk"),dl=document.getElementById("delta");
+if(ans[8]!==undefined&&ans[8]>0){rk.innerHTML='<div class="alert"><b>Пункт 9 — ненульова відповідь</b>Клієнт повідомив про думки про смерть або самоушкодження. Провести оцінку ризику в цій сесії. Переглянути або скласти план безпеки.</div>';}else{rk.innerHTML="";}
+if(n<9){res.className="res";sc.textContent=n>0?sum:"—";sev.textContent="Заповнено "+n+" з 9";note.textContent="";dl.innerHTML="";return;}
+res.className="res ready";sc.textContent=sum;
+var s,r;if(sum<=4){s="Мінімальна депресія";r="0-4";}else if(sum<=9){s="Легка депресія";r="5-9";}else if(sum<=14){s="Помірна депресія";r="10-14";}else if(sum<=19){s="Помірно важка депресія";r="15-19";}else{s="Важка депресія";r="20-27";}
+sev.textContent=s;note.textContent=r+" балів. Клінічний поріг — 10 і вище.";
+var pv=document.getElementById("prev").value;
+if(pv===""||isNaN(parseInt(pv,10))){dl.innerHTML="";return;}
+var d=sum-parseInt(pv,10),cls,txt;
+if(d<=-5){cls="dgood";txt="\u2212"+Math.abs(d)+" — клінічно значуще покращення";}
+else if(d<5&&d>-5){cls="dnone";txt=(d>=0?"+":"\u2212")+Math.abs(d)+" — у межах похибки";}
+else{cls="dbad";txt="+"+d+" — клінічно значуще погіршення";}
+dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
+function save(){try{localStorage.setItem("phq9",JSON.stringify({a:ans,f:fnAns}));}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem("phq9"));if(!d)return;if(d.a)for(var i=0;i<d.a.length;i++)if(d.a[i]!==undefined&&d.a[i]!==null)pick(i,d.a[i]);if(d.f!==null&&d.f!==undefined)pickFn(d.f);}catch(e){}}
+function reset(){ans=[];fnAns=null;try{localStorage.removeItem("phq9");}catch(e){}build();calc();}
+build();load();calc();
+</script></body></html>
