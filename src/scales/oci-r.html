@@ -102,8 +102,8 @@ if(d<=-6){cls="dgood";txt="\u2212"+Math.abs(d)+" — помітне покращ
 else if(d<6&&d>-6){cls="dnone";txt=(d>=0?"+":"\u2212")+Math.abs(d)+" — у межах похибки";}
 else{cls="dbad";txt="+"+d+" — погіршення";}
 dl.innerHTML='<span class="dlt '+cls+'">'+txt+'</span>';}
-function save(){try{localStorage.setItem("ocir",JSON.stringify(ans));}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem("ocir"));if(!d)return;for(var i=0;i<d.length;i++)if(d[i]!==undefined&&d[i]!==null)pick(i,d[i]);}catch(e){}}
-function reset(){ans=[];try{localStorage.removeItem("ocir");}catch(e){}build();calc();}
+function save(){}
+function load(){}
+function reset(){ans=[];build();calc();}
 build();load();calc();
 </script></body></html>
