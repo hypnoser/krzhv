@@ -8,28 +8,28 @@ eleventyExcludeFromCollections: true
 
 ## Основні сторінки
 
-- [Головна](https://krzhv.pp.ua/): про терапевта, підхід до роботи, процес терапії, контакти
-- [Матеріали для клієнтів](https://krzhv.pp.ua/statti/): доказові інформаційні статті з клінічної психології
-- [Опитувальники](https://krzhv.pp.ua/kviz/): науково валідовані скринінгові опитувальники для самооцінки тривоги, депресії та ознак панічних атак
-- [Блог](https://krzhv.pp.ua/blog/): професійні нотатки для колег-психологів та особистий журнал практики
-- [Відгуки](https://krzhv.pp.ua/vidguky/): відгуки клієнтів про терапію
+- [Головна](https://krzhv.com.ua/): про терапевта, підхід до роботи, процес терапії, контакти
+- [Матеріали для клієнтів](https://krzhv.com.ua/statti/): доказові інформаційні статті з клінічної психології
+- [Опитувальники](https://krzhv.com.ua/kviz/): науково валідовані скринінгові опитувальники для самооцінки тривоги, депресії та ознак панічних атак
+- [Блог](https://krzhv.com.ua/blog/): професійні нотатки для колег-психологів та особистий журнал практики
+- [Відгуки](https://krzhv.com.ua/vidguky/): відгуки клієнтів про терапію
 
 ## Матеріали для клієнтів
 {% for post in collections.statti %}
-- [{{ post.data.title }}](https://krzhv.pp.ua{{ post.url }}): {{ post.data.description }}
+- [{{ post.data.title }}](https://krzhv.com.ua{{ post.url }}): {{ post.data.description }}
 {%- endfor %}
 
 ## Опитувальники
 {% for post in collections.kviz %}
-- [{{ post.data.title }}](https://krzhv.pp.ua{{ post.url }}): {{ post.data.description }}
+- [{{ post.data.title }}](https://krzhv.com.ua{{ post.url }}): {{ post.data.description }}
 {%- endfor %}
 
 {% if collections.blog.length %}
 ## Блог
 {% for post in collections.blog %}
-- [{{ post.data.title }}](https://krzhv.pp.ua{{ post.url }}): {{ post.data.description }}
+- [{{ post.data.title }}](https://krzhv.com.ua{{ post.url }}): {{ post.data.description }}
 {%- endfor %}
 {% endif %}
 ## Optional
 
-- [Відгуки клієнтів](https://krzhv.pp.ua/vidguky/): відгуки клієнтів про терапію, другорядний пріоритет для агентів з обмеженим контекстом
+- [Відгуки клієнтів](https://krzhv.com.ua/vidguky/): відгуки клієнтів про терапію, другорядний пріоритет для агентів з обмеженим контекстом
