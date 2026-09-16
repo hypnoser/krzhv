@@ -74,7 +74,7 @@
       html += '<div class="kviz-crisis">';
       html += '<strong>Якщо зараз важко — це важливо.</strong> ';
       html += 'Безкоштовна лінія психологічної підтримки в Україні: <a href="tel:0800500335">0-800-500-335</a>, цілодобово. ';
-      html += 'Ви також можете написати мені напряму: <a href="https://t.me/krzhvs">Telegram</a>.';
+      html += 'Ви також можете написати мені напряму: <a href="https://t.me/krzhv_bot">Telegram</a>.';
       html += '</div>';
     }
 
