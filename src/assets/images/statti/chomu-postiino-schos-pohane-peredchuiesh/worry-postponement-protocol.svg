@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" width="100%" height="100%" style="background:#0f172a; border-radius:12px; font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
+  <defs>
+    <marker id="arrow-act" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 7 5 L 0 8 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="360" y="32" fill="#38bdf8" font-size="11" font-weight="700" letter-spacing="1.5" text-anchor="middle">ПРАКТИЧНИЙ ПРОТОКОЛ КПТ</text>
+  <text x="360" y="58" fill="#f8fafc" font-size="17" font-weight="700" text-anchor="middle">Техніка «Відкладання занепокоєння» (Worry Postponement)</text>
+
+  <!-- Стрілки між картками -->
+  <line x1="230" y1="180" x2="255" y2="180" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-act)"/>
+  <line x1="465" y1="180" x2="490" y2="180" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-act)"/>
+
+  <!-- Крок 1 -->
+  <g transform="translate(25, 95)">
+    <rect width="205" height="190" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#0284c7"/>
+    <text x="36" y="41" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle">1</text>
+    <text x="64" y="41" fill="#f8fafc" font-size="13" font-weight="700">Помітити</text>
+    <text x="20" y="80" fill="#94a3b8" font-size="11" font-weight="600">Сигнал тривоги</text>
+    <text x="20" y="102" fill="#cbd5e1" font-size="12">З'явилася думка «А що, як…» або напруга в тілі.</text>
+    <rect x="16" y="130" width="173" height="42" rx="6" fill="#0f172a"/>
+    <text x="24" y="155" fill="#38bdf8" font-size="11" font-style="italic">«Це гіпотеза, а не факт»</text>
+  </g>
+
+  <!-- Крок 2 -->
+  <g transform="translate(260, 95)">
+    <rect width="205" height="190" rx="12" fill="#1e293b" stroke="#0ea5e9" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#0284c7"/>
+    <text x="36" y="41" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle">2</text>
+    <text x="64" y="41" fill="#f8fafc" font-size="13" font-weight="700">Записати</text>
+    <text x="20" y="80" fill="#94a3b8" font-size="11" font-weight="600">Фіксація в блокнот</text>
+    <text x="20" y="102" fill="#cbd5e1" font-size="12">Коротко занотувати суть переживання 1 фразою.</text>
+    <rect x="16" y="130" width="173" height="42" rx="6" fill="#0f172a"/>
+    <text x="24" y="155" fill="#38bdf8" font-size="11" font-style="italic">«Подумаю про це о 17:00»</text>
+  </g>
+
+  <!-- Крок 3 -->
+  <g transform="translate(495, 95)">
+    <rect width="200" height="190" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#0284c7"/>
+    <text x="36" y="41" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle">3</text>
+    <text x="64" y="41" fill="#f8fafc" font-size="13" font-weight="700">Повернутися</text>
+    <text x="20" y="80" fill="#94a3b8" font-size="11" font-weight="600">Перемикання уваги</text>
+    <text x="20" y="102" fill="#cbd5e1" font-size="12">Повернутися до поточної задачі чи фізичного світу.</text>
+    <rect x="16" y="130" width="168" height="42" rx="6" fill="#0f172a"/>
+    <text x="24" y="155" fill="#38bdf8" font-size="11" font-style="italic">Фокус на реальній дії</text>
+  </g>
+
+  <!-- Примітка -->
+  <text x="360" y="325" fill="#64748b" font-size="11" text-anchor="middle">О 17:00 виділяється 15 хвилин: більшість занотованих пунктів втрачають актуальність</text>
+</svg>
