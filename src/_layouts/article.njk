@@ -22,7 +22,10 @@ ogType: article
     <h1>{{ title }}</h1>
     <div class="article-meta">
       <div class="author-chip">
-        <div class="author-avatar"></div>
+        <picture>
+          <source srcset="/assets/images/profile/sergiy-avatar.webp" type="image/webp">
+          <img src="/assets/images/profile/sergiy-avatar.jpg" alt="Сергій Коржов" width="32" height="32" class="author-avatar" style="object-fit:cover;">
+        </picture>
         <span>Сергій Коржов</span>
       </div>
       <div class="article-meta-item">
@@ -40,7 +43,10 @@ ogType: article
     {{ content | safe }}
 
     <div class="author-box">
-      <div class="author-photo" style="background:var(--accent-tint);"></div>
+      <picture>
+        <source srcset="/assets/images/profile/sergiy-author.webp" type="image/webp">
+        <img src="/assets/images/profile/sergiy-author.jpg" alt="Сергій Коржов" width="64" height="64" class="author-photo" style="object-fit:cover;">
+      </picture>
       <div>
         <h4>Сергій Коржов</h4>
         <p>Клінічний психолог, працюю в підході КПТ. Допомагаю людям онлайн.</p>
