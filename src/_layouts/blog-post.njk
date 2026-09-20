@@ -67,3 +67,30 @@ permalink: "/blog/{{ title | autoSlug }}/"
       </div>
     </div>
   </div>
+
+
+<section class="related">
+  <h3 class="related-head" style="max-width:1080px;margin:0 auto 32px;padding:0 32px;">Читайте також</h3>
+  <div class="related-grid">
+    {% set related = [] %}
+    {% for post in collections.blog %}
+      {% if post.url != page.url and related.length < 3 %}
+        {% set related = (related.push(post), related) %}
+      {% endif %}
+    {% endfor %}
+    {% for post in related %}
+    <a href="{{ post.url }}" class="related-card">
+      <span class="related-tag">{% if post.data.audience == 'colleagues' %}Для колег{% else %}Особистий журнал{% endif %}</span>
+      <h4>{{ post.data.title }}</h4>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta-band">
+    <h2>Потрібна підтримка фахівця?</h2>
+    <p>Якщо це відгукується — я можу допомогти. Напишіть мені, і ми обговоримо, з чого почати.</p>
+    <a href="/#contact" class="cta-btn">Записатись на консультацію</a>
+  </div>
+</div>
