@@ -66,8 +66,17 @@ permalink: "/blog/{{ title | autoSlug }}/"
         <a href="/#about" class="btn-ghost">Про мене →</a>
       </div>
     </div>
-  </div>
 
+    {% if sources %}
+    <div class="sources">
+      <h3>Джерела</h3>
+      <ol>
+        {% for src in sources %}<li>{{ src }}</li>{% endfor %}
+      </ol>
+    </div>
+    {% endif %}
+  </div>
+</div>
 
 <section class="related">
   <h3 class="related-head" style="max-width:1080px;margin:0 auto 32px;padding:0 32px;">Читайте також</h3>
