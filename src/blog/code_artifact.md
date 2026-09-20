@@ -32,83 +32,180 @@ date: 2026-09-20
 
 Щоб краще зрозуміти, як ці дві системи працюють разом, я пропоную вам поекспериментувати з цим інтерактивним симулятором. Змінюйте рівні нейромедіаторів і подивіться, які психоемоційні стани вони формують.
 
-<div class="neuro-simulator" style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 2rem auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-  <h3 style="margin-top: 0; margin-bottom: 20px; text-align: center; font-size: 1.5rem; color: #1e293b;">Баланс Дофаміну та Серотоніну</h3>
+<div class="neuro-widget-wrapper" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 750px; margin: 2rem auto; padding: 24px; background: #fafafa; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
   
-  <div style="margin-bottom: 20px;">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-      <label for="dopamine" style="font-weight: 600; color: #334155;">Рівень дофаміну:</label>
-      <span id="dopamine-val" style="font-weight: bold; color: #2563eb;">50</span>
+  <style>
+    .neuro-widget-wrapper * { box-sizing: border-box; }
+    .neuro-header { font-size: 1.5rem; color: #111; margin-bottom: 24px; font-weight: 400; }
+    
+    /* Chart Layout */
+    .chart-container { display: flex; position: relative; margin-bottom: 8px; }
+    .y-axis { display: flex; flex-direction: column; justify-content: space-between; align-items: center; width: 40px; padding-right: 10px; color: #333; font-size: 0.85rem; }
+    .y-axis-label { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; margin: auto 0; }
+    
+    .chart-area { flex-grow: 1; position: relative; border: 1px solid #ddd; aspect-ratio: 2 / 1; min-height: 300px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; overflow: hidden; }
+    
+    /* Quadrants */
+    .quad { display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.9rem; color: #444; }
+    .quad-tl { background-color: #e9f2eb; } /* Спокій */
+    .quad-tr { background-color: #e9f2eb; } /* Потік */
+    .quad-bl { background-color: #faeaea; } /* Апатія */
+    .quad-br { background-color: #fcf4e4; } /* Тривожна активність */
+    
+    /* Grid Lines (Middle) */
+    .grid-line-v { position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed #cbd5e1; }
+    .grid-line-h { position: absolute; top: 50%; left: 0; right: 0; border-top: 1px dashed #cbd5e1; }
+    
+    /* Interactive Elements */
+    .crosshair-v { position: absolute; top: 0; bottom: 0; border-left: 1px dashed #94a3b8; z-index: 5; pointer-events: none; }
+    .crosshair-h { position: absolute; left: 0; right: 0; border-top: 1px dashed #94a3b8; z-index: 5; pointer-events: none; }
+    
+    .target-dot { position: absolute; width: 20px; height: 20px; background-color: #3b82f6; border-radius: 50%; border: 4px solid rgba(59, 130, 246, 0.3); background-clip: padding-box; transform: translate(-50%, 50%); z-index: 10; pointer-events: none; }
+    .dot-label { position: absolute; left: 15px; bottom: 15px; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; color: #334155; white-space: nowrap; }
+    
+    /* X Axis */
+    .x-axis { display: flex; justify-content: space-between; align-items: flex-start; padding-left: 40px; margin-bottom: 32px; color: #333; font-size: 0.85rem; }
+    .x-axis-label { text-align: center; flex-grow: 1; font-weight: 500; }
+    
+    /* Status Section */
+    .status-section { text-align: center; margin-bottom: 40px; }
+    .status-label { font-size: 0.75rem; text-transform: uppercase; color: #64748b; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .status-value { font-size: 1.1rem; font-weight: 700; color: #0f172a; }
+    
+    /* Controls */
+    .control-row { display: flex; align-items: center; margin-bottom: 24px; }
+    .control-label { width: 150px; font-size: 0.95rem; color: #333; }
+    .slider-container { flex-grow: 1; padding: 0 16px; display: flex; align-items: center; }
+    
+    input[type=range] { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; outline: none; transition: 0.2s; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 24px; border-radius: 4px; background: #222; cursor: pointer; }
+    input[type=range]::-moz-range-thumb { width: 16px; height: 24px; border-radius: 4px; background: #222; cursor: pointer; border: none; }
+    
+    .value-box { width: 60px; height: 40px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 0.95rem; }
+  </style>
+
+  <h2 class="neuro-header">Нейромедіаторний баланс</h2>
+
+  <!-- Chart Area -->
+  <div class="chart-container">
+    <div class="y-axis">
+      <span>100</span>
+      <span class="y-axis-label">← Серотонін (Задоволення, Спокій)</span>
+      <span>0</span>
     </div>
-    <input type="range" id="dopamine" min="0" max="100" value="50" style="width: 100%; cursor: pointer;">
-  </div>
-  
-  <div style="margin-bottom: 24px;">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-      <label for="serotonin" style="font-weight: 600; color: #334155;">Рівень серотоніну:</label>
-      <span id="serotonin-val" style="font-weight: bold; color: #ea580c;">50</span>
+    
+    <div class="chart-area" id="neuro-chart">
+      <div class="quad quad-tl">Спокій<br>Пасивність</div>
+      <div class="quad quad-tr">Потік<br>Продуктивність</div>
+      <div class="quad quad-bl">Апатія<br>Ангедонія</div>
+      <div class="quad quad-br">Тривожна активність</div>
+      
+      <!-- Static Grid Lines -->
+      <div class="grid-line-v"></div>
+      <div class="grid-line-h"></div>
+      
+      <!-- Dynamic Elements -->
+      <div class="crosshair-v" id="ch-v"></div>
+      <div class="crosshair-h" id="ch-h"></div>
+      <div class="target-dot" id="target-dot">
+        <div class="dot-label" id="dot-text">D:50 S:50</div>
+      </div>
     </div>
-    <input type="range" id="serotonin" min="0" max="100" value="50" style="width: 100%; cursor: pointer;">
   </div>
   
-  <div id="neuro-result" style="padding: 40px 24px; text-align: center; border-radius: 8px; transition: all 0.4s ease; min-height: 120px; display: flex; align-items: center; justify-content: center;">
-    <div id="neuro-state" style="font-size: 1.25rem; font-weight: 600; line-height: 1.5;">Оптимальна продуктивність, впевненість, стан потоку</div>
+  <div class="x-axis">
+    <span>0</span>
+    <span class="x-axis-label">Дофамін (Мотивація, Драйв) →</span>
+    <span>100</span>
   </div>
+
+  <!-- Status Info -->
+  <div class="status-section">
+    <div class="status-label">ПСИХОЛОГІЧНИЙ СТАН</div>
+    <div class="status-value" id="status-text">Збалансований, стабільний стан</div>
+  </div>
+
+  <!-- Sliders -->
+  <div class="control-row">
+    <div class="control-label">Рівень дофаміну</div>
+    <div class="slider-container">
+      <input type="range" id="dop-slider" min="0" max="100" value="50">
+    </div>
+    <div class="value-box" id="dop-val">50</div>
+  </div>
+  
+  <div class="control-row">
+    <div class="control-label">Рівень серотоніну</div>
+    <div class="slider-container">
+      <input type="range" id="ser-slider" min="0" max="100" value="50">
+    </div>
+    <div class="value-box" id="ser-val">50</div>
+  </div>
+
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const dopInput = document.getElementById('dopamine');
-    const serInput = document.getElementById('serotonin');
-    const dopVal = document.getElementById('dopamine-val');
-    const serVal = document.getElementById('serotonin-val');
-    const resultBox = document.getElementById('neuro-result');
-    const stateText = document.getElementById('neuro-state');
+    const dopSlider = document.getElementById('dop-slider');
+    const serSlider = document.getElementById('ser-slider');
+    
+    const dopVal = document.getElementById('dop-val');
+    const serVal = document.getElementById('ser-val');
+    
+    const targetDot = document.getElementById('target-dot');
+    const dotText = document.getElementById('dot-text');
+    const chV = document.getElementById('ch-v');
+    const chH = document.getElementById('ch-h');
+    const statusText = document.getElementById('status-text');
 
-    function updateState() {
-      const d = parseInt(dopInput.value);
-      const s = parseInt(serInput.value);
-      
-      dopVal.textContent = d;
-      serVal.textContent = s;
-
-      let state = "";
-      let bgColor = "";
-      let textColor = "#0f172a";
-
-      // Логіка з 4 станами (межа переходу - 50)
-      if (d > 50 && s <= 50) {
-        // High D + Low S
-        state = "Імпульсивність, тривожна активність, ризик вигорання";
-        bgColor = "#fee2e2"; // червонуватий (тривога)
-        textColor = "#991b1b";
-      } else if (d <= 50 && s > 50) {
-        // Low D + High S
-        state = "Спокій, але відсутність мотивації (пасивність)";
-        bgColor = "#e0f2fe"; // блакитний (спокій)
-        textColor = "#075985";
-      } else if (d <= 50 && s <= 50) {
-        // Low D + Low S
-        state = "Апатія, депресивний стан, ангедонія";
-        bgColor = "#f3f4f6"; // сірий (апатія)
-        textColor = "#374151";
-      } else { 
-        // High D + High S
-        state = "Оптимальна продуктивність, впевненість, стан потоку";
-        bgColor = "#dcfce7"; // яскраво-зелений (ресурсний стан)
-        textColor = "#166534";
-      }
-
-      resultBox.style.backgroundColor = bgColor;
-      resultBox.style.color = textColor;
-      stateText.textContent = state;
+    function updateTrackGradient(slider, val) {
+      slider.style.background = `linear-gradient(to right, #111 ${val}%, #e2e8f0 ${val}%)`;
     }
 
-    dopInput.addEventListener('input', updateState);
-    serInput.addEventListener('input', updateState);
+    function updateWidget() {
+      const d = parseInt(dopSlider.value);
+      const s = parseInt(serSlider.value);
+      
+      // Update values in UI
+      dopVal.textContent = d;
+      serVal.textContent = s;
+      dotText.textContent = `D:${d} S:${s}`;
+      
+      // Update slider tracks
+      updateTrackGradient(dopSlider, d);
+      updateTrackGradient(serSlider, s);
+      
+      // Update Chart Position (bottom mapping for Y axis)
+      targetDot.style.left = d + '%';
+      targetDot.style.bottom = s + '%';
+      
+      chV.style.left = d + '%';
+      chH.style.bottom = s + '%';
+
+      // Determine State based on quadrants and exact center
+      let stateMsg = "";
+      
+      // "Мертва зона" для збалансованого стану (навколо 50)
+      if (d >= 45 && d <= 55 && s >= 45 && s <= 55) {
+        stateMsg = "Збалансований, стабільний стан";
+      } else if (d < 50 && s >= 50) {
+        stateMsg = "Спокій, Пасивність";
+      } else if (d > 50 && s > 50) {
+        stateMsg = "Потік, Оптимальна продуктивність";
+      } else if (d <= 50 && s < 50) {
+        stateMsg = "Апатія, Ангедонія";
+      } else if (d >= 50 && s <= 50) {
+        stateMsg = "Тривожна активність, Ризик вигорання";
+      }
+
+      statusText.textContent = stateMsg;
+    }
+
+    dopSlider.addEventListener('input', updateWidget);
+    serSlider.addEventListener('input', updateWidget);
     
-    // Ініціалізація при завантаженні
-    updateState();
+    // Init
+    updateWidget();
   });
 </script>
 
