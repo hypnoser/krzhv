@@ -37,23 +37,22 @@ date: 2026-09-20
   
   <div style="margin-bottom: 20px;">
     <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-      <label for="dopamine" style="font-weight: 600; color: #334155;">Дофамін (Мотивація):</label>
-      <span id="dopamine-val" style="font-weight: bold; color: #2563eb;">50%</span>
+      <label for="dopamine" style="font-weight: 600; color: #334155;">Рівень дофаміну:</label>
+      <span id="dopamine-val" style="font-weight: bold; color: #2563eb;">50</span>
     </div>
     <input type="range" id="dopamine" min="0" max="100" value="50" style="width: 100%; cursor: pointer;">
   </div>
   
   <div style="margin-bottom: 24px;">
     <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-      <label for="serotonin" style="font-weight: 600; color: #334155;">Серотонін (Спокій):</label>
-      <span id="serotonin-val" style="font-weight: bold; color: #ea580c;">50%</span>
+      <label for="serotonin" style="font-weight: 600; color: #334155;">Рівень серотоніну:</label>
+      <span id="serotonin-val" style="font-weight: bold; color: #ea580c;">50</span>
     </div>
     <input type="range" id="serotonin" min="0" max="100" value="50" style="width: 100%; cursor: pointer;">
   </div>
   
-  <div id="neuro-result" style="padding: 32px 24px; text-align: center; border-radius: 8px; background-color: #f1f5f9; color: #0f172a; transition: all 0.4s ease; min-height: 100px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-    <div id="neuro-state" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 8px;">Збалансований стан</div>
-    <div id="neuro-desc" style="font-size: 0.95rem; opacity: 0.8;">Стабільний настрій, помірна мотивація, звичайний робочий режим.</div>
+  <div id="neuro-result" style="padding: 40px 24px; text-align: center; border-radius: 8px; transition: all 0.4s ease; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+    <div id="neuro-state" style="font-size: 1.25rem; font-weight: 600; line-height: 1.5;">Оптимальна продуктивність, впевненість, стан потоку</div>
   </div>
 </div>
 
@@ -65,57 +64,50 @@ date: 2026-09-20
     const serVal = document.getElementById('serotonin-val');
     const resultBox = document.getElementById('neuro-result');
     const stateText = document.getElementById('neuro-state');
-    const descText = document.getElementById('neuro-desc');
 
     function updateState() {
       const d = parseInt(dopInput.value);
       const s = parseInt(serInput.value);
       
-      dopVal.textContent = d + '%';
-      serVal.textContent = s + '%';
+      dopVal.textContent = d;
+      serVal.textContent = s;
 
       let state = "";
-      let desc = "";
       let bgColor = "";
       let textColor = "#0f172a";
 
-      if (d >= 60 && s <= 40) {
-        state = "Тривожна активність / Ризик вигорання";
-        desc = "Імпульсивність, пошук швидкої винагороди. Високий драйв, але відсутність внутрішнього спокою.";
-        bgColor = "#fee2e2"; // red-100
-        textColor = "#991b1b"; // red-800
-      } else if (d <= 40 && s >= 60) {
-        state = "Пасивний спокій";
-        desc = "Відсутність тривоги, розслабленість, але бракує мотивації діяти чи досягати цілей.";
-        bgColor = "#e0f2fe"; // sky-100
-        textColor = "#075985"; // sky-800
-      } else if (d <= 40 && s <= 40) {
-        state = "Апатія / Депресивний стан";
-        desc = "Ангедонія. Немає ні енергії для дій, ні здатності насолоджуватися поточним моментом.";
-        bgColor = "#f1f5f9"; // slate-100
-        textColor = "#475569"; // slate-600
-      } else if (d >= 60 && s >= 60) {
-        state = "Стан потоку / Оптимальна продуктивність";
-        desc = "Висока мотивація поєднується з емоційною стабільністю. Впевненість у власних силах.";
-        bgColor = "#dcfce7"; // green-100
-        textColor = "#166534"; // green-800
-      } else {
-        state = "Збалансований стан";
-        desc = "Стабільний настрій, помірна мотивація, нормальна здатність долати щоденний стрес.";
-        bgColor = "#f3f4f6"; // gray-100
-        textColor = "#1f2937"; // gray-800
+      // Логіка з 4 станами (межа переходу - 50)
+      if (d > 50 && s <= 50) {
+        // High D + Low S
+        state = "Імпульсивність, тривожна активність, ризик вигорання";
+        bgColor = "#fee2e2"; // червонуватий (тривога)
+        textColor = "#991b1b";
+      } else if (d <= 50 && s > 50) {
+        // Low D + High S
+        state = "Спокій, але відсутність мотивації (пасивність)";
+        bgColor = "#e0f2fe"; // блакитний (спокій)
+        textColor = "#075985";
+      } else if (d <= 50 && s <= 50) {
+        // Low D + Low S
+        state = "Апатія, депресивний стан, ангедонія";
+        bgColor = "#f3f4f6"; // сірий (апатія)
+        textColor = "#374151";
+      } else { 
+        // High D + High S
+        state = "Оптимальна продуктивність, впевненість, стан потоку";
+        bgColor = "#dcfce7"; // яскраво-зелений (ресурсний стан)
+        textColor = "#166534";
       }
 
       resultBox.style.backgroundColor = bgColor;
       resultBox.style.color = textColor;
       stateText.textContent = state;
-      descText.textContent = desc;
     }
 
     dopInput.addEventListener('input', updateState);
     serInput.addEventListener('input', updateState);
     
-    // Initial call
+    // Ініціалізація при завантаженні
     updateState();
   });
 </script>
