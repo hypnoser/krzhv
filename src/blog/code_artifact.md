@@ -32,16 +32,92 @@ date: 2026-09-20
 
 Щоб краще зрозуміти, як ці дві системи працюють разом, я пропоную вам поекспериментувати з цим інтерактивним симулятором. Змінюйте рівні нейромедіаторів і подивіться, які психоемоційні стани вони формують.
 
-<GenerateWidget component_placeholder_id="GenerateWidget_c_9a008577f3201da1_r_17869c28ed45333e_0" height="600px" title="Баланс Дофаміну та Серотоніну">
-```json
-{
-  "widgetSpec": {
-    "id": "neurotransmitter-balance",
-    "height": "600px",
-    "prompt": "Objective: Simulate psychological states based on the balance of dopamine and serotonin.\nData State: initialValues: { dopamine: 50, serotonin: 50 }\nStrategy: Standard Layout.\nLibraries: Canvas API or simple HTML/JS UI logic.\nInputs:\n- Рівень дофаміну (Slider, 0-100)\n- Рівень серотоніну (Slider, 0-100)\nBehavior: Create a dynamic text and visual indicator area. Depending on the combination of the two sliders, display the corresponding psychological state in Ukrainian. Examples: High D + Low S = 'Імпульсивність, тривожна активність, ризик вигорання'. Low D + High S = 'Спокій, але відсутність мотивації (пасивність)'. Low D + Low S = 'Апатія, депресивний стан, ангедонія'. High D + High S = 'Оптимальна продуктивність, впевненість, стан потоку'. Add subtle background color shifts to reflect the mood (e.g. gray for low/low, vibrant for high/high)."
-  }
-}
-```
-</GenerateWidget>
+<div class="neuro-simulator" style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 2rem auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+  <h3 style="margin-top: 0; margin-bottom: 20px; text-align: center; font-size: 1.5rem; color: #1e293b;">Баланс Дофаміну та Серотоніну</h3>
+  
+  <div style="margin-bottom: 20px;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+      <label for="dopamine" style="font-weight: 600; color: #334155;">Дофамін (Мотивація):</label>
+      <span id="dopamine-val" style="font-weight: bold; color: #2563eb;">50%</span>
+    </div>
+    <input type="range" id="dopamine" min="0" max="100" value="50" style="width: 100%; cursor: pointer;">
+  </div>
+  
+  <div style="margin-bottom: 24px;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+      <label for="serotonin" style="font-weight: 600; color: #334155;">Серотонін (Спокій):</label>
+      <span id="serotonin-val" style="font-weight: bold; color: #ea580c;">50%</span>
+    </div>
+    <input type="range" id="serotonin" min="0" max="100" value="50" style="width: 100%; cursor: pointer;">
+  </div>
+  
+  <div id="neuro-result" style="padding: 32px 24px; text-align: center; border-radius: 8px; background-color: #f1f5f9; color: #0f172a; transition: all 0.4s ease; min-height: 100px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <div id="neuro-state" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 8px;">Збалансований стан</div>
+    <div id="neuro-desc" style="font-size: 0.95rem; opacity: 0.8;">Стабільний настрій, помірна мотивація, звичайний робочий режим.</div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const dopInput = document.getElementById('dopamine');
+    const serInput = document.getElementById('serotonin');
+    const dopVal = document.getElementById('dopamine-val');
+    const serVal = document.getElementById('serotonin-val');
+    const resultBox = document.getElementById('neuro-result');
+    const stateText = document.getElementById('neuro-state');
+    const descText = document.getElementById('neuro-desc');
+
+    function updateState() {
+      const d = parseInt(dopInput.value);
+      const s = parseInt(serInput.value);
+      
+      dopVal.textContent = d + '%';
+      serVal.textContent = s + '%';
+
+      let state = "";
+      let desc = "";
+      let bgColor = "";
+      let textColor = "#0f172a";
+
+      if (d >= 60 && s <= 40) {
+        state = "Тривожна активність / Ризик вигорання";
+        desc = "Імпульсивність, пошук швидкої винагороди. Високий драйв, але відсутність внутрішнього спокою.";
+        bgColor = "#fee2e2"; // red-100
+        textColor = "#991b1b"; // red-800
+      } else if (d <= 40 && s >= 60) {
+        state = "Пасивний спокій";
+        desc = "Відсутність тривоги, розслабленість, але бракує мотивації діяти чи досягати цілей.";
+        bgColor = "#e0f2fe"; // sky-100
+        textColor = "#075985"; // sky-800
+      } else if (d <= 40 && s <= 40) {
+        state = "Апатія / Депресивний стан";
+        desc = "Ангедонія. Немає ні енергії для дій, ні здатності насолоджуватися поточним моментом.";
+        bgColor = "#f1f5f9"; // slate-100
+        textColor = "#475569"; // slate-600
+      } else if (d >= 60 && s >= 60) {
+        state = "Стан потоку / Оптимальна продуктивність";
+        desc = "Висока мотивація поєднується з емоційною стабільністю. Впевненість у власних силах.";
+        bgColor = "#dcfce7"; // green-100
+        textColor = "#166534"; // green-800
+      } else {
+        state = "Збалансований стан";
+        desc = "Стабільний настрій, помірна мотивація, нормальна здатність долати щоденний стрес.";
+        bgColor = "#f3f4f6"; // gray-100
+        textColor = "#1f2937"; // gray-800
+      }
+
+      resultBox.style.backgroundColor = bgColor;
+      resultBox.style.color = textColor;
+      stateText.textContent = state;
+      descText.textContent = desc;
+    }
+
+    dopInput.addEventListener('input', updateState);
+    serInput.addEventListener('input', updateState);
+    
+    // Initial call
+    updateState();
+  });
+</script>
 
 > **Взаємодія при стресі:** Цікаво, що серотонін здатний пригнічувати надмірну активність дофаміну. Коли рівень серотоніну падає (наприклад, через хронічний стрес), дофамінова система може виходити з-під контролю, провокуючи компульсивну поведінку (наприклад, думскролінг чи переїдання) як спробу швидко отримати "хімічну винагороду" та зняти напругу.
