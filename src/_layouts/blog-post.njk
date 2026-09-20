@@ -52,7 +52,18 @@ permalink: "/blog/{{ title | autoSlug }}/"
     </div>
   </div>
 
-  <div class="article-body">
+<div class="article-body">
     {{ content | safe }}
+
+    <div class="author-box">
+      <picture>
+        <source srcset="/assets/images/profile/sergiy-author.webp" type="image/webp">
+        <img src="/assets/images/profile/sergiy-author.jpg" alt="Сергій Коржов" width="64" height="64" class="author-photo" style="object-fit:cover;">
+      </picture>
+      <div>
+        <h4>Сергій Коржов</h4>
+        <p>Клінічний психолог, працюю в підході КПТ. Допомагаю людям онлайн.</p>
+        <a href="/#about" class="btn-ghost">Про мене →</a>
+      </div>
+    </div>
   </div>
-</div>
