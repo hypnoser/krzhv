@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ title }}{% if title != "Сергій Коржов — Клінічний психолог, КПТ онлайн" %} — Сергій Коржов{% endif %}</title>
 <meta name="description" content="{{ description }}">
+{% if noindex %}<meta name="robots" content="noindex, follow">{% endif %}
 <link rel="canonical" href="https://krzhv.com.ua{{ page.url }}">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
