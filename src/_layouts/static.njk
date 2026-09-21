@@ -1,0 +1,41 @@
+---
+layout: base.njk
+---
+{#
+  static.njk — layout для статичних сторінок (політика конфіденційності, контакти
+  екстреної допомоги, публічна оферта тощо).
+
+  Це Eleventy layout chaining: сторінка вказує "layout: static.njk", цей файл
+  обгортає її вміст у той самий контейнер і типографіку, що й статті
+  (.article-wrap, .article-header, .article-body з style.css), після чого
+  Eleventy передає результат у base.njk через його "layout: base.njk" вище.
+
+  Front matter сторінки, яка використовує цей layout:
+    ---
+    layout: static.njk
+    title: Політика конфіденційності
+    description: ...
+    eyebrow: Правова інформація   (необов'язково)
+    updated: 21 вересня 2026        (необов'язково — показує "Оновлено: ...")
+    ---
+#}
+
+<div class="breadcrumb wrap">
+  <a href="/">Головна</a><span>/</span>{{ title }}
+</div>
+
+<article class="article-wrap">
+  <header class="article-header" style="border-bottom:none;margin-bottom:0;padding-bottom:8px;">
+    {% if eyebrow %}<span class="eyebrow">{{ eyebrow }}</span>{% endif %}
+    <h1>{{ title }}</h1>
+    {% if updated %}
+    <div class="article-meta" style="padding-top:0;">
+      <span class="article-meta-item">Оновлено: {{ updated }}</span>
+    </div>
+    {% endif %}
+  </header>
+
+  <div class="article-body">
+    {{ content | safe }}
+  </div>
+</article>
