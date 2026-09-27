@@ -1,0 +1,370 @@
+---
+permalink: /materialy/pochatok/
+layout: false
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Коло, яке можна розірвати — матеріали для початку роботи | krzhv.com.ua</title>
+<meta name="description" content="Матеріали для клієнта: як тривога і пригніченість підтримують самі себе, як працює КПТ і два завдання на перші два тижні.">
+<style>
+:root{
+  --sage:#3D5A4A; --sage-d:#2C4336; --sage-l:#DCE5DF; --ring:#9DB3A5;
+  --terra:#C77A4F; --terra-d:#9A5530; --terra-l:#FBEFE6;
+  --sand:#EFE6D8; --sand-l:#F7F2EA; --paper:#FCFAF6;
+  --ink:#1E2923; --muted:#4F5E55; --line:#DAD3C6;
+  --serif:'Merriweather',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 var(--sans);-webkit-text-size-adjust:100%}
+a{color:var(--sage)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--terra);outline-offset:2px;border-radius:3px}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+.topbar{border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:52px;font-size:14px;color:var(--muted)}
+.topbar a{text-decoration:none;font-weight:600;color:var(--sage-d)}
+header.hero{background:var(--sage);color:#fff;padding:56px 0 48px}
+.hero h1{font:700 clamp(30px,6vw,44px)/1.2 var(--serif);margin:0 0 16px;letter-spacing:-.01em}
+.hero p{margin:0;max-width:36em;font-size:18px;color:#E9F0EB}
+.hero .meta{margin-top:20px;font-size:14px;color:#C9D8CE}
+h2{font:700 26px/1.3 var(--serif);color:var(--sage-d);margin:56px 0 16px}
+h3{font:700 19px/1.4 var(--serif);color:var(--ink);margin:32px 0 10px}
+p{margin:0 0 16px}
+.toc{background:var(--sand-l);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:36px 0 0}
+.toc strong{display:block;font-family:var(--serif);margin-bottom:8px}
+.toc ol{margin:0;padding-left:22px}
+.toc li{margin:4px 0}
+.note{border-left:4px solid var(--sage);background:var(--sage-l);padding:16px 20px;border-radius:0 10px 10px 0;margin:24px 0}
+.note.warm{border-left-color:var(--terra);background:var(--terra-l)}
+.note p:last-child{margin-bottom:0}
+.note strong{color:var(--sage-d)}
+.note.warm strong{color:var(--terra-d)}
+figure{margin:28px 0 20px}
+figure svg{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:14px}
+figcaption{font-size:15px;color:var(--muted);margin-top:10px}
+.breakpoint{display:flex;gap:14px;align-items:flex-start;margin:0 0 28px}
+.breakpoint .dot{flex:0 0 14px;height:14px;margin-top:6px;border-radius:50%;background:var(--terra)}
+ul.plain{padding-left:22px;margin:0 0 16px}
+ul.plain li{margin:6px 0}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:16px 0 24px}
+ol.steps>li{counter-increment:s;position:relative;padding:0 0 18px 52px}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--sage);color:#fff;font:700 16px/34px var(--sans);text-align:center}
+ol.steps>li strong{display:block;font-family:var(--serif);font-size:17px;margin-bottom:2px}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:16px 0 24px}
+.group{background:#fff;border:1px solid var(--line);border-top:4px solid var(--sage);border-radius:10px;padding:14px 16px;font-size:15px}
+.group b{display:block;font-family:var(--serif);font-size:16px;margin-bottom:4px}
+.table-scroll{overflow-x:auto;margin:16px 0 24px;border:1px solid var(--line);border-radius:10px;background:#fff}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:560px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--sand-l);font-weight:600}
+tr:last-child td{border-bottom:0}
+.btn{display:inline-block;background:var(--sage);color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:10px;margin:8px 0}
+.btn:hover{background:var(--sage-d)}
+.help{background:#fff;border:2px solid var(--terra);border-radius:14px;padding:20px 24px;margin:20px 0}
+.help ul{margin:0;padding-left:22px}
+.help li{margin:8px 0}
+.phone{font-weight:700;font-size:20px;color:var(--terra-d);white-space:nowrap}
+details{border-top:1px solid var(--line);margin-top:56px;padding-top:16px;font-size:14px;color:var(--muted)}
+summary{cursor:pointer;font-weight:600;color:var(--sage-d)}
+details ol{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:32px;padding:24px 0 48px;font-size:14px;color:var(--muted)}
+.sign{font-family:var(--serif);color:var(--ink);font-size:16px}
+@media print{
+  .topbar,.toc,.btn{display:none}
+  header.hero{background:none;color:var(--ink);padding:0 0 12px}
+  .hero p,.hero .meta{color:var(--muted)}
+  body{font-size:12pt}
+  h2{break-after:avoid}
+  figure,.help,.note{break-inside:avoid}
+  details{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <a href="/">krzhv.com.ua</a><span>Матеріали для клієнта</span>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <h1>Коло, яке можна розірвати</h1>
+  <p>Що зараз з вами відбувається, чому тривога й пригніченість підтримують самі себе і з чого почати, поки ми не можемо зустрітися.</p>
+  <p class="meta">Читати близько 10 хвилин. Завдання розраховані на два тижні.</p>
+</div></header>
+
+<main class="wrap">
+
+<nav class="toc" aria-label="Зміст">
+  <strong>Порядок читання</strong>
+  <ol>
+    <li><a href="#rezultaty">Що показали анкети</a></li>
+    <li><a href="#chomu">Чому стан підтримує сам себе</a></li>
+    <li><a href="#kola">Два кола</a></li>
+    <li><a href="#kpt">Що таке КПТ</a></li>
+    <li><a href="#zavdannya-1">Завдання 1. Дія → настрій</a></li>
+    <li><a href="#zavdannya-2">Завдання 2. Відкладання хвилювання</a></li>
+    <li><a href="#dopomoga">Коли не чекати і звертатися по допомогу</a></li>
+    <li><a href="#dali">Що далі</a></li>
+  </ol>
+</nav>
+
+<section id="rezultaty">
+<h2>1. Що показали анкети</h2>
+<p>Ваші відповіді показують дві речі. Перша: останнім часом вас сильно турбують напруження, неспокій, дратівливість і хвилювання, яке важко зупинити. Друга: знизилися настрій, сили й інтерес до того, що раніше тішило, погіршилися сон і апетит, з'явилося критичне ставлення до себе.</p>
+<p>Анкети — це не діагноз, а орієнтир. Вони допомагають побачити загальну картину, а точніше ми розберемося під час зустрічі.</p>
+<p>Такий стан трапляється часто, особливо після тривалого стресу, і добре піддається роботі. Тривога й пригніченість нерідко йдуть разом, бо живляться схожими механізмами. Тому й працювати з ними можна одночасно.</p>
+<div class="note">
+  <p><strong>Як користуватися матеріалами.</strong> Читати все за один раз не обов'язково. Розділи 2–4 пояснюють принцип. Розділи 5–6 — це два завдання на найближчі два тижні. Бланки для записів зібрані на окремій сторінці, яку можна роздрукувати.</p>
+  <p><a class="btn" href="/materialy/pochatok/blanky/">Відкрити бланки для друку</a></p>
+</div>
+</section>
+
+<section id="chomu">
+<h2>2. Чому стан підтримує сам себе</h2>
+
+<h3>Тривога</h3>
+<p>Тривога — це внутрішня сигналізація. Її робота — помітити небезпеку і підготувати нас до неї. Під час тривалого стресу сигналізація стає надто чутливою і вмикається навіть тоді, коли зараз нічого вирішити неможливо.</p>
+<p>Хвилювання «а що, як…» — це спроба мозку заздалегідь підготуватися до всіх можливих бід. Але прокручування думок саме по собі нічого не вирішує, а тіло тим часом живе в режимі тривоги: напружені м'язи, поганий сон, втома.</p>
+<p>Щоб стало легше, ми природно шукаємо заспокоєння: перевіряємо новини, перепитуємо, уникаємо того, що тривожить. Це допомагає, але ненадовго. А мозок робить висновок: «Хвилюватися було правильно». Так хвилювання закріплюється.</p>
+
+<h3>Пригніченість</h3>
+<p>Коли сил мало і нічого не хочеться, природно робити менше: відкладати справи, рідше бачитися з людьми, відмовлятися від того, що раніше приносило радість. Здається, що це відпочинок.</p>
+<p>Але менше дій означає менше приємних моментів і менше відчуття, що вам щось вдається. Настрій опускається ще нижче, а думки стають ще похмурішими: «нема сенсу», «я нічого не можу».</p>
+<div class="note warm">
+  <p><strong>Такі думки — частина стану, а не правда про вас.</strong> Пригніченість фарбує все в сірий колір, так само як висока температура робить слабким усе тіло.</p>
+</div>
+</section>
+
+<section id="kola">
+<h2>3. Два кола</h2>
+<p>Кожне коло складається з п'яти ланок, які підживлюють одна одну: думки, почуття, тілесні відчуття, дії та їхні наслідки. Коли змінюється одна ланка, поступово змінюються й інші. На цьому побудована КПТ.</p>
+
+<figure>
+<svg viewBox="0 0 640 580" role="img" aria-labelledby="c1t c1d" xmlns="http://www.w3.org/2000/svg">
+  <title id="c1t">Коло тривоги</title>
+  <desc id="c1d">Думка «А що, як станеться щось погане?» викликає тривогу і напруження. Тіло відповідає напруженими м'язами і гіршим сном. Дії: прокручування думок, перевірки, уникання. Наслідок: коротке полегшення, після якого тривога повертається і знову запускає думку. Втрутитися можна в ланці дій.</desc>
+  <circle cx="320" cy="300" r="210" fill="none" stroke="#9DB3A5" stroke-width="2"/>
+  <g fill="#3D5A4A">
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(443.5 130.1) rotate(36)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(519.7 364.9) rotate(108)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(320 510) rotate(180)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(120.3 364.9) rotate(252)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(196.5 130.1) rotate(324)"/>
+  </g>
+  <g text-anchor="middle" font-family="Inter,system-ui,sans-serif">
+    <text x="320" y="286" font-family="Merriweather,Georgia,serif" font-size="20" font-weight="700" fill="#2C4336">Коло тривоги</text>
+    <text x="320" y="314" font-size="13" fill="#4F5E55">Запускають: невизначеність,</text>
+    <text x="320" y="332" font-size="13" fill="#4F5E55">новини, втома</text>
+
+    <rect x="225" y="52" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="320" y="77" font-size="12" font-weight="700" fill="#2C4336">Думка</text>
+    <text x="320" y="97" font-size="14" fill="#1E2923">«А що, як станеться</text>
+    <text x="320" y="115" font-size="14" fill="#1E2923">щось погане?»</text>
+
+    <rect x="424.7" y="197.1" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="519.7" y="222.1" font-size="12" font-weight="700" fill="#2C4336">Почуття</text>
+    <text x="519.7" y="242.1" font-size="14" fill="#1E2923">Тривога,</text>
+    <text x="519.7" y="260.1" font-size="14" fill="#1E2923">напруження</text>
+
+    <rect x="348.4" y="431.9" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="443.4" y="456.9" font-size="12" font-weight="700" fill="#2C4336">Тіло</text>
+    <text x="443.4" y="476.9" font-size="14" fill="#1E2923">Напружені м'язи,</text>
+    <text x="443.4" y="494.9" font-size="14" fill="#1E2923">гірший сон</text>
+
+    <rect x="101.6" y="431.9" width="190" height="76" rx="14" fill="#FBEFE6" stroke="#C77A4F" stroke-width="2.5"/>
+    <text x="196.6" y="456.9" font-size="12" font-weight="700" fill="#9A5530">Дії</text>
+    <text x="196.6" y="476.9" font-size="14" fill="#1E2923">Прокручую думки,</text>
+    <text x="196.6" y="494.9" font-size="14" fill="#1E2923">перевіряю, уникаю</text>
+    <rect x="101.6" y="522" width="190" height="28" rx="14" fill="#C77A4F"/>
+    <text x="196.6" y="541" font-size="12.5" font-weight="600" fill="#fff">Тут можна втрутитися</text>
+
+    <rect x="25.3" y="197.1" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="120.3" y="222.1" font-size="12" font-weight="700" fill="#2C4336">Наслідок</text>
+    <text x="120.3" y="242.1" font-size="14" fill="#1E2923">Коротке полегшення,</text>
+    <text x="120.3" y="260.1" font-size="14" fill="#1E2923">потім знову тривога</text>
+  </g>
+</svg>
+<figcaption>Коло тривоги. Стрілки показують, як кожна ланка запускає наступну.</figcaption>
+</figure>
+<div class="breakpoint"><span class="dot" aria-hidden="true"></span><p><strong>Де розірвати коло тривоги:</strong> у ланці дій. Замість того щоб щоразу прокручувати «а що, як…», можна навчитися відкладати хвилювання на визначений час. Це завдання 2.</p></div>
+
+<figure>
+<svg viewBox="0 0 640 580" role="img" aria-labelledby="c2t c2d" xmlns="http://www.w3.org/2000/svg">
+  <title id="c2t">Коло пригніченості</title>
+  <desc id="c2d">Пригніченість і брак сил викликають думки «Нема сенсу, нічого не вийде». Дії: менше справ, зустрічей і радощів. Наслідок: менше приємного і того, що вдається. Тіло: втома, гірші сон і апетит, що знову посилює пригніченість. Втрутитися можна в ланці дій.</desc>
+  <circle cx="320" cy="300" r="210" fill="none" stroke="#9DB3A5" stroke-width="2"/>
+  <g fill="#3D5A4A">
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(443.5 130.1) rotate(36)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(519.7 364.9) rotate(108)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(320 510) rotate(180)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(120.3 364.9) rotate(252)"/>
+    <path d="M-8,-7 L8,0 L-8,7 Z" transform="translate(196.5 130.1) rotate(324)"/>
+  </g>
+  <g text-anchor="middle" font-family="Inter,system-ui,sans-serif">
+    <text x="320" y="286" font-family="Merriweather,Georgia,serif" font-size="18" font-weight="700" fill="#2C4336">Коло пригніченості</text>
+    <text x="320" y="314" font-size="13" fill="#4F5E55">Запускають: тривалий стрес,</text>
+    <text x="320" y="332" font-size="13" fill="#4F5E55">виснаження, втрати</text>
+
+    <rect x="225" y="52" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="320" y="77" font-size="12" font-weight="700" fill="#2C4336">Почуття</text>
+    <text x="320" y="97" font-size="14" fill="#1E2923">Пригніченість,</text>
+    <text x="320" y="115" font-size="14" fill="#1E2923">мало сил</text>
+
+    <rect x="424.7" y="197.1" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="519.7" y="222.1" font-size="12" font-weight="700" fill="#2C4336">Думка</text>
+    <text x="519.7" y="242.1" font-size="14" fill="#1E2923">«Нема сенсу,</text>
+    <text x="519.7" y="260.1" font-size="14" fill="#1E2923">нічого не вийде»</text>
+
+    <rect x="348.4" y="431.9" width="190" height="76" rx="14" fill="#FBEFE6" stroke="#C77A4F" stroke-width="2.5"/>
+    <text x="443.4" y="456.9" font-size="12" font-weight="700" fill="#9A5530">Дії</text>
+    <text x="443.4" y="476.9" font-size="14" fill="#1E2923">Менше справ,</text>
+    <text x="443.4" y="494.9" font-size="14" fill="#1E2923">зустрічей, радощів</text>
+    <rect x="348.4" y="522" width="190" height="28" rx="14" fill="#C77A4F"/>
+    <text x="443.4" y="541" font-size="12.5" font-weight="600" fill="#fff">Тут можна втрутитися</text>
+
+    <rect x="101.6" y="431.9" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="196.6" y="456.9" font-size="12" font-weight="700" fill="#2C4336">Наслідок</text>
+    <text x="196.6" y="476.9" font-size="14" fill="#1E2923">Менше приємного</text>
+    <text x="196.6" y="494.9" font-size="14" fill="#1E2923">і того, що вдається</text>
+
+    <rect x="25.3" y="197.1" width="190" height="76" rx="14" fill="#F7F2EA" stroke="#3D5A4A" stroke-width="1.5"/>
+    <text x="120.3" y="222.1" font-size="12" font-weight="700" fill="#2C4336">Тіло</text>
+    <text x="120.3" y="242.1" font-size="14" fill="#1E2923">Втома, гірші</text>
+    <text x="120.3" y="260.1" font-size="14" fill="#1E2923">сон і апетит</text>
+  </g>
+</svg>
+<figcaption>Коло пригніченості. Кожен оберт робить наступний трохи важчим.</figcaption>
+</figure>
+<div class="breakpoint"><span class="dot" aria-hidden="true"></span><p><strong>Де розірвати коло пригніченості:</strong> теж у ланці дій. Маленькі заплановані дії повертають у день приємне і відчуття, що щось вдається. Це завдання 1.</p></div>
+
+<h3>Чому саме дії</h3>
+<p>Думками й почуттями важко керувати напряму: не можна наказати собі «не хвилюйся» чи «радій». А дії залишаються під нашим контролем, навіть коли сил мало. Зміни в діях поступово змінюють і думки, і настрій.</p>
+</section>
+
+<section id="kpt">
+<h2>4. Що таке КПТ</h2>
+<p>Когнітивно-поведінкова терапія (КПТ) досліджує зв'язок між думками, почуттями, тілом і діями. Вона вчить помічати й змінювати ті ланки, що тримають людину в колі.</p>
+<ul class="plain">
+  <li><strong>Структурована.</strong> У кожної зустрічі є план, у всієї роботи — зрозумілі цілі.</li>
+  <li><strong>Активна.</strong> Ви не лише розповідаєте, а й пробуєте нові способи дій між зустрічами. Саме ці завдання дають значну частину результату.</li>
+  <li><strong>Обмежена в часі.</strong> Зазвичай робота триває місяці, а не роки.</li>
+  <li><strong>Добре досліджена.</strong> КПТ — один із найбільш вивчених методів допомоги при тривозі та пригніченості. Її рекомендують міжнародні клінічні настанови.</li>
+</ul>
+<p>Мета КПТ — щоб з часом ви самі вміли помічати такі кола і розривати їх.</p>
+<div class="note">
+  <p><strong>Спершу дія, потім настрій.</strong> У пригніченому стані ми чекаємо, поки з'явиться бажання, а воно не приходить. У КПТ діємо навпаки: спершу маленька дія, а настрій підтягується поступово. Не «захочу — зроблю», а «зроблю — і, можливо, захочеться».</p>
+</div>
+</section>
+
+<section id="zavdannya-1">
+<h2>5. Завдання 1. Дія → настрій</h2>
+<p>Мета: побачити, як ваші дії пов'язані з настроєм, і поступово повернути в день те, що дає сили.</p>
+
+<h3>Тиждень 1: спостереження</h3>
+<ol class="steps">
+  <li><strong>Записуйте тричі на день</strong>Вранці, вдень і ввечері коротко запишіть, що ви робили в цей час.</li>
+  <li><strong>Оцінюйте настрій</strong>Поставте оцінку від 0 (найгірший) до 10 (найкращий).</li>
+  <li><strong>Нічого не змінюйте навмисно</strong>Цього тижня завдання лише спостерігати.</li>
+</ol>
+<p>Наприкінці тижня перегляньте записи. Коли настрій був хоч трохи кращим? Що ви тоді робили?</p>
+
+<h3>Тиждень 2: маленькі кроки</h3>
+<p>Щодня плануйте 1–2 маленькі дії. Обирайте з трьох груп:</p>
+<div class="groups">
+  <div class="group"><b>Приємне</b>Коротка прогулянка, улюблена музика, розмова з близькою людиною, чай на свіжому повітрі.</div>
+  <div class="group"><b>Корисне</b>Одна невелика справа, яку відкладали: помити посуд, оплатити рахунок, розібрати одну полицю.</div>
+  <div class="group"><b>Турбота про тіло</b>Поїсти вчасно, випити води, лягти спати в один і той самий час.</div>
+</div>
+<p>Після кожної дії оцініть від 0 до 10 два показники: настрій і відчуття «мені вдалося».</p>
+
+<div class="table-scroll">
+<table>
+  <caption class="sr-only" style="position:absolute;left:-9999px">Приклад заповнення щоденника</caption>
+  <thead><tr><th>День</th><th>Що заплановано</th><th>Зроблено?</th><th>Настрій</th><th>«Вдалося»</th></tr></thead>
+  <tbody>
+    <tr><td>Вівторок</td><td>Прогулянка 10 хвилин біля дому</td><td>Так</td><td>4 → 5</td><td>6</td></tr>
+    <tr><td>Середа</td><td>Подзвонити сестрі</td><td>Частково: написати замість дзвінка</td><td>3 → 4</td><td>5</td></tr>
+    <tr><td>Четвер</td><td>Розібрати одну полицю</td><td>Ні, не було сил</td><td>3</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Три правила</h3>
+<ul class="plain">
+  <li><strong>Крок має бути маленьким.</strong> Такого розміру, щоб його можна було зробити навіть у поганий день. Не «прибрати квартиру», а «протерти стіл». Не «почати бігати», а «вийти на 10 хвилин».</li>
+  <li><strong>Робіть за планом, а не за настроєм.</strong> Бажання може з'явитися вже під час дії, а може й не з'явитися. Обидва варіанти нормальні.</li>
+  <li><strong>Якщо не вийшло — це не провал, а інформація.</strong> Наступного разу зменште крок.</li>
+</ul>
+</section>
+
+<section id="zavdannya-2">
+<h2>6. Завдання 2. Відкладання хвилювання</h2>
+<p>Мета: не заборонити собі хвилюватися (це не працює), а повернути контроль над тим, коли ви цим займаєтеся.</p>
+<ol class="steps">
+  <li><strong>Оберіть свій «час для хвилювань»</strong>15 хвилин щодня, в один і той самий час і в одному місці. Наприклад, о 18:00 за кухонним столом. Не пізніше ніж за 2–3 години до сну і не в ліжку.</li>
+  <li><strong>Протягом дня: помітити, записати, відкласти</strong>Коли помічаєте, що почали прокручувати «а що, як…», запишіть хвилювання кількома словами. Скажіть собі: «Я повернуся до цього о 18:00». Поверніть увагу до того, що робите зараз: що бачите, що чуєте, чим зайняті руки.</li>
+  <li><strong>У свій час: розібрати список</strong>Перегляньте записи. Частина хвилювань уже неактуальна, позначте їх. Про кожне з решти запитайте себе: «Чи можу я з цим щось зробити?» Якщо так, визначте один конкретний крок і коли його зробите. Якщо ні, позначте: «поза моїм контролем».</li>
+  <li><strong>Завершіть вчасно</strong>Коли 15 хвилин минули, закрийте записи і поверніться до звичайних справ. Якщо хвилювання повертаються, вони почекають до завтрашнього «часу для хвилювань».</li>
+</ol>
+<div class="note warm">
+  <p><strong>Це стосується лише прокручування думок «а що, як…».</strong> Реальна небезпека — інша справа: якщо лунає тривога або потрібно діяти просто зараз, дійте як завжди.</p>
+</div>
+<p>Спочатку вийде не щоразу, і це нормально. Це навичка, яка тренується. Навіть якщо вдалося відкласти хвилювання кілька разів за день, це вже результат.</p>
+</section>
+
+<section id="dopomoga">
+<h2>7. Коли не чекати і звертатися по допомогу</h2>
+<p>Ці матеріали розраховані на підтримку до початку повноцінної роботи. Зверніться по допомогу, не чекаючи нашої зустрічі, якщо:</p>
+<ul class="plain">
+  <li>стан помітно погіршився або стало важко виконувати звичні справи;</li>
+  <li>з'являються думки, що жити не варто, або думки про те, щоб зашкодити собі.</li>
+</ul>
+<div class="help">
+  <ul>
+    <li><span class="phone">7333</span> — Lifeline Ukraine, лінія психологічної підтримки та запобігання самогубствам, працює цілодобово. Можна також написати в чат на сайті <a href="https://lifelineukraine.com" rel="noopener">lifelineukraine.com</a>.</li>
+    <li><span class="phone">103</span> або <span class="phone">112</span> — якщо є безпосередня загроза життю.</li>
+    <li><strong>Сімейний лікар</strong> — у тому числі щоб перевірити фізичне здоров'я. Деякі стани тіла, наприклад порушення роботи щитоподібної залози, можуть давати схожі симптоми.</li>
+  </ul>
+</div>
+</section>
+
+<section id="dali">
+<h2>8. Що далі</h2>
+<ol class="steps">
+  <li><strong>Два тижні практики</strong>Щодня виконуйте обидва завдання і ведіть записи в бланках.</li>
+  <li><strong>Через 14 днів — анкети ще раз</strong>Пройдіть їх повторно на сторінці <a href="/kviz/">анкет</a>. Порівняння з першим результатом покаже, що змінюється.</li>
+  <li><strong>Надішліть мені короткий звіт</strong>Результати анкет, що вдавалося, що було складно, і питання, які виникли. Коли буде змога, напишіть на <a href="mailto:krzhv@proton.me">krzhv@proton.me</a>.</li>
+</ol>
+<p>Ці матеріали не замінюють терапію, вони допомагають почати. Заповнивши анкети, ви вже зробили перший крок.</p>
+<p><a class="btn" href="/materialy/pochatok/blanky/">Відкрити бланки для друку</a></p>
+</section>
+
+<details>
+  <summary>На чому базуються ці матеріали</summary>
+  <ol>
+    <li>Padesky, C.A., &amp; Mooney, K.A. (1990). Presenting the cognitive model to clients. <i>International Cognitive Therapy Newsletter</i>, 6, 13–14.</li>
+    <li>Jacobson, N.S., et al. (1996). A component analysis of cognitive-behavioral treatment for depression. <i>Journal of Consulting and Clinical Psychology</i>, 64(2), 295–304.</li>
+    <li>Ekers, D., et al. (2014). Behavioural activation for depression: an update of meta-analysis. <i>PLoS ONE</i>, 9(6), e100100.</li>
+    <li>Borkovec, T.D., et al. (1983). Stimulus control applications to the treatment of worry. <i>Behaviour Research and Therapy</i>, 21(3), 247–251.</li>
+    <li>McGowan, S.K., &amp; Behar, E. (2013). A preliminary investigation of stimulus control training for worry. <i>Behavior Modification</i>, 37(1), 90–112.</li>
+    <li>Cuijpers, P., et al. (2010). Is guided self-help as effective as face-to-face psychotherapy for depression and anxiety disorders? <i>Psychological Medicine</i>, 40(12), 1943–1957.</li>
+    <li>NICE (2022). Depression in adults: treatment and management (NG222). NICE (2011, оновл. 2019). Generalised anxiety disorder and panic disorder in adults (CG113).</li>
+  </ol>
+</details>
+
+</main>
+
+<footer><div class="wrap">
+  <p class="sign">Сергій Коржов, клінічний психолог</p>
+  <p>Матеріали підготовлені індивідуально і не є публічною статтею. Будь ласка, не поширюйте посилання.</p>
+</div></footer>
+
+</body>
+</html>
