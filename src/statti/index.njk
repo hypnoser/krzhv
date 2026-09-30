@@ -1,29 +1,48 @@
 ---
 layout: base.njk
 title: "Матеріали для клієнтів"
-description: "Доказові інформаційні матеріали з клінічної психології: тривога, депресія, ОКР та інші теми."
+description: "Як допомогти собі при постійній тривозі, депресії та панічних атаках: практичні посібники для дорослих і пояснення психологічних механізмів."
 section: statti
 schema:
   "@context": "https://schema.org"
   "@type": "CollectionPage"
   "name": "Матеріали для клієнтів"
-  "description": "Доказові інформаційні матеріали з клінічної психології"
+  "description": "Практичні посібники самодопомоги для дорослих і пояснювальні статті з клінічної психології"
+  "url": "https://krzhv.com.ua/statti/"
 ---
 <div class="wrap">
   <div class="page-head">
     <span class="eyebrow">Матеріали</span>
     <h1>Корисні матеріали</h1>
-    <p>Доказові посібники з клінічної психології, які можуть допомогти вам краще зрозуміти свій стан.</p>
+    <p>Практичні кроки для складного дня та пояснення, які допоможуть краще зрозуміти свій стан.</p>
   </div>
 
+  <section id="samodopomoha" class="self-help-section" aria-labelledby="self-help-heading" tabindex="-1">
+    <h2 id="self-help-heading">Як допомогти собі</h2>
+    <p>Оберіть те, що зараз найближче. Посібники для дорослих можна читати без опитувальника; вони не встановлюють діагноз і не замінюють лікування.</p>
+    <div class="articles-grid">
+      {% for post in collections.statti | selfHelpGuides %}
+      <article class="article-card">
+        <span class="article-tag">{% from "icons.njk" import categoryIcon %}{{ categoryIcon(post.data.category) }}{{ post.data.category }}</span>
+        <h3><a href="{{ post.url }}">{{ post.data.selfHelp.title }}</a></h3>
+        <p>{{ post.data.selfHelp.description }}</p>
+        <a href="{{ post.url }}" class="article-link" aria-label="Читати посібник: {{ post.data.selfHelp.title }}">Читати посібник →</a>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <h2 class="materials-heading">Зрозуміти свій стан</h2>
   <div class="articles-grid" style="margin-bottom:80px;">
     {% for post in collections.statti %}
+    {% if not post.data.selfHelp %}
     <div class="article-card">
       <span class="article-tag">{% from "icons.njk" import categoryIcon %}{{ categoryIcon(post.data.category) }}{{ post.data.category }}</span>
       <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
       <p>{{ post.data.description }}</p>
       <a href="{{ post.url }}" class="article-link">Читати посібник →</a>
     </div>
+    {% endif %}
     {% endfor %}
   </div>
 </div>

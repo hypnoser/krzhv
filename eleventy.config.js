@@ -32,6 +32,10 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("autoSlug", autoSlug);
+  eleventyConfig.addFilter("selfHelpGuides", (posts) => {
+    return posts.filter((post) => post.data.selfHelp && !post.data.noindex)
+      .sort((a, b) => a.data.selfHelp.order - b.data.selfHelp.order);
+  });
 
   eleventyConfig.addCollection("statti", (collectionApi) => {
     return collectionApi.getFilteredByGlob("src/statti/*.md").sort((a, b) => b.date - a.date);

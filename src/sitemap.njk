@@ -10,7 +10,7 @@ eleventyExcludeFromCollections: true
 <url><loc>https://krzhv.com.ua/vidguky/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 <url><loc>https://krzhv.com.ua/kviz/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 {%- for post in collections.statti %}
-<url><loc>https://krzhv.com.ua{{ post.url }}</loc><lastmod>{{ post.data.date | isoDate }}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+{% if not post.data.noindex %}<url><loc>https://krzhv.com.ua{{ post.url }}</loc><lastmod>{{ (post.data.updated or post.data.date) | isoDate }}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>{% endif %}
 {%- endfor %}
 {%- for post in collections.blog %}
 <url><loc>https://krzhv.com.ua{{ post.url }}</loc><lastmod>{{ post.data.date | isoDate }}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
