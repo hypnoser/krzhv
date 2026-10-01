@@ -1,0 +1,291 @@
+{
+  "checked_on": "2026-09-30",
+  "build": {
+    "exit_code": 0,
+    "generated_files": 45,
+    "copied_resources": 38
+  },
+  "main_validation": {
+    "assertions": 578,
+    "browser_pages": [
+      {
+        "route": "/statti/postiina-tryvoha/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/statti/depresiya/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/statti/panichni-ataky/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/statti/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/statti/postiina-tryvoha/",
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "route": "/statti/depresiya/",
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "route": "/statti/panichni-ataky/",
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "route": "/statti/",
+        "width": 1280,
+        "overflow": false
+      }
+    ]
+  },
+  "corrected_pages_validation": {
+    "assertions": 154,
+    "pages": [
+      {
+        "route": "/help/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/statti/nepevnist-i-tryvoga/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/statti/chomu-postiino-shchos-pohane-peredchuvaiesh/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/statti/tryvoga-nevyznachenist/",
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "route": "/help/",
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "route": "/statti/nepevnist-i-tryvoga/",
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "route": "/statti/chomu-postiino-shchos-pohane-peredchuvaiesh/",
+        "width": 1280,
+        "overflow": false
+      },
+      {
+        "route": "/statti/tryvoga-nevyznachenist/",
+        "width": 1280,
+        "overflow": false
+      }
+    ],
+    "scope": "help and three corrected related articles"
+  },
+  "source_links": [
+    {
+      "url": "https://findahelpline.com",
+      "status": 200,
+      "final": "https://findahelpline.com",
+      "anchor_ok": true,
+      "bytes": 293913
+    },
+    {
+      "url": "https://la-strada.org.ua/garyachi-liniyi",
+      "status": 200,
+      "final": "https://la-strada.org.ua/garyachi-liniyi",
+      "anchor_ok": true,
+      "bytes": 236162
+    },
+    {
+      "url": "https://lifelineukraine.com/",
+      "status": 200,
+      "final": "https://lifelineukraine.com/",
+      "anchor_ok": true,
+      "bytes": 258404
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10585589/",
+      "status": 200,
+      "final": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10585589/",
+      "anchor_ok": true,
+      "bytes": 21308
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11303915/",
+      "status": 200,
+      "final": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11303915/",
+      "anchor_ok": true,
+      "bytes": 216191
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5007415/",
+      "status": 200,
+      "final": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5007415/",
+      "anchor_ok": true,
+      "bytes": 21303
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7390059/",
+      "status": 200,
+      "final": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7390059/",
+      "anchor_ok": true,
+      "bytes": 21303
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36229113/",
+      "status": 200,
+      "final": "https://pubmed.ncbi.nlm.nih.gov/36229113/",
+      "anchor_ok": true,
+      "bytes": 137956
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9613027/",
+      "status": 200,
+      "final": "https://pubmed.ncbi.nlm.nih.gov/9613027/",
+      "anchor_ok": true,
+      "bytes": 128188
+    },
+    {
+      "url": "https://www.nhs.uk/conditions/heart-attack/",
+      "status": 200,
+      "final": "https://www.nhs.uk/conditions/heart-attack/",
+      "anchor_ok": true,
+      "bytes": 45734
+    },
+    {
+      "url": "https://www.nhs.uk/conditions/stroke/symptoms/",
+      "status": 200,
+      "final": "https://www.nhs.uk/conditions/stroke/symptoms/",
+      "anchor_ok": true,
+      "bytes": 28217
+    },
+    {
+      "url": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/facing-your-fears/",
+      "status": 200,
+      "final": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/facing-your-fears/",
+      "anchor_ok": true,
+      "bytes": 49041
+    },
+    {
+      "url": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/tackling-your-to-do-list/",
+      "status": 200,
+      "final": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/tackling-your-to-do-list/",
+      "anchor_ok": true,
+      "bytes": 49121
+    },
+    {
+      "url": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/tackling-your-worries/",
+      "status": 200,
+      "final": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/tackling-your-worries/",
+      "anchor_ok": true,
+      "bytes": 51776
+    },
+    {
+      "url": "https://www.nhs.uk/mental-health/conditions/generalised-anxiety-disorder-gad/",
+      "status": 200,
+      "final": "https://www.nhs.uk/mental-health/conditions/generalised-anxiety-disorder-gad/",
+      "anchor_ok": true,
+      "bytes": 49955
+    },
+    {
+      "url": "https://www.nhs.uk/mental-health/conditions/panic-disorder/",
+      "status": 200,
+      "final": "https://www.nhs.uk/mental-health/conditions/panic-disorder/",
+      "anchor_ok": true,
+      "bytes": 39486
+    },
+    {
+      "url": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
+      "status": 200,
+      "final": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
+      "anchor_ok": true,
+      "bytes": 24937
+    },
+    {
+      "url": "https://www.nice.org.uk/guidance/cg113/chapter/Recommendations",
+      "status": 200,
+      "final": "https://www.nice.org.uk/guidance/cg113/chapter/Recommendations",
+      "anchor_ok": true,
+      "bytes": 102653
+    },
+    {
+      "url": "https://www.nice.org.uk/guidance/cg113/chapter/Recommendations#identification",
+      "status": 200,
+      "final": "https://www.nice.org.uk/guidance/cg113/chapter/Recommendations",
+      "anchor_ok": true,
+      "bytes": 102653
+    },
+    {
+      "url": "https://www.nice.org.uk/guidance/cg113/chapter/Recommendations#stepped-care-for-people-with-panic-disorder",
+      "status": 200,
+      "final": "https://www.nice.org.uk/guidance/cg113/chapter/Recommendations",
+      "anchor_ok": true,
+      "bytes": 102653
+    },
+    {
+      "url": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendations",
+      "status": 200,
+      "final": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendations",
+      "anchor_ok": true,
+      "bytes": 266182
+    },
+    {
+      "url": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendations#risk-assessment-and-management",
+      "status": 200,
+      "final": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendations",
+      "anchor_ok": true,
+      "bytes": 266182
+    },
+    {
+      "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+      "status": 200,
+      "final": "https://www.who.int/news-room/fact-sheets/detail/depression",
+      "anchor_ok": true,
+      "bytes": 113432
+    },
+    {
+      "url": "https://www.who.int/news-room/questions-and-answers/item/suicide",
+      "status": 200,
+      "final": "https://www.who.int/news-room/questions-and-answers/item/suicide",
+      "anchor_ok": true,
+      "bytes": 100989
+    },
+    {
+      "url": "https://www.who.int/publications/i/item/9789240003927",
+      "status": 200,
+      "final": "https://www.who.int/publications/i/item/9789240003927",
+      "anchor_ok": true,
+      "bytes": 106099
+    },
+    {
+      "url": "https://www.who.int/publications/i/item/9789241505406",
+      "status": 200,
+      "final": "https://www.who.int/publications/i/item/9789241505406",
+      "anchor_ok": true,
+      "bytes": 87219
+    },
+    {
+      "url": "https://zakon.rada.gov.ua/laws/show/5081-17",
+      "status": 200,
+      "final": "https://zakon.rada.gov.ua/laws/show/5081-17",
+      "anchor_ok": true,
+      "bytes": 161959
+    }
+  ],
+  "publication_performed": false
+}
