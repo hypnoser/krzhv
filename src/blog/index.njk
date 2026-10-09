@@ -22,7 +22,7 @@ schema:
     <button type="button" class="filter-pill" data-filter="journal" aria-pressed="false">Особистий журнал</button>
   </div>
 
-  <div class="post-list">
+  <div class="post-list" data-paginate="10">
     {% for post in collections.blog %}
     <div class="post-row" data-audience="{% if post.data.audience == 'colleagues' %}colleagues{% else %}journal{% endif %}">
       <div class="post-date">{{ post.data.date | ukDate }}</div>
@@ -44,28 +44,26 @@ schema:
 
 {% include "contact.njk" %}
 
+<script src="/assets/js/pagination.js" defer></script>
 <script>
   (function () {
     var pills = document.querySelectorAll('.filter-pill[data-filter]');
+    var list = document.querySelector('.post-list');
     var rows = document.querySelectorAll('.post-row[data-audience]');
     function apply(filter) {
-      var lastVisible = null;
       rows.forEach(function (row) {
         var show = filter === 'all' || row.getAttribute('data-audience') === filter;
-        row.hidden = !show;
-        row.classList.remove('is-last');
-        if (show) lastVisible = row;
+        row.setAttribute('data-filtered', show ? 'false' : 'true');
       });
-      if (lastVisible) lastVisible.classList.add('is-last');
       pills.forEach(function (pill) {
         var active = pill.getAttribute('data-filter') === filter;
         pill.classList.toggle('active', active);
         pill.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
+      list.dispatchEvent(new CustomEvent('paginate:refresh'));
     }
     pills.forEach(function (pill) {
       pill.addEventListener('click', function () { apply(pill.getAttribute('data-filter')); });
     });
-    apply('all');
   })();
 </script>
