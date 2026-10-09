@@ -32,8 +32,8 @@ schema:
     </div>
   </section>
 
-  <h2 class="materials-heading">Зрозуміти свій стан</h2>
-  <div class="articles-grid" style="margin-bottom:48px;">
+  <h2 class="materials-heading" id="materials">Зрозуміти свій стан</h2>
+  <div class="articles-grid" data-paginate="12" data-paginate-anchor="materials" style="margin-bottom:48px;">
     {% for post in collections.statti %}
     {% if not post.data.selfHelp %}
     <div class="article-card">
@@ -55,3 +55,5 @@ schema:
 </div>
 
 {% include "contact.njk" %}
+
+<script src="/assets/js/pagination.js" defer></script>
