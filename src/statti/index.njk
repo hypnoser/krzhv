@@ -33,7 +33,7 @@ schema:
   </section>
 
   <h2 class="materials-heading">Зрозуміти свій стан</h2>
-  <div class="articles-grid" style="margin-bottom:80px;">
+  <div class="articles-grid" style="margin-bottom:48px;">
     {% for post in collections.statti %}
     {% if not post.data.selfHelp %}
     <div class="article-card">
@@ -45,4 +45,13 @@ schema:
     {% endif %}
     {% endfor %}
   </div>
+
+  <aside class="info-note" aria-labelledby="info-note-title">
+    <h2 id="info-note-title">Важливо знати</h2>
+    <p>Матеріали на цій сторінці освітні: вони пояснюють, як працюють різні стани і що про них відомо з досліджень, але не замінюють консультації. Джерела наведено наприкінці кожної статті.</p>
+    <p>Не впевнені, з чого почати? Можна пройти короткі <a href="/kviz/">опитувальники</a> (тривога, депресія, панічні атаки). Вони не ставлять діагноз, але допомагають зрозуміти, чи варто звернутися до фахівця.</p>
+    <p>Якщо вам дуже погано просто зараз, не чекайте консультації: в Україні працює безкоштовна цілодобова лінія психологічної підтримки «Ти як?» — 0-800-500-335.</p>
+  </aside>
 </div>
+
+{% include "contact.njk" %}
