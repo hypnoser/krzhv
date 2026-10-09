@@ -16,15 +16,15 @@ schema:
     <p>Професійні роздуми, спостереження з КПТ-практики та матеріали, які можуть бути цікаві колегам-психологам.</p>
   </div>
 
-  <div class="filter-row">
-    <span class="filter-pill active">Усі записи</span>
-    <span class="filter-pill">Для колег</span>
-    <span class="filter-pill">Особистий журнал</span>
+  <div class="filter-row" role="group" aria-label="Фільтр записів">
+    <button type="button" class="filter-pill active" data-filter="all" aria-pressed="true">Усі записи</button>
+    <button type="button" class="filter-pill" data-filter="colleagues" aria-pressed="false">Для колег</button>
+    <button type="button" class="filter-pill" data-filter="journal" aria-pressed="false">Особистий журнал</button>
   </div>
 
   <div class="post-list">
     {% for post in collections.blog %}
-    <div class="post-row">
+    <div class="post-row" data-audience="{% if post.data.audience == 'colleagues' %}colleagues{% else %}journal{% endif %}">
       <div class="post-date">{{ post.data.date | ukDate }}</div>
       <div>
         <span class="post-audience {% if post.data.audience == 'colleagues' %}colleagues{% else %}journal{% endif %}">{% if post.data.audience == 'colleagues' %}Для колег{% else %}Журнал{% endif %}</span>
@@ -35,3 +35,29 @@ schema:
     {% endfor %}
   </div>
 </div>
+
+<script>
+  (function () {
+    var pills = document.querySelectorAll('.filter-pill[data-filter]');
+    var rows = document.querySelectorAll('.post-row[data-audience]');
+    function apply(filter) {
+      var lastVisible = null;
+      rows.forEach(function (row) {
+        var show = filter === 'all' || row.getAttribute('data-audience') === filter;
+        row.hidden = !show;
+        row.classList.remove('is-last');
+        if (show) lastVisible = row;
+      });
+      if (lastVisible) lastVisible.classList.add('is-last');
+      pills.forEach(function (pill) {
+        var active = pill.getAttribute('data-filter') === filter;
+        pill.classList.toggle('active', active);
+        pill.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    }
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () { apply(pill.getAttribute('data-filter')); });
+    });
+    apply('all');
+  })();
+</script>
