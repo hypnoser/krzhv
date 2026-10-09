@@ -77,7 +77,7 @@ permalink: "/blog/{{ title | autoSlug }}/"
     <div class="sources">
       <h3>Джерела</h3>
       <ol>
-        {% for src in sources %}<li>{{ src }}</li>{% endfor %}
+        {% for src in sources %}<li>{% if src.url %}<a href="{{ src.url }}">{{ src.title }}</a>{% else %}{{ src }}{% endif %}</li>{% endfor %}
       </ol>
     </div>
     {% endif %}
