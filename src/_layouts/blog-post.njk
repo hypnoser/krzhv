@@ -10,9 +10,15 @@ permalink: "/blog/{{ title | autoSlug }}/"
   "@type": "BlogPosting",
   "headline": title,
   "description": description,
-  "datePublished": date,
-  "dateModified": date,
-  "author": {"@type": "Person", "name": "Сергій Коржов"}
+  "url": "https://krzhv.com.ua" + page.url,
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://krzhv.com.ua" + page.url},
+  "inLanguage": "uk",
+  "articleSection": "Для колег" if audience == 'colleagues' else "Особистий журнал",
+  "image": "https://krzhv.com.ua" + (ogImage or "/assets/images/og-image.png"),
+  "datePublished": date | isoDate,
+  "dateModified": (updated or date) | isoDate,
+  "author": {"@type": "Person", "name": "Сергій Коржов", "url": "https://krzhv.com.ua/#about"},
+  "publisher": {"@type": "Person", "name": "Сергій Коржов", "url": "https://krzhv.com.ua/"}
 } %}
 <script type="application/ld+json">{{ blogSchema | dump | safe }}</script>
 {% set breadcrumbSchema = {

@@ -481,3 +481,11 @@ footer p{font-size:13px;color:var(--ink-mute);}
   position:absolute;top:0;right:0;width:48px;height:48px;
   cursor:default;background:transparent;
 }
+
+/* Блок «Коротко» і FAQ у статтях */
+.tldr{margin:0 0 32px;padding:18px 22px;background:var(--accent-tint);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;}
+.tldr p{font-size:16px;line-height:1.65;color:var(--ink);margin:0;}
+.tldr .tldr-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:6px;}
+.faq{margin-top:48px;}
+.faq h3{font-size:17px;font-weight:600;margin:22px 0 8px;}
+.faq p{margin:0;}
