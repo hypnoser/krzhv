@@ -12,6 +12,16 @@ ogType: article
   ]
 } %}
 <script type="application/ld+json">{{ breadcrumbSchema | dump | safe }}</script>
+{% if faq %}
+{% set faqItems = [] %}
+{% for item in faq %}
+  {% set faqAnswer = {"@type": "Answer", "text": item.a} %}
+  {% set faqQuestion = {"@type": "Question", "name": item.q, "acceptedAnswer": faqAnswer} %}
+  {% set faqItems = (faqItems.push(faqQuestion), faqItems) %}
+{% endfor %}
+{% set faqSchema = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqItems} %}
+<script type="application/ld+json">{{ faqSchema | dump | safe }}</script>
+{% endif %}
 <div class="article-wrap">
   <div class="breadcrumb">
     <a href="/">Головна</a><span>/</span><a href="/{{ section }}/">{{ sectionLabel }}</a><span>/</span><span>{{ title }}</span>
@@ -36,11 +46,34 @@ ogType: article
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
         <span>{{ content | readingTime }} хв читання</span>
       </div>
+      {% if reviewedBy %}
+      <div class="article-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span>Рецензував: {{ reviewedBy }}</span>
+      </div>
+      {% endif %}
     </div>
   </div>
 
+  {% if tldr %}
+  <aside class="tldr" aria-label="Коротко">
+    <p class="tldr-label">Коротко</p>
+    <p>{{ tldr }}</p>
+  </aside>
+  {% endif %}
+
   <div class="article-body">
     {{ content | safe }}
+
+    {% if faq %}
+    <section class="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Часті запитання</h2>
+      {% for item in faq %}
+      <h3>{{ item.q }}</h3>
+      <p>{{ item.a }}</p>
+      {% endfor %}
+    </section>
+    {% endif %}
 
     <div class="author-box">
       <picture>
