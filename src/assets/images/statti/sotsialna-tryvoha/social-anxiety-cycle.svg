@@ -1,0 +1,50 @@
+<svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif" role="img" aria-label="Замкнене коло соціальної тривоги">
+  <rect width="720" height="440" rx="16" fill="#EEF2EF"/>
+
+  <text x="360" y="38" text-anchor="middle" font-size="18" font-weight="600" fill="#3D5A4A">Як соціальна тривога підтримує сама себе</text>
+
+  <!-- Node 1: top -->
+  <g>
+    <rect x="250" y="62" width="220" height="82" rx="14" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="360" y="92" text-anchor="middle" font-size="13" font-weight="600" fill="#3D5A4A">Соціальна ситуація</text>
+    <text x="360" y="110" text-anchor="middle" font-size="13" font-weight="600" fill="#3D5A4A">активує переконання</text>
+    <text x="360" y="128" text-anchor="middle" font-size="12" fill="#3D5A4A">про себе й чужі оцінки</text>
+  </g>
+
+  <!-- Node 2: right -->
+  <g>
+    <rect x="470" y="190" width="220" height="82" rx="14" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
+    <text x="580" y="220" text-anchor="middle" font-size="13" font-weight="600" fill="#C77A4F">Оцінка загрози:</text>
+    <text x="580" y="238" text-anchor="middle" font-size="13" font-weight="600" fill="#C77A4F">«мене осудять»</text>
+    <text x="580" y="256" text-anchor="middle" font-size="12" fill="#C77A4F">вмикається «програма тривоги»</text>
+  </g>
+
+  <!-- Node 3: bottom -->
+  <g>
+    <rect x="250" y="318" width="220" height="82" rx="14" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="360" y="348" text-anchor="middle" font-size="13" font-weight="600" fill="#B5714A">Увага всередину</text>
+    <text x="360" y="366" text-anchor="middle" font-size="13" font-weight="600" fill="#B5714A">+ поведінка безпеки</text>
+    <text x="360" y="384" text-anchor="middle" font-size="12" fill="#B5714A">завчена фраза, сховати рум'янець</text>
+  </g>
+
+  <!-- Node 4: left -->
+  <g>
+    <rect x="30" y="190" width="220" height="82" rx="14" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="140" y="220" text-anchor="middle" font-size="13" font-weight="600" fill="#6F665D">Страх лишається</text>
+    <text x="140" y="238" text-anchor="middle" font-size="13" font-weight="600" fill="#6F665D">неперевіреним</text>
+    <text x="140" y="256" text-anchor="middle" font-size="12" fill="#6F665D">«обійшлося лише завдяки захисту»</text>
+  </g>
+
+  <defs>
+    <marker id="arrowSa" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3D5A4A"/>
+    </marker>
+  </defs>
+
+  <path d="M 472 108 Q 565 122 578 188" fill="none" stroke="#3D5A4A" stroke-width="2.5" marker-end="url(#arrowSa)"/>
+  <path d="M 578 274 Q 565 358 472 362" fill="none" stroke="#3D5A4A" stroke-width="2.5" marker-end="url(#arrowSa)"/>
+  <path d="M 248 362 Q 152 358 142 274" fill="none" stroke="#3D5A4A" stroke-width="2.5" marker-end="url(#arrowSa)"/>
+  <path d="M 142 188 Q 152 122 248 108" fill="none" stroke="#3D5A4A" stroke-width="2.5" marker-end="url(#arrowSa)"/>
+
+  <text x="360" y="426" text-anchor="middle" font-size="11" fill="#6F665D">За моделлю Clark &amp; Wells (1995) та Wells та ін. (1995)</text>
+</svg>
