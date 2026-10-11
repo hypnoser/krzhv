@@ -27,6 +27,24 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/fonts");
   eleventyConfig.addPassthroughCopy({ "src/static": "/" });
 
+  // /secret/: файли вже зашифровані в браузері — копіюються як є, без обробки шаблонами.
+  // Список для сторінки /secret/ — зашифровані метадані з кожного файлу.
+  eleventyConfig.addPassthroughCopy("src/secret/files");
+  eleventyConfig.ignores.add("src/secret/files/**");
+  eleventyConfig.addGlobalData("secretFiles", () => {
+    const dir = path.join(__dirname, "src/secret/files");
+    if (!fs.existsSync(dir)) return [];
+    return fs.readdirSync(dir)
+      .filter((f) => f.endsWith(".html"))
+      .map((f) => {
+        const html = fs.readFileSync(path.join(dir, f), "utf-8");
+        const m = html.match(/<script type="application\/json" id="krzhv-meta">([^<]*)<\/script>/);
+        if (!m) { console.warn(`[secret] ${f}: немає krzhv-meta — файл не зашифровано через /secret/?`); return null; }
+        return { url: `/secret/files/${f}`, meta: JSON.parse(m[1]) };
+      })
+      .filter(Boolean);
+  });
+
   eleventyConfig.addGlobalData("inlineCss", () => {
     return fs.readFileSync(path.join(__dirname, "src/assets/css/style.css"), "utf-8");
   });

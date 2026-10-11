@@ -49,6 +49,7 @@
 <link rel="preload" href="/assets/fonts/Merriweather-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>{{ inlineCss | safe }}</style>
 
+{% if not noAnalytics %}
 {# Google tag (gtag.js) #}
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC6CST6KSZ"></script>
 <script>
@@ -57,6 +58,7 @@
   gtag('js', new Date());
   gtag('config', 'G-EC6CST6KSZ', { allow_google_signals: false, allow_ad_personalization_signals: false });
 </script>
+{% endif %}
 
 {% if schema %}
 <script type="application/ld+json">{{ schema | dump | safe }}</script>
