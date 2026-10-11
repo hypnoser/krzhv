@@ -429,6 +429,8 @@ footer .footer-links a:focus-visible,.help-line a:focus-visible,.nav-links-mobil
 }
 @media(max-width:560px){
   .states-grid,.articles-grid,.testi-grid{grid-template-columns:1fr;}
+  .article-body table{font-size:14px;}
+  .article-body th,.article-body td{padding:10px 8px;overflow-wrap:anywhere;}
 }
 
 /* ===== Quiz (kviz) ===== */
