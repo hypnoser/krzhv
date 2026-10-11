@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ title }}{% if title != "Сергій Коржов — Клінічний психолог, КПТ онлайн" %} — Сергій Коржов{% endif %}</title>
+{% set docTitle = seoTitle or title %}<title>{{ docTitle }}{% if docTitle != "Сергій Коржов — Клінічний психолог, КПТ онлайн" %} — Сергій Коржов{% endif %}</title>
 <meta name="description" content="{{ description }}">
 <meta name="author" content="Сергій Коржов">
 {% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">{% endif %}
@@ -55,7 +55,7 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-EC6CST6KSZ');
+  gtag('config', 'G-EC6CST6KSZ', { allow_google_signals: false, allow_ad_personalization_signals: false });
 </script>
 
 {% if schema %}

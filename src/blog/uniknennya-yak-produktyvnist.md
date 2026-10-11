@@ -4,6 +4,7 @@ title: "Коли уникнення виглядає як продуктивні
 description: "Клінічна нотатка про приховані форми поведінки безпеки, які легко сплутати з дисципліною чи відповідальністю."
 audience: colleagues
 date: 2026-08-22
+relatedUrls: ["/blog/zaspokoiennia-vid-terapevta-koly-pidtrymka-staie-povedinkoiu-bezpeky/", "/statti/prokrastynatsiya-i-emotsiyi/", "/statti/perfektsionizm/"]
 ---
 
 Класичну поведінку безпеки — не заходити в ліфт, тримати телефон під рукою «на всяк випадок» — розпізнати неважко. Важче з тими формами, які соціально винагороджуються.

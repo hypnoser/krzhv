@@ -4,6 +4,7 @@ title: "Найважча сесія — не перша"
 description: "Особисті нотатки про те, чому завершення терапії дається складніше, ніж її початок."
 audience: journal
 date: 2026-08-22
+relatedUrls: ["/blog/pokrashchennia-v-terapii-ne-ide-po-priamii/", "/blog/domashnie-zavdannia-iake-nikhto-ne-robyt/", "/blog/strakh-pershoi-konsultatsii-shcho-naspravdi-vidbuvaietsia/"]
 ---
 
 Усі готуються до першої сесії. Мало хто готується до останньої.

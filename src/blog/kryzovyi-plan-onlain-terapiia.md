@@ -19,6 +19,7 @@ sources:
     url: https://findahelpline.com/
   - title: "IASP — Crisis centres and helplines"
     url: https://www.iasp.info/crisis-centres-helplines/
+relatedUrls: ["/blog/strakh-pershoi-konsultatsii-shcho-naspravdi-vidbuvaietsia/", "/blog/pokrashchennia-v-terapii-ne-ide-po-priamii/", "/statti/ptsr-chy-normalnyi-stres/"]
 ---
 
 *Якщо ви зараз у кризі, контакти допомоги зібрано на сторінці [«Термінова допомога»](/help/). Цей текст адресований фахівцям.*

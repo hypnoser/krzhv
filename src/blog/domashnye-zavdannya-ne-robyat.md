@@ -4,6 +4,7 @@ title: "Домашнє завдання, яке ніхто не робить"
 description: "Про те, чому клієнти не виконують домашні завдання — і чому це не привід соромити, а привід переглянути завдання."
 audience: journal
 date: 2026-08-22
+relatedUrls: ["/blog/koly-kliient-vse-rozumiie-rozumom-ale-nichoho-ne/", "/blog/povedinkovyi-eksperyment-prohnoz-iakyi-mozhna-pereviryty/", "/statti/shcho-take-kpt/"]
 ---
 
 Клієнт приходить на сесію і каже: «Я не встиг зробити щоденник думок». Пауза. Потім — виправдання: тиждень був важкий, забув, не було натхнення.

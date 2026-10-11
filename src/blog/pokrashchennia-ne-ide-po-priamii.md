@@ -13,6 +13,7 @@ sources:
     url: https://research.vu.nl/en/publications/sudden-gains-in-cognitive-therapy-and-interpersonal-psychotherapy/
   - title: "Wucherpfennig F., Rubel J.A., Hollon S.D., Lutz W., 2017 — Sudden gains in routine care cognitive behavioral therapy for depression: A replication with extensions. Behaviour Research and Therapy, 89, 24–32 (сторінка публікації)"
     url: https://www.rlp-forschung.de/public/publications/126782
+relatedUrls: ["/blog/naivazhcha-sesiia-ne-persha/", "/blog/koly-kliient-vse-rozumiie-rozumom-ale-nichoho-ne/", "/statti/shcho-take-kpt/"]
 ---
 
 Коли людина починає терапію, вона зазвичай уявляє прогрес як сходинки вгору: щотижня трохи краще. Реальність менш охайна. Інколи за тиждень стає помітно легше, інколи кілька тижнів здається, що нічого не відбувається, а інколи самопочуття повертається назад. Це не завжди ознака, що «не працює».

@@ -19,6 +19,7 @@ sources:
     url: https://jonabram.web.unc.edu/wp-content/uploads/sites/2968/2012/07/Blakey-Abramowitz-2016-Safety-Behavior-Review.pdf
   - title: "Wells A., Clark D.M., Salkovskis P., Ludgate J., Hackmann A., Gelder M., 1995 — Social phobia: The role of in-situation safety behaviors in maintaining anxiety and negative beliefs. Behavior Therapy, 26(1), 153–161"
     url: https://research.manchester.ac.uk/en/publications/social-phobia-the-role-of-in-situation-safety-behaviors-in-mainta/
+relatedUrls: ["/blog/koly-unyknennia-vyhliadaie-iak-produktyvnist/", "/statti/tryvoha-za-zdorovia/", "/blog/chomu-tryvoha-ne-mynaie-navit-koly-vy-rozumiiete/"]
 ---
 
 Клієнт питає вдруге за сесію: «Але це ж точно не небезпечно?» Відповісти «так, усе гаразд» хочеться майже рефлекторно. Це здається добрим і підтримувальним. Але в КПТ є причина зупинитися на секунду: таке заспокоєння інколи працює як поведінка безпеки, а ми самі стаємо її частиною.

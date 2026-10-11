@@ -13,6 +13,7 @@ sources:
     url: https://www.simplypsychology.com/articles/cbt-behavioral-experiments
   - title: "Yilmaz C., Nemani A., Schittenhelm J., Clark D.M., Thew G., Stangier U., 2025 — Behavioral experiments vs. verbal interventions in cognitive therapy for social anxiety disorder: A randomized controlled trial (сторінка публікації, Оксфордський університет)"
     url: https://www.psy.ox.ac.uk/publications/publication_modal/2263165
+relatedUrls: ["/blog/koly-kliient-vse-rozumiie-rozumom-ale-nichoho-ne/", "/blog/chomu-tryvoha-ne-mynaie-navit-koly-vy-rozumiiete/", "/statti/sotsialna-tryvoha/"]
 ---
 
 Типова ситуація: клієнт каже: «Розумом я розумію, що ніхто мене не розглядає, але відчуття те саме». Докази розібрано, думку переформульовано, а переконаність не зрушила. Нерідко виходить так, що розмова діє на рівні слів, а страх живе в досвіді. Для цього в КПТ є окремий інструмент, який переносить перевірку з кабінету в життя.

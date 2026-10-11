@@ -100,26 +100,14 @@ ogType: article
   </div>
 </div>
 
-{% set related = [] %}
-{% for post in collections.statti %}
-  {% if post.url != page.url and post.data.category == category %}
-    {% set related = (related.push(post), related) %}
-  {% endif %}
-{% endfor %}
-{% if related.length < 3 %}
-  {% for post in collections.statti %}
-    {% if post.url != page.url and post.data.category != category and related.length < 3 %}
-      {% set related = (related.push(post), related) %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
+{% set related = collections.statti | pickRelated(collections.statti.concat(collections.blog), page.url, relatedUrls, "category", category) %}
 <section class="related">
   <h3 class="related-head" style="max-width:1080px;margin:0 auto 32px;padding:0 32px;">Читайте також</h3>
   <div class="related-grid">
     {% for post in related %}
       {% if loop.index <= 3 %}
       <a href="{{ post.url }}" class="related-card">
-        <span class="related-tag">{{ post.data.category }}</span>
+        <span class="related-tag">{% if post.data.category %}{{ post.data.category }}{% elif post.data.audience == 'colleagues' %}Для колег{% else %}Особистий журнал{% endif %}</span>
         <h4>{{ post.data.title }}</h4>
       </a>
       {% endif %}

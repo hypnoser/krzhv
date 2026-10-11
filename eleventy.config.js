@@ -32,6 +32,22 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("autoSlug", autoSlug);
+
+  // «Читайте також»: спершу вручну задані relatedUrls (будь-які статті/пости),
+  // далі — матеріали з тим самим значенням preferKey, далі — решта fillPool.
+  eleventyConfig.addFilter("pickRelated", (fillPool, allPool, currentUrl, pinned, preferKey, preferValue, limit = 3) => {
+    const out = [];
+    const seen = new Set([currentUrl]);
+    const add = (p) => { if (p && !seen.has(p.url) && !p.data.noindex && out.length < limit) { out.push(p); seen.add(p.url); } };
+    for (const url of pinned || []) {
+      const p = allPool.find((x) => x.url === url);
+      if (!p) console.warn(`[pickRelated] ${currentUrl}: relatedUrls не знайдено — ${url}`);
+      add(p);
+    }
+    if (preferKey) fillPool.filter((p) => p.data[preferKey] === preferValue).forEach(add);
+    fillPool.forEach(add);
+    return out;
+  });
   eleventyConfig.addFilter("selfHelpGuides", (posts) => {
     return posts.filter((post) => post.data.selfHelp && !post.data.noindex)
       .sort((a, b) => a.data.selfHelp.order - b.data.selfHelp.order);
