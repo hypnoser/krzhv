@@ -1,0 +1,168 @@
+---
+layout: base.njk
+title: "Що робити, коли важко?"
+seoTitle: "Що робити, коли важко: коротка вправа на 2–5 хвилин"
+description: "Оберіть, що турбує — тривога, брак сил, нав'язливі перевірки чи паніка — і отримайте одну просту вправу на 2–5 хвилин. Безкоштовно, без реєстрації."
+permalink: /dopomoha/
+noAnalytics: true
+pageStyles: ["/assets/css/dopomoha.css"]
+schema:
+  "@context": "https://schema.org"
+  "@type": "WebPage"
+  "name": "Що робити, коли важко?"
+  "description": "Короткі вправи самодопомоги на 2–5 хвилин при тривозі, браку сил, нав'язливих перевірках і паніці."
+  "url": "https://krzhv.com.ua/dopomoha/"
+  "inLanguage": "uk"
+  "author":
+    "@type": "Person"
+    "name": "Сергій Коржов"
+---
+{%- set kinds = [
+  { key: "main", label: "Вправа" },
+  { key: "simpler", label: "Простіший варіант" },
+  { key: "extra", label: "Ще одна вправа" }
+] -%}
+{%- macro sourceLinks(keys) -%}
+{%- for k in keys %}<a href="{{ dopomoha.sources[k].url }}" rel="noopener" target="_blank">{{ dopomoha.sources[k].title }}</a>{% if not loop.last %}; {% endif %}{% endfor -%}
+{%- endmacro -%}
+
+<div class="dh" id="dh">
+  <div class="dh-urgent" role="note">
+    <div class="wrap">
+      <p><a href="/help/"><strong>Потрібна термінова допомога</strong> →</a> <span class="dh-urgent-sep" aria-hidden="true">·</span> <span class="dh-urgent-nums">При загрозі життю: <a href="tel:103">103</a> або <a href="tel:112">112</a></span></p>
+    </div>
+  </div>
+
+  <div class="wrap dh-wrap">
+    <section id="vybir" class="dh-choose" aria-labelledby="dh-title">
+      <span class="eyebrow">Самодопомога</span>
+      <h1 id="dh-title" tabindex="-1">Що робити, коли важко?</h1>
+      <p class="dh-lead">Оберіть, що турбує. Отримайте одну просту вправу на 2–5 хвилин.</p>
+      <p class="dh-meta">Безкоштовно · Без реєстрації</p>
+
+      <ul class="dh-options">
+        {%- for s in dopomoha.states %}
+        <li>
+          <a href="#{{ s.id }}" class="dh-option" style="--c:{{ s.color }}">
+            <span class="dh-option-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{{ s.icon | safe }}</svg></span>
+            <span class="dh-option-text"><strong>{{ s.title }}</strong><span>{{ s.hint }}</span></span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+
+      <p class="dh-unsure">Не знаєте, що обрати? Почніть із того, що відчувається найсильніше саме зараз. Зорієнтуватися допоможуть і <a href="/kviz/">короткі опитувальники</a>.</p>
+      <p class="dh-disclaimer">Самодопомога не замінює лікування. Сторінка не встановлює діагноз, не збирає відповідей і не передає ваш вибір в аналітику.</p>
+      <p class="dh-offline" hidden>Ця сторінка збережена в браузері й відкриватиметься навіть без інтернету.</p>
+    </section>
+
+    {%- for s in dopomoha.states %}
+    <section id="{{ s.id }}" class="dh-state" aria-labelledby="{{ s.id }}-title" style="--c:{{ s.color }}" data-state="{{ s.id }}">
+      <a href="#vybir" class="dh-back" data-back>← Обрати інше</a>
+      <h2 id="{{ s.id }}-title" tabindex="-1">{{ s.title }}</h2>
+
+      {%- if s.urgent %}
+      <div class="dh-alert">
+        <p><strong>Спершу перевірте, чи потрібна невідкладна допомога.</strong> Телефонуйте <a href="tel:103">103</a> або <a href="tel:112">112</a> просто зараз, якщо:</p>
+        <ul>
+          {%- for sign in dopomoha.urgentSigns %}
+          <li>{{ sign }}</li>
+          {%- endfor %}
+        </ul>
+        <p class="dh-small">Це приклади, а не повний перелік. За кордоном — місцевий екстрений номер. Джерела: {{ sourceLinks(dopomoha.urgentSources) }}.</p>
+      </div>
+      {%- endif %}
+
+      <p class="dh-note">{{ s.note | safe }}</p>
+
+      {%- for kind in kinds %}
+      {%- set ex = s.exercises[kind.key] %}
+      <article id="{{ s.id }}-{{ kind.key }}" class="dh-ex" data-kind="{{ kind.key }}" aria-labelledby="{{ s.id }}-{{ kind.key }}-title">
+        <p class="dh-ex-kind">{{ kind.label }}</p>
+        <h3 id="{{ s.id }}-{{ kind.key }}-title" tabindex="-1">{{ ex.title }}</h3>
+        {%- if ex.anywhere %}
+        <p class="dh-tag">Можна непомітно: у транспорті, на роботі, в укритті</p>
+        {%- endif %}
+        <p class="dh-ex-lead">{{ ex.lead | safe }}</p>
+        <ol class="dh-steps">
+          {%- for step in ex.steps %}
+          <li>{{ step | safe }}</li>
+          {%- endfor %}
+        </ol>
+        <p class="dh-example"><strong>Приклад.</strong> {{ ex.example | safe }}</p>
+
+        {%- if ex.card %}
+        <div class="dh-card" aria-label="Картка на випадок паніки для друку">
+          <p class="dh-card-title">Моя картка на випадок паніки</p>
+          <p><strong>Телефоную 103 або 112, якщо:</strong></p>
+          <ul>
+            {%- for sign in dopomoha.urgentSigns %}
+            <li>{{ sign }}</li>
+            {%- endfor %}
+          </ul>
+          <p>Нові або незвичні симптоми — привід для медичної оцінки.</p>
+          <p><strong>Мої кроки:</strong></p>
+          <span class="dh-line" aria-hidden="true"></span><span class="dh-line" aria-hidden="true"></span>
+          <p><strong>Кому написати чи зателефонувати:</strong></p>
+          <span class="dh-line" aria-hidden="true"></span>
+          <p class="dh-small">Порожні рядки — для заповнення від руки після друку. Сайт нічого не зберігає.</p>
+        </div>
+        {%- endif %}
+
+        <details class="dh-why">
+          <summary>Чому це працює</summary>
+          <p>{{ ex.why | safe }}</p>
+          <p class="dh-small">Джерела: {{ sourceLinks(ex.sources) }}.</p>
+        </details>
+
+        <div class="dh-actions" hidden>
+          <a href="#{{ s.id }}-done" class="dh-btn dh-btn-primary">Готово</a>
+          {%- if kind.key != "simpler" %}
+          <a href="#{{ s.id }}-simpler" class="dh-btn dh-btn-secondary">Зараз це надто складно</a>
+          {%- endif %}
+        </div>
+        {%- if kind.key == "simpler" %}
+        <p class="dh-small dh-enough">Якщо й це зараз завелико — нічого робити не потрібно, можна просто перепочити. Якщо стає гірше — <a href="/help/">термінова допомога</a>.</p>
+        {%- endif %}
+        <p class="dh-links">
+          <button type="button" class="dh-linkbtn" data-print hidden>Зберегти або роздрукувати</button>
+          {%- if ex.more %}
+          <a href="{{ ex.more.url }}">{{ ex.more.label }} →</a>
+          {%- endif %}
+        </p>
+      </article>
+      {%- endfor %}
+
+      <div id="{{ s.id }}-done" class="dh-done">
+        <h3 id="{{ s.id }}-done-title" tabindex="-1">На цьому можна зупинитися.</h3>
+        <p>Одна дія — це вже крок. Повернутися сюди можна будь-коли.</p>
+        <ul class="dh-done-links">
+          <li data-done-extra><a href="#{{ s.id }}-extra">Ще одна вправа: {{ s.exercises.extra.title | lower }}</a></li>
+          <li data-done-main hidden><a href="#{{ s.id }}">Повернутися до основної вправи</a></li>
+          <li><a href="{{ s.guide.url }}">{{ s.guide.label }}</a></li>
+          {%- if s.quiz %}
+          <li><a href="{{ s.quiz.url }}">{{ s.quiz.label }}</a> — орієнтовний, не діагноз</li>
+          {%- endif %}
+        </ul>
+        <p>Якщо так буває часто або це заважає жити — можна поговорити з фахівцем. <a href="#contact">Написати мені ↓</a></p>
+      </div>
+
+      <p class="dh-state-help"><a href="/help/">Потрібна термінова допомога →</a></p>
+    </section>
+    {%- endfor %}
+
+    <details class="dh-sources" id="dzherela">
+      <summary>Джерела і як підготовлено вправи</summary>
+      <p>Вправи — короткі авторські адаптації загальнодоступних рекомендацій NICE, NHS і ВООЗ. Їх не перевіряли як окрему програму, і сторінка не обіцяє полегшення за певний час: 2–5 хвилин — це тривалість вправи. Посилання перевірено {{ dopomoha.checked }}.</p>
+      <ul>
+        {%- for key, src in dopomoha.sources %}
+        <li><a href="{{ src.url }}" rel="noopener" target="_blank">{{ src.title }}</a></li>
+        {%- endfor %}
+      </ul>
+    </details>
+  </div>
+</div>
+
+{% include "contact.njk" %}
+
+<script src="/assets/js/dopomoha.js" defer></script>

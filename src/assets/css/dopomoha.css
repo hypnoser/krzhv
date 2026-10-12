@@ -1,0 +1,127 @@
+/* /dopomoha/ — стилі сервісу самодопомоги. Підключаються лише на цій сторінці (pageStyles).
+   Усі селектори під .dh, щоб не впливати на інші сторінки. Токени — з style.css. */
+
+.dh [hidden]{display:none !important;}
+.dh a:focus-visible,.dh button:focus-visible,.dh summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px;}
+.dh [tabindex="-1"]:focus{outline:none;}
+
+/* Термінова допомога — завжди вгорі сторінки */
+.dh-urgent{background:var(--terracotta-tint);border-bottom:1px solid var(--line);}
+.dh-urgent p{padding:10px 0;font-size:14px;color:var(--ink);text-align:center;line-height:1.5;}
+.dh-urgent a{color:var(--terracotta-text);text-decoration:underline;text-underline-offset:3px;}
+.dh-urgent strong{font-weight:600;}
+.dh-urgent-sep{margin:0 6px;color:var(--ink-mute);}
+.dh-urgent-nums{white-space:nowrap;}
+
+.dh-wrap{max-width:760px;padding-top:48px;padding-bottom:64px;}
+.dh-choose,.dh-state{scroll-margin-top:96px;}
+.dh section.dh-choose{padding:0;}
+.dh section.dh-state{padding:56px 0 0;}
+
+/* Вибір стану */
+.dh-choose h1{font-family:var(--serif);font-weight:300;font-size:38px;line-height:1.25;margin:16px 0 14px;color:var(--ink);}
+.dh-lead{font-size:18px;color:var(--ink-soft);line-height:1.6;}
+.dh-meta{font-size:13px;color:var(--ink-mute);margin:8px 0 32px;letter-spacing:.02em;}
+.dh-options{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.dh-option{
+  display:flex;gap:16px;align-items:flex-start;height:100%;min-height:96px;
+  background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:10px;
+  padding:20px 20px 20px 18px;transition:border-color .15s, box-shadow .15s;
+}
+.dh-option:hover{box-shadow:0 8px 24px rgba(60,50,30,.08);border-color:var(--c);}
+.dh-option-icon{width:44px;height:44px;flex-shrink:0;border-radius:12px;position:relative;display:flex;align-items:center;justify-content:center;}
+.dh-option-icon::before{content:'';position:absolute;inset:0;background:var(--c);opacity:.13;border-radius:12px;}
+.dh-option-icon svg{position:relative;width:22px;height:22px;stroke:var(--c);}
+.dh-option-text{display:flex;flex-direction:column;gap:4px;}
+.dh-option-text strong{font-size:17px;font-weight:600;color:var(--ink);line-height:1.35;}
+.dh-option-text span{font-size:14px;color:var(--ink-soft);line-height:1.5;}
+.dh-unsure{font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:16px;}
+.dh-unsure a,.dh-note a,.dh-done a,.dh-links a,.dh-alert a,.dh-sources a,.dh-why a,.dh-state-help a,.dh-enough a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;}
+.dh-disclaimer,.dh-offline{font-size:13px;color:var(--ink-mute);line-height:1.6;}
+.dh-offline{margin-top:6px;}
+
+/* Стан і вправи */
+.dh-back{display:inline-block;font-size:14px;color:var(--ink-soft);padding:10px 0;margin-bottom:8px;}
+.dh-back:hover{color:var(--ink);}
+.dh-state h2{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.3;margin-bottom:18px;color:var(--ink);}
+.dh-alert{background:var(--terracotta-tint);border-radius:10px;padding:20px 22px;margin-bottom:18px;}
+.dh-alert p{font-size:15px;line-height:1.65;color:var(--ink);}
+.dh-alert ul{margin:10px 0 10px 20px;}
+.dh-alert li{font-size:15px;line-height:1.6;margin-bottom:4px;color:var(--ink);}
+.dh-note{font-size:15px;line-height:1.65;color:var(--ink-soft);background:var(--paper-alt);border-radius:10px;padding:16px 20px;margin-bottom:24px;}
+.dh-small{font-size:13px !important;line-height:1.6 !important;color:var(--ink-mute) !important;}
+
+.dh-ex,.dh-done{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:14px;padding:28px 28px 22px;margin-bottom:24px;scroll-margin-top:96px;}
+.dh-ex-kind{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:6px;}
+.dh-ex h3,.dh-done h3{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.35;color:var(--ink);margin-bottom:10px;}
+.dh-tag{display:inline-block;font-size:12px;color:var(--accent);background:var(--accent-tint);border-radius:20px;padding:4px 12px;margin-bottom:12px;}
+.dh-ex-lead{font-size:17px;line-height:1.7;color:var(--ink-soft);margin-bottom:18px;}
+.dh-steps{list-style:none;counter-reset:dh;margin-bottom:18px;}
+.dh-steps li{counter-increment:dh;position:relative;padding-left:44px;font-size:17px;line-height:1.65;color:var(--ink);margin-bottom:14px;min-height:30px;}
+.dh-steps li::before{
+  content:counter(dh);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;
+  background:var(--accent-tint);color:var(--accent);font-weight:600;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.dh-example{font-size:16px;line-height:1.7;color:var(--ink-soft);background:var(--paper-alt);border-radius:10px;padding:14px 18px;margin-bottom:16px;}
+.dh-example strong{color:var(--ink);font-weight:600;}
+.dh-why{margin-bottom:18px;}
+.dh-why summary{cursor:pointer;font-size:15px;font-weight:500;color:var(--accent);padding:8px 0;}
+.dh-why p{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:8px;}
+
+.dh-actions{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 14px;}
+.dh-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 24px;border-radius:6px;font-size:15px;font-weight:500;line-height:1.3;text-align:center;}
+.dh-btn-primary{background:var(--accent);color:#fff;}
+.dh-btn-primary:hover{background:var(--accent-dark);}
+.dh-btn-secondary{border:1px solid var(--line);color:var(--ink);background:var(--paper);}
+.dh-btn-secondary:hover{border-color:var(--ink-mute);}
+.dh-links{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-size:14px;}
+.dh-linkbtn{font:inherit;font-size:14px;color:var(--ink-soft);background:none;border:none;padding:8px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.dh-linkbtn:hover{color:var(--ink);}
+.dh-enough{margin:-4px 0 14px;}
+
+/* Картка для друку */
+.dh-card{border:2px dashed var(--line);border-radius:12px;padding:20px 22px;margin:4px 0 18px;}
+.dh-card-title{font-family:var(--serif);font-size:19px;margin-bottom:10px;color:var(--ink);}
+.dh-card p{font-size:15px;line-height:1.6;color:var(--ink);margin-bottom:6px;}
+.dh-card ul{margin:4px 0 10px 20px;}
+.dh-card li{font-size:14px;line-height:1.55;margin-bottom:3px;}
+.dh-line{display:block;height:30px;border-bottom:1px solid var(--ink-mute);margin-bottom:6px;}
+
+.dh-done{background:var(--accent-tint);border-color:transparent;border-top-color:var(--c);}
+.dh-done p{font-size:16px;line-height:1.7;color:var(--ink-soft);margin-bottom:12px;}
+.dh-done-links{list-style:none;margin:0 0 14px;}
+.dh-done-links li{font-size:15px;line-height:1.6;color:var(--ink-soft);padding:6px 0;}
+
+.dh-state-help{font-size:14px;margin:4px 0 0;}
+.dh-sources{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;}
+.dh-sources summary{cursor:pointer;font-size:14px;color:var(--ink-soft);padding:6px 0;}
+.dh-sources p,.dh-sources li{font-size:13px;line-height:1.65;color:var(--ink-mute);}
+.dh-sources p{margin:10px 0;}
+.dh-sources ul{margin-left:18px;}
+
+@media(max-width:640px){
+  .dh-wrap{padding-left:16px;padding-right:16px;padding-top:32px;}
+  .dh-urgent .wrap{padding:0 16px;}
+  .dh-options{grid-template-columns:1fr;}
+  .dh-choose h1{font-size:30px;}
+  .dh-state h2{font-size:26px;}
+  .dh-ex,.dh-done{padding:22px 18px 18px;}
+  .dh-steps li{font-size:16px;}
+  .dh-btn{width:100%;}
+}
+
+@media print{
+  header,footer,#contact,.dh-urgent,.dh-choose,.dh-back,.dh-actions,.dh-links,.dh-why,.dh-sources,.dh-state-help,.dh-enough{display:none !important;}
+  body{background:#fff;}
+  .dh-wrap{padding:0;max-width:none;}
+  .dh section.dh-state{padding:0;}
+  .dh-ex,.dh-done,.dh-note,.dh-alert,.dh-example{border-color:#999;background:#fff;}
+  /* Кнопка «Зберегти або роздрукувати» друкує лише свою вправу */
+  .dh.dh-print-mode .dh-state:not(.dh-printing),
+  .dh.dh-print-mode .dh-ex:not(.dh-print-target),
+  .dh.dh-print-mode .dh-done{display:none !important;}
+  .dh-card{border-color:#666;break-inside:avoid;}
+  .dh-line{border-color:#333;}
+  .dh a{text-decoration:none;color:#000;}
+}

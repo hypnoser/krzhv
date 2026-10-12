@@ -5,7 +5,7 @@ description: "Практичний посібник при щоденному х
 permalink: /statti/postiina-tryvoha/
 category: "Тривожні розлади"
 date: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"
 selfHelp:
@@ -43,7 +43,7 @@ schema:
   "author":
     "@type": "Person"
     "name": "Сергій Коржов"
-  "dateModified": "2026-09-30"
+  "dateModified": "2026-10-12"
 ---
 
 <h2 id="korotko">Коли думки знову пішли по колу</h2>
@@ -54,6 +54,8 @@ schema:
 4. **Для проблеми — один конкретний крок. Для припущення — короткий запис і повернення до справи.** Нижче є алгоритм і заповнений приклад.
 
 Можна почати з одного пункту. Мета — повернути собі трохи часу й свободи дій, а не заборонити тривогу. Розрізнення розв'язуваних проблем і гіпотетичних хвилювань описує [NHS: tackling your worries](https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/tackling-your-worries/). Виклик екстреної медичної допомоги за номером 103 визначає [стаття 4 українського закону](https://zakon.rada.gov.ua/laws/show/5081-17).
+
+Якщо зараз немає сил читати весь посібник, відкрийте [одну коротку вправу на 2–5 хвилин](/dopomoha/#tryvoha).
 
 <nav class="guide-toc" aria-label="Зміст посібника">
 <p><strong>Перейти до потрібного розділу</strong></p>

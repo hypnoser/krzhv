@@ -1,0 +1,367 @@
+[
+ {
+  "check": "direct: chooser visible, no state",
+  "ok": true,
+  "detail": "{'chooser': True, 'states': [], 'parts': [], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "direct: 4 options",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "direct: urgent help link visible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "direct: title",
+  "ok": true,
+  "detail": "Що робити, коли важко: коротка вправа на 2–5 хвилин — Сергій Коржов"
+ },
+ {
+  "check": "direct: canonical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "direct: no analytics script",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "direct: one h1",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#tryvoha: only this state, main exercise",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['tryvoha'], 'parts': ['tryvoha-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#tryvoha: urgent help visible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#tryvoha: too hard → simpler, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['tryvoha'], 'parts': ['tryvoha-simpler'], 'urgentTop': True, 'focus': 'tryvoha-simpler-title'}"
+ },
+ {
+  "check": "#tryvoha: reload keeps simpler",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['tryvoha'], 'parts': ['tryvoha-simpler'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#tryvoha: browser back → main",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['tryvoha'], 'parts': ['tryvoha-main'], 'urgentTop': True, 'focus': 'tryvoha-title'}"
+ },
+ {
+  "check": "#tryvoha: done, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['tryvoha'], 'parts': ['tryvoha-done'], 'urgentTop': True, 'focus': 'tryvoha-done-title'}"
+ },
+ {
+  "check": "#tryvoha: done offers extra exercise",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#tryvoha: extra exercise shown",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#tryvoha: done after extra offers main",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#tryvoha: back to choice, focus h1",
+  "ok": true,
+  "detail": "{'chooser': True, 'states': [], 'parts': [], 'urgentTop': True, 'focus': 'dh-title'}"
+ },
+ {
+  "check": "#nemaie-syl: only this state, main exercise",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['nemaie-syl'], 'parts': ['nemaie-syl-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#nemaie-syl: urgent help visible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#nemaie-syl: too hard → simpler, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['nemaie-syl'], 'parts': ['nemaie-syl-simpler'], 'urgentTop': True, 'focus': 'nemaie-syl-simpler-title'}"
+ },
+ {
+  "check": "#nemaie-syl: reload keeps simpler",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['nemaie-syl'], 'parts': ['nemaie-syl-simpler'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#nemaie-syl: browser back → main",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['nemaie-syl'], 'parts': ['nemaie-syl-main'], 'urgentTop': True, 'focus': 'nemaie-syl-title'}"
+ },
+ {
+  "check": "#nemaie-syl: done, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['nemaie-syl'], 'parts': ['nemaie-syl-done'], 'urgentTop': True, 'focus': 'nemaie-syl-done-title'}"
+ },
+ {
+  "check": "#nemaie-syl: done offers extra exercise",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#nemaie-syl: extra exercise shown",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#nemaie-syl: done after extra offers main",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#nemaie-syl: back to choice, focus h1",
+  "ok": true,
+  "detail": "{'chooser': True, 'states': [], 'parts': [], 'urgentTop': True, 'focus': 'dh-title'}"
+ },
+ {
+  "check": "#naviazlyvosti: only this state, main exercise",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['naviazlyvosti'], 'parts': ['naviazlyvosti-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#naviazlyvosti: urgent help visible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#naviazlyvosti: too hard → simpler, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['naviazlyvosti'], 'parts': ['naviazlyvosti-simpler'], 'urgentTop': True, 'focus': 'naviazlyvosti-simpler-title'}"
+ },
+ {
+  "check": "#naviazlyvosti: reload keeps simpler",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['naviazlyvosti'], 'parts': ['naviazlyvosti-simpler'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#naviazlyvosti: browser back → main",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['naviazlyvosti'], 'parts': ['naviazlyvosti-main'], 'urgentTop': True, 'focus': 'naviazlyvosti-title'}"
+ },
+ {
+  "check": "#naviazlyvosti: done, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['naviazlyvosti'], 'parts': ['naviazlyvosti-done'], 'urgentTop': True, 'focus': 'naviazlyvosti-done-title'}"
+ },
+ {
+  "check": "#naviazlyvosti: done offers extra exercise",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#naviazlyvosti: extra exercise shown",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#naviazlyvosti: done after extra offers main",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#naviazlyvosti: back to choice, focus h1",
+  "ok": true,
+  "detail": "{'chooser': True, 'states': [], 'parts': [], 'urgentTop': True, 'focus': 'dh-title'}"
+ },
+ {
+  "check": "#panika: only this state, main exercise",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['panika'], 'parts': ['panika-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#panika: urgent help visible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#panika: too hard → simpler, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['panika'], 'parts': ['panika-simpler'], 'urgentTop': True, 'focus': 'panika-simpler-title'}"
+ },
+ {
+  "check": "#panika: reload keeps simpler",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['panika'], 'parts': ['panika-simpler'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "#panika: browser back → main",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['panika'], 'parts': ['panika-main'], 'urgentTop': True, 'focus': 'panika-title'}"
+ },
+ {
+  "check": "#panika: done, focus",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['panika'], 'parts': ['panika-done'], 'urgentTop': True, 'focus': 'panika-done-title'}"
+ },
+ {
+  "check": "#panika: done offers extra exercise",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#panika: extra exercise shown",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#panika: done after extra offers main",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "#panika: back to choice, focus h1",
+  "ok": true,
+  "detail": "{'chooser': True, 'states': [], 'parts': [], 'urgentTop': True, 'focus': 'dh-title'}"
+ },
+ {
+  "check": "unknown fragment → chooser",
+  "ok": true,
+  "detail": "{'chooser': True, 'states': [], 'parts': [], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "home → #tryvoha",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['tryvoha'], 'parts': ['tryvoha-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "home → #nemaie-syl",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['nemaie-syl'], 'parts': ['nemaie-syl-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "home → #naviazlyvosti",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['naviazlyvosti'], 'parts': ['naviazlyvosti-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "home → #panika",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['panika'], 'parts': ['panika-main'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "home: quizzes still linked",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "keyboard: Tab reaches first option",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "keyboard: visible focus outline",
+  "ok": true,
+  "detail": "solid"
+ },
+ {
+  "check": "keyboard: Enter opens state, focus on heading",
+  "ok": true,
+  "detail": "{'chooser': False, 'states': ['tryvoha'], 'parts': ['tryvoha-main'], 'urgentTop': True, 'focus': 'tryvoha-title'}"
+ },
+ {
+  "check": "no-JS: all states and exercises visible",
+  "ok": true,
+  "detail": "{'chooser': True, 'states': ['tryvoha', 'nemaie-syl', 'naviazlyvosti', 'panika'], 'parts': ['tryvoha-main', 'tryvoha-simpler', 'tryvoha-extra', 'tryvoha-done', 'nemaie-syl-main', 'nemaie-syl-simpler', 'nemaie-syl-extra', 'nemaie-syl-done', 'naviazlyvosti-main', 'naviazlyvosti-simpler', 'naviazlyvosti-extra', 'naviazlyvosti-done', 'panika-main', 'panika-simpler', 'panika-extra', 'panika-done'], 'urgentTop': True, 'focus': 'BODY'}"
+ },
+ {
+  "check": "no-JS: JS-only buttons hidden",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no-JS: urgent help visible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no-JS: panic urgent signs visible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 360px /dopomoha/",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 360px /dopomoha/#panika",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 360px /dopomoha/#naviazlyvosti-done",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 360px /",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 360px /statti/",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 1280px /dopomoha/",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 1280px /dopomoha/#panika",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 1280px /dopomoha/#naviazlyvosti-done",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 1280px /",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "no horizontal overflow 1280px /statti/",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "print: card printed, chrome hidden",
+  "ok": true,
+  "detail": "{'card': True, 'header': 'none', 'contact': 'none', 'actions': 'none'}"
+ },
+ {
+  "check": "offline: page opens from cache",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "analytics: no requests from /dopomoha/ pages",
+  "ok": true,
+  "detail": ""
+ }
+]
