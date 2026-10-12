@@ -8,7 +8,7 @@
 /* Термінова допомога — завжди вгорі сторінки */
 .dh-urgent{background:var(--terracotta-tint);border-bottom:1px solid var(--line);}
 .dh-urgent p{padding:10px 0;font-size:14px;color:var(--ink);text-align:center;line-height:1.5;}
-.dh-urgent a{color:var(--terracotta-text);text-decoration:underline;text-underline-offset:3px;}
+.dh-urgent a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--terracotta);text-underline-offset:3px;}
 .dh-urgent strong{font-weight:600;}
 .dh-urgent-sep{margin:0 6px;color:var(--ink-mute);}
 .dh-urgent-nums{white-space:nowrap;}

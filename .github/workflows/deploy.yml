@@ -32,6 +32,9 @@ jobs:
       - name: Build site with Eleventy
         run: npx @11ty/eleventy --config=eleventy.config.js
 
+      - name: Check internal links
+        run: npm test
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
