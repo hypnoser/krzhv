@@ -5,7 +5,7 @@ description: "Практичний посібник при щоденному х
 permalink: /statti/postiina-tryvoha/
 category: "Тривожні розлади"
 date: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"
 selfHelp:
@@ -43,7 +43,7 @@ schema:
   "author":
     "@type": "Person"
     "name": "Сергій Коржов"
-  "dateModified": "2026-09-30"
+  "dateModified": "2026-10-12"
 ---
 
 <h2 id="korotko">Коли думки знову пішли по колу</h2>

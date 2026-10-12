@@ -5,7 +5,7 @@ description: "Короткий алгоритм під час панічного
 permalink: /statti/panichni-ataky/
 category: "Тривожні розлади"
 date: 2026-08-09
-updated: 2026-09-30
+updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"
 selfHelp:
@@ -45,7 +45,7 @@ schema:
   "author":
     "@type": "Person"
     "name": "Сергій Коржов"
-  "dateModified": "2026-09-30"
+  "dateModified": "2026-10-12"
 ---
 
 <h2 id="zaraz">Якщо напад відбувається зараз</h2>

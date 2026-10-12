@@ -5,7 +5,7 @@ description: "Посильний мінімум дня при депресії: 
 permalink: /statti/depresiya/
 category: "Настрій"
 date: 2026-08-09
-updated: 2026-09-30
+updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"
 selfHelp:
@@ -41,7 +41,7 @@ schema:
   "author":
     "@type": "Person"
     "name": "Сергій Коржов"
-  "dateModified": "2026-09-30"
+  "dateModified": "2026-10-12"
 ---
 
 <h2 id="sohodni">Якщо сил майже немає: один крок на сьогодні</h2>
