@@ -503,6 +503,9 @@ footer a:focus-visible,.help-line a:focus-visible,.nav-links-mobile .nav-help:fo
 
 /* ===== Quiz (kviz) ===== */
 .kviz-wrap{padding-bottom:80px;}
+/* Місце під перше питання, поки його малює скрипт — щоб текст нижче не стрибав */
+#kviz-app{min-height:420px;}
+@media(max-width:560px){#kviz-app{min-height:450px;}}
 .kviz-header{padding:32px 0 28px;}
 .kviz-header h1{
   font-family:var(--serif);font-weight:300;font-size:32px;line-height:1.32;
