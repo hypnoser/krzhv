@@ -18,11 +18,11 @@ layout: base.njk
     eyebrow: Правова інформація   (необов'язково)
     updated: 21 вересня 2026        (необов'язково — показує "Оновлено: ...")
     noindex: true                   (необов'язково — виключає сторінку з пошуку)
-    showContact: true               (необов'язково — блок контактів «Зробіть перший крок» унизу)
+    showContact: false              (необов'язково — прибрати блок контактів «Зробіть перший крок» унизу; за замовчуванням він є)
     ---
 #}
 
-<div class="breadcrumb wrap">
+<div class="breadcrumb wrap" aria-label="Навігаційний ланцюжок">
   <a href="/">Головна</a><span>/</span>{{ title }}
 </div>
 
@@ -42,4 +42,4 @@ layout: base.njk
   </div>
 </article>
 
-{% if showContact %}{% include "contact.njk" %}{% endif %}
+{% if showContact !== false %}{% include "contact.njk" %}{% endif %}

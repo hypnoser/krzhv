@@ -34,7 +34,9 @@ layout: base.njk
   </div>
 </div>
 
+{% include "contact.njk" %}
+
 <script>
   window.KVIZ_DATA = {{ quizData | dump | safe }};
 </script>
-<script src="/assets/js/kviz.js"></script>
+<script src="/assets/js/kviz.js?v={{ build.version }}"></script>

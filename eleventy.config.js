@@ -45,11 +45,38 @@ module.exports = function (eleventyConfig) {
       .filter(Boolean);
   });
 
+  // Стилі вбудовуються в кожну сторінку — у стиснутому вигляді (без коментарів і зайвих пробілів).
   eleventyConfig.addGlobalData("inlineCss", () => {
-    return fs.readFileSync(path.join(__dirname, "src/assets/css/style.css"), "utf-8");
+    return fs.readFileSync(path.join(__dirname, "src/assets/css/style.css"), "utf-8")
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/\s+/g, " ")
+      .replace(/\s*([{};,])\s*/g, "$1")
+      .replace(/;}/g, "}")
+      .trim();
   });
 
   eleventyConfig.addFilter("autoSlug", autoSlug);
+
+  // Зображення нижче першого екрана: відкладене завантаження, якщо атрибут не задано вручну.
+  // Не чіпаємо аватар у шапці статті та картинки з fetchpriority.
+  // Таблиці з Markdown, де перша клітинка заголовка порожня: перша колонка — заголовки рядків.
+  // Так програми зчитування з екрана зв'язують кожну клітинку з її рядком і колонкою.
+  eleventyConfig.addTransform("tableHeaders", function (content) {
+    if (!(this.page.outputPath || "").endsWith(".html")) return content;
+    return content.replace(/<table>([\s\S]*?)<\/table>/g, (table, inner) => {
+      if (!/<thead>\s*<tr>\s*<th>\s*<\/th>/.test(inner)) return table;
+      const fixed = inner
+        .replace(/<th>/g, '<th scope="col">')
+        .replace(/(<tbody>[\s\S]*)/, (body) => body.replace(/<tr>\s*<td>([\s\S]*?)<\/td>/g, '<tr>\n<th scope="row">$1</th>'));
+      return "<table>" + fixed + "</table>";
+    });
+  });
+
+  eleventyConfig.addTransform("lazyImages", function (content) {
+    if (!(this.page.outputPath || "").endsWith(".html")) return content;
+    return content.replace(/<img\b(?![^>]*\bloading=)(?![^>]*\bfetchpriority=)(?![^>]*author-avatar)([^>]*)>/g,
+      '<img loading="lazy" decoding="async"$1>');
+  });
 
   // «Читайте також»: спершу вручну задані relatedUrls (будь-які статті/пости),
   // далі — матеріали з тим самим значенням preferKey, далі — решта fillPool.

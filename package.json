@@ -6,7 +6,7 @@
   "scripts": {
     "build": "eleventy --config=eleventy.config.js",
     "serve": "eleventy --config=eleventy.config.js --serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node scripts/check-site.js"
   },
   "keywords": [],
   "author": "",

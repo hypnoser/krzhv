@@ -44,7 +44,7 @@ schema:
 
 {% include "contact.njk" %}
 
-<script src="/assets/js/pagination.js" defer></script>
+<script src="/assets/js/pagination.js?v={{ build.version }}" defer></script>
 <script>
   (function () {
     var pills = document.querySelectorAll('.filter-pill[data-filter]');
