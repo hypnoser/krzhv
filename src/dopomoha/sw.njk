@@ -1,0 +1,74 @@
+---
+permalink: /dopomoha/sw.js
+eleventyExcludeFromCollections: true
+---
+/* Офлайн-доступ лише до /dopomoha/. Сторінка — спершу з мережі (щоб оновлення приходили одразу),
+   без мережі — зі збереженої копії. Шрифти й скрипт — з кешу. Нічого не надсилає і не збирає. */
+var CACHE = 'dopomoha-{{ build.time }}';
+var PAGE = '/dopomoha/';
+var ASSETS = [
+  '/assets/css/dopomoha.css',
+  '/assets/js/dopomoha.js',
+  '/assets/fonts/Inter-400.woff2',
+  '/assets/fonts/Inter-500.woff2',
+  '/assets/fonts/Inter-600.woff2',
+  '/assets/fonts/Merriweather-300.woff2',
+  '/assets/fonts/Merriweather-400.woff2',
+  '/assets/fonts/Merriweather-700.woff2',
+  '/favicon-32x32.png'
+];
+
+self.addEventListener('install', function (event) {
+  event.waitUntil(caches.open(CACHE).then(function (cache) {
+    return Promise.all([PAGE].concat(ASSETS).map(function (url) {
+      return cache.add(url).catch(function () {});
+    }));
+  }).then(function () { return self.skipWaiting(); }));
+});
+
+self.addEventListener('activate', function (event) {
+  event.waitUntil(caches.keys().then(function (keys) {
+    return Promise.all(keys.filter(function (k) {
+      return k.indexOf('dopomoha-') === 0 && k !== CACHE;
+    }).map(function (k) { return caches.delete(k); }));
+  }).then(function () { return self.clients.claim(); }));
+});
+
+self.addEventListener('fetch', function (event) {
+  var req = event.request;
+  if (req.method !== 'GET') return;
+  var url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+
+  if (req.mode === 'navigate' && (url.pathname === PAGE || url.pathname === PAGE + 'index.html')) {
+    event.respondWith(fetch(req).then(function (res) {
+      if (res.ok) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (cache) { cache.put(PAGE, copy); });
+      }
+      return res;
+    }).catch(function () {
+      return caches.match(PAGE);
+    }));
+    return;
+  }
+
+  if (ASSETS.indexOf(url.pathname) === -1) return;
+
+  // Стилі й скрипт сторінки — спершу з мережі, щоб не розходилися з новою версією HTML
+  if (/\.(css|js)$/.test(url.pathname)) {
+    event.respondWith(fetch(req).then(function (res) {
+      if (res.ok) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (cache) { cache.put(url.pathname, copy); });
+      }
+      return res;
+    }).catch(function () { return caches.match(url.pathname); }));
+    return;
+  }
+
+  // Шрифти й іконка змінюються рідко — з кешу
+  event.respondWith(caches.match(url.pathname).then(function (hit) {
+    return hit || fetch(req);
+  }));
+});

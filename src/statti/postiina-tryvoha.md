@@ -55,6 +55,8 @@ schema:
 
 Можна почати з одного пункту. Мета — повернути собі трохи часу й свободи дій, а не заборонити тривогу. Розрізнення розв'язуваних проблем і гіпотетичних хвилювань описує [NHS: tackling your worries](https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/tackling-your-worries/). Виклик екстреної медичної допомоги за номером 103 визначає [стаття 4 українського закону](https://zakon.rada.gov.ua/laws/show/5081-17).
 
+Якщо зараз немає сил читати весь посібник, відкрийте [одну коротку вправу на 2–5 хвилин](/dopomoha/#tryvoha).
+
 <nav class="guide-toc" aria-label="Зміст посібника">
 <p><strong>Перейти до потрібного розділу</strong></p>
 <ul>

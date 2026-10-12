@@ -48,6 +48,8 @@
 <link rel="preload" href="/assets/fonts/Merriweather-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Merriweather-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>{{ inlineCss | safe }}</style>
+{% for href in pageStyles %}<link rel="stylesheet" href="{{ href }}">
+{% endfor %}
 
 {% if not noAnalytics %}
 {# Google tag (gtag.js) #}
