@@ -177,7 +177,7 @@ with sync_playwright() as p:
     page.emulate_media(media="print")
     vis = page.evaluate("""() => ({
       card: getComputedStyle(document.querySelector('#panika-extra .dh-card')).display !== 'none',
-      header: getComputedStyle(document.querySelector('header')).display,
+      header: getComputedStyle(document.querySelector('.site-header')).display,
       contact: getComputedStyle(document.querySelector('#contact')).display,
       actions: getComputedStyle(document.querySelector('#panika-extra .dh-actions')).display
     })""")

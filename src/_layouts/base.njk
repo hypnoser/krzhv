@@ -82,7 +82,7 @@
 <body>
 <a href="#main" class="skip-link">Перейти до змісту</a>
 
-<header>
+<header class="site-header">
   <div class="nav">
     <a href="/" class="logo-block">
       <span class="logo">Сергій Коржов</span>
@@ -111,7 +111,7 @@
 
 <script>
   (function () {
-    var header = document.querySelector('header');
+    var header = document.querySelector('.site-header');
     var toggle = document.getElementById('navToggle');
     var menu = document.getElementById('navMobile');
     function setOpen(open) {
@@ -178,7 +178,7 @@
 </script>
 {% endif %}
 
-<footer>
+<footer class="site-footer">
   <div class="footer-grid">
     <div class="footer-brand">
       <a href="/" class="logo-block">
