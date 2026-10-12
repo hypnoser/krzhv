@@ -112,7 +112,7 @@
 }
 
 @media print{
-  header,footer,#contact,.dh-urgent,.dh-choose,.dh-back,.dh-actions,.dh-links,.dh-why,.dh-sources,.dh-state-help,.dh-enough{display:none !important;}
+  .site-header,.site-footer,#contact,.dh-urgent,.dh-choose,.dh-back,.dh-actions,.dh-links,.dh-why,.dh-sources,.dh-state-help,.dh-enough{display:none !important;}
   body{background:#fff;}
   .dh-wrap{padding:0;max-width:none;}
   .dh section.dh-state{padding:0;}

@@ -30,8 +30,21 @@ with sync_playwright() as p:
             errs = []
             pg.on("pageerror", lambda e: errs.append(str(e)))
             pg.goto(base + path, wait_until="load")
+            over = pg.evaluate("""() => {
+              if (!document.querySelector('.site-header')) return [];
+              window.scrollTo({ top: 300, behavior: 'instant' });
+              const bad = [];
+              for (const x of [24, innerWidth / 2, innerWidth - 24]) for (const y of [8, 30]) {
+                const e = document.elementFromPoint(x, y);
+                if (e && !e.closest('.site-header')) bad.push(e.tagName + '.' + e.className);
+              }
+              const sticky = [...document.querySelectorAll('body *')].filter(e => ['sticky', 'fixed'].includes(getComputedStyle(e).position)
+                && !e.matches('.site-header, .maintenance-overlay, .skip-link')).map(e => e.tagName + '.' + e.className);
+              window.scrollTo({ top: 0, behavior: 'instant' });
+              return bad.concat(sticky.map(x => 'sticky ' + x));
+            }""")
             r = pg.evaluate("""() => {
-              const vw = innerWidth, bc = document.querySelector('.breadcrumb'), h = document.querySelector('header');
+              const vw = innerWidth, bc = document.querySelector('.breadcrumb'), h = document.querySelector('.site-header');
               let bcLeft = null;
               if (bc) { const t = bc.querySelector('a') || bc; bcLeft = t.getBoundingClientRect().left; }
               return { overflow: document.documentElement.scrollWidth > vw + 1, sw: document.documentElement.scrollWidth,
@@ -44,6 +57,8 @@ with sync_playwright() as p:
                 if not ok: fails.append(f"{w}px {path}: {msg}")
             check(not r["overflow"], f"горизонтальна прокрутка ({r['sw']}px)")
             check(not errs, f"помилка JS {errs[:1]}")
+            if not path.startswith(standalone):
+                check(not over, f"щось перекриває шапку при прокрутці: {over[:2]}")
             if not path.startswith(standalone):
                 check(r["bcLeft"] is None or r["bcLeft"] >= 16, f"хлібні крихти біля краю ({r['bcLeft']})")
                 check(r["headerH"] <= 90, f"шапка {r['headerH']:.0f}px")
@@ -71,9 +86,9 @@ with sync_playwright() as p:
     # Шапка на низькому екрані ховається при прокрутці вниз
     pg = b.new_page(viewport={"width": 844, "height": 390})
     pg.goto(base + "/statti/okr/"); pg.mouse.wheel(0, 600); pg.wait_for_timeout(400); total += 1
-    if "header-hidden" not in (pg.get_attribute("header", "class") or ""): fails.append("шапка: не ховається на низькому екрані")
+    if "header-hidden" not in (pg.get_attribute(".site-header", "class") or ""): fails.append("шапка: не ховається на низькому екрані")
     pg.mouse.wheel(0, -200); pg.wait_for_timeout(400); total += 1
-    if "header-hidden" in (pg.get_attribute("header", "class") or ""): fails.append("шапка: не повертається при прокрутці вгору")
+    if "header-hidden" in (pg.get_attribute(".site-header", "class") or ""): fails.append("шапка: не повертається при прокрутці вгору")
     # Посилання «Перейти до змісту»
     pg = b.new_page(viewport={"width": 1280, "height": 800})
     pg.goto(base + "/"); pg.keyboard.press("Tab"); total += 1
