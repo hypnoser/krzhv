@@ -99,20 +99,19 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Корисні матеріали</span>
-      <h2>Доказові посібники, які можуть допомогти вже зараз</h2>
+      <h2>Нові матеріали</h2>
       <p><a href="/statti/#samodopomoha" class="btn-ghost">Як допомогти собі</a></p>
     </div>
     <div class="articles-grid">
-      {% for post in collections.statti | reverse %}
-      {% if loop.index <= 3 %}
-      <div class="article-card">
-        <span class="article-tag">{% from "icons.njk" import categoryIcon %}{{ categoryIcon(post.data.category) }}{{ post.data.category }}</span>
+      {%- from "icons.njk" import categoryIcon %}
+      {%- for post in collections.statti | latestArticles(3) %}
+      <a href="{{ post.url }}" class="article-card article-card-link">
+        <span class="article-tag">{{ categoryIcon(post.data.category) }}{{ post.data.category }}</span>
         <h3>{{ post.data.title }}</h3>
         <p>{{ post.data.description }}</p>
-        <a href="{{ post.url }}" class="article-link">Читати посібник →</a>
-      </div>
-      {% endif %}
-      {% endfor %}
+        <span class="article-card-foot"><span class="article-date">{{ post.date | ukDate }}</span><span class="article-link" aria-hidden="true">Читати →</span></span>
+      </a>
+      {%- endfor %}
     </div>
     <div class="articles-more">
       <a href="/statti/" class="btn-ghost">Усі матеріали →</a>
