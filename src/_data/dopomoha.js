@@ -54,6 +54,14 @@ const sources = {
     title: "NHS — Breathing exercises for stress",
     url: "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
   },
+  zaccaro: {
+    title: "Zaccaro et al., 2018 — How Breath-Control Can Change Your Life: a systematic review on slow breathing (Frontiers in Human Neuroscience)",
+    url: "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2018.00353/full",
+  },
+  lin2014: {
+    title: "Lin et al., 2014 — Breathing at a rate of 5.5 breaths per minute with equal inhalation-to-exhalation ratio increases heart rate variability",
+    url: "https://pubmed.ncbi.nlm.nih.gov/24380741/",
+  },
   whoStress: {
     title: "ВООЗ — Doing What Matters in Times of Stress",
     url: "https://www.who.int/publications/i/item/9789240003927",
@@ -318,8 +326,8 @@ const states = [
     extraLabel: "Підготуватися заздалегідь",
     guide: { url: "/statti/panichni-ataky/", label: "Посібник: панічні атаки" },
     quiz: { url: "/kviz/panichni-ataky/", label: "Опитувальник ознак панічних атак" },
-    why: "М'яке, непримусове дихання описує NHS; опора на те, що навколо, — скорочений підхід із посібника ВООЗ про стрес. NHS радить під час нападу нагадувати собі, що він мине. Вправа не провокує симптоми і не обіцяє миттєвого ефекту; дихання в пакет, затримки дихання й навмисне часте дихання тут не використовуються. Якщо напади повторюються або ви почали уникати місць і справ, NICE CG113 рекомендує звернутися по КПТ.",
-    sources: ["nhsBreathing", "whoStress", "nhsPanic", "cg113"],
+    why: "М'яке, непримусове дихання описує NHS: рахувати приблизно до 5 на вдих і до 5 на видих, якщо це допомагає. Такий ритм — близько 6 вдихів на хвилину — відповідає «повільному диханню», яке вивчали в дослідженнях; рівні вдих і видих у них працювали не гірше за подовжений видих. Опора на те, що навколо, — скорочений підхід із посібника ВООЗ про стрес. NHS радить під час нападу нагадувати собі, що він мине. Вправа не провокує симптоми і не обіцяє миттєвого ефекту; дихання в пакет, затримки дихання й навмисне часте дихання тут не використовуються. Якщо напади повторюються або ви почали уникати місць і справ, NICE CG113 рекомендує звернутися по КПТ.",
+    sources: ["nhsBreathing", "zaccaro", "lin2014", "whoStress", "nhsPanic", "cg113"],
     steps: {
       znaiome: {
         type: "choice",
