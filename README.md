@@ -192,3 +192,19 @@ npm test        — перевіряє зібраний сайт: биті вн�
 - **Google Analytics** вантажиться після відкриття сторінки або першої дії відвідувача, щоб не гальмувати показ.
 - **Блок контактів «Зробіть перший крок»** на сторінках з `layout: static.njk` показується за замовчуванням; прибрати — `showContact: false`.
 - **Зображення** в тексті статей автоматично отримують відкладене завантаження (`loading="lazy"`).
+
+## Кеш Cloudflare
+
+Сайт віддається через Cloudflare. Правила кешу (Cloudflare → krzhv.com.ua → Caching → Cache Rules):
+
+| Що | Cloudflare | Браузер |
+|---|---|---|
+| Сторінки, sitemap, robots, llms.txt | 10 хв | 10 хв (як задає GitHub Pages) |
+| `/assets/css/`, `/assets/js/`, `/assets/fonts/` | 1 рік | 1 рік |
+| `/assets/images/`, `/assets/icons/` | 1 доба | 1 доба |
+
+- Стилі й скрипти отримують `?v=<хеш>` автоматично, тож після змін завантажуються нові.
+- **Шрифти** кешуються на рік без версії в адресі. Якщо колись заміните файл шрифту — дайте йому нову назву (і оновіть `@font-face` у `style.css`) або очистіть кеш Cloudflare.
+- Нову версію зображення з тією ж назвою відвідувачі побачать протягом доби. Щоб одразу: Cloudflare → Caching → Configuration → **Purge Cache**.
+- Автоматичне очищення кешу після публікації вмикається секретами репозиторію `CLOUDFLARE_API_TOKEN` (права Zone → Cache Purge, без терміну дії) і `CLOUDFLARE_ZONE_ID` (Settings → Secrets and variables → Actions). Без них крок у workflow просто пропускається.
+- `www.krzhv.com.ua` переадресовується на `krzhv.com.ua` (Rules → Redirect Rules).
