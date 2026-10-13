@@ -159,6 +159,11 @@ section{padding:92px 0;}
 .state-card-cta{
   display:block;margin-top:16px;font-size:13px;font-weight:600;color:var(--accent);
 }
+.states-explainer{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;max-width:760px;margin:32px auto 0;}
+.states-explainer p{font-size:15px;line-height:1.6;color:var(--ink-soft);}
+.states-explainer strong{color:var(--ink);}
+@media(max-width:640px){.states-explainer{grid-template-columns:1fr;}}
+.states-explainer+.states-disclaimer{margin-top:20px;}
 .states-disclaimer{
   text-align:center;font-size:13px;color:var(--ink-mute);margin-top:32px;max-width:520px;
   margin-left:auto;margin-right:auto;line-height:1.6;
