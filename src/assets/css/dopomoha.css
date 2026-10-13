@@ -16,7 +16,8 @@
 .dh-wrap{max-width:760px;padding-top:48px;padding-bottom:64px;}
 .dh-choose,.dh-state{scroll-margin-top:96px;}
 .dh section.dh-choose{padding:0;}
-.dh section.dh-state{padding:56px 0 0;}
+.dh section.dh-state{padding:40px 0 0;}
+.dh-js section.dh-state{padding-top:0;}
 
 /* Вибір стану */
 .dh-choose h1{font-family:var(--serif);font-weight:300;font-size:38px;line-height:1.25;margin:16px 0 14px;color:var(--ink);}
@@ -36,49 +37,123 @@
 .dh-option-text strong{font-size:17px;font-weight:600;color:var(--ink);line-height:1.35;}
 .dh-option-text span{font-size:14px;color:var(--ink-soft);line-height:1.5;}
 .dh-unsure{font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:16px;}
-.dh-unsure a,.dh-note a,.dh-done a,.dh-links a,.dh-alert a,.dh-sources a,.dh-why a,.dh-state-help a,.dh-enough a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;}
+.dh-unsure a,.dh-note a,.dh-links a,.dh-sources a,.dh-why a,.dh-state-help a,.dh-safety a,.dh-text a,.dh-end-links a,.dh-step-urgent .dh-small a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;}
 .dh-disclaimer,.dh-offline{font-size:13px;color:var(--ink-mute);line-height:1.6;}
 .dh-offline{margin-top:6px;}
 
-/* Стан і вправи */
-.dh-back{display:inline-block;font-size:14px;color:var(--ink-soft);padding:10px 0;margin-bottom:8px;}
+/* ===== Стан ===== */
+.dh-state-top{display:flex;flex-direction:column;gap:2px;margin-bottom:12px;}
+.dh-back{display:inline-block;align-self:flex-start;font-size:14px;color:var(--ink-soft);padding:8px 0;}
 .dh-back:hover{color:var(--ink);}
-.dh-state h2{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.3;margin-bottom:18px;color:var(--ink);}
-.dh-alert{background:var(--terracotta-tint);border-radius:10px;padding:20px 22px;margin-bottom:18px;}
-.dh-alert p{font-size:15px;line-height:1.65;color:var(--ink);}
-.dh-alert ul{margin:10px 0 10px 20px;}
-.dh-alert li{font-size:15px;line-height:1.6;margin-bottom:4px;color:var(--ink);}
-.dh-note{font-size:15px;line-height:1.65;color:var(--ink-soft);background:var(--paper-alt);border-radius:10px;padding:16px 20px;margin-bottom:24px;}
+.dh-state-title{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c);}
+.dh-safety{font-size:14px;line-height:1.6;color:var(--ink-soft);border-left:3px solid var(--line);padding:2px 0 2px 12px;margin-bottom:20px;}
 .dh-small{font-size:13px !important;line-height:1.6 !important;color:var(--ink-mute) !important;}
 
-.dh-ex,.dh-done{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:14px;padding:28px 28px 22px;margin-bottom:24px;scroll-margin-top:96px;}
-.dh-ex-kind{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:6px;}
-.dh-ex h3,.dh-done h3{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.35;color:var(--ink);margin-bottom:10px;}
-.dh-tag{display:inline-block;font-size:12px;color:var(--accent);background:var(--accent-tint);border-radius:20px;padding:4px 12px;margin-bottom:12px;}
-.dh-ex-lead{font-size:17px;line-height:1.7;color:var(--ink-soft);margin-bottom:18px;}
-.dh-steps{list-style:none;counter-reset:dh;margin-bottom:18px;}
-.dh-steps li{counter-increment:dh;position:relative;padding-left:44px;font-size:17px;line-height:1.65;color:var(--ink);margin-bottom:14px;min-height:30px;}
-.dh-steps li::before{
-  content:counter(dh);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;
-  background:var(--accent-tint);color:var(--accent);font-weight:600;font-size:14px;
-  display:flex;align-items:center;justify-content:center;
-}
-.dh-example{font-size:16px;line-height:1.7;color:var(--ink-soft);background:var(--paper-alt);border-radius:10px;padding:14px 18px;margin-bottom:16px;}
-.dh-example strong{color:var(--ink);font-weight:600;}
-.dh-why{margin-bottom:18px;}
-.dh-why summary{cursor:pointer;font-size:15px;font-weight:500;color:var(--accent);padding:8px 0;}
-.dh-why p{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:8px;}
+/* ===== Крок ===== */
+.dh-step{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:16px;padding:28px 28px 20px;margin-bottom:24px;}
+.dh-progress{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:var(--ink-mute);margin-bottom:14px;}
+.dh-dots{display:inline-flex;gap:5px;}
+.dh-dots i{width:22px;height:5px;border-radius:3px;background:var(--line);}
+.dh-dots i.on{background:var(--c);}
+.dh-step h3{font-family:var(--serif);font-weight:400;font-size:27px;line-height:1.3;color:var(--ink);margin-bottom:10px;}
+.dh-text{font-size:18px;line-height:1.6;color:var(--ink-soft);margin-bottom:16px;}
+.dh-example{font-size:15px;line-height:1.65;color:var(--ink-soft);background:var(--paper-alt);border-radius:10px;padding:12px 16px;margin-bottom:16px;}
+.dh-example::before{content:'Наприклад: ';color:var(--ink-mute);}
+.dh-note{font-size:14px;line-height:1.6;color:var(--ink-soft);border-left:3px solid var(--terracotta);padding:2px 0 2px 12px;margin-bottom:16px;}
+.dh-after{font-size:16px;line-height:1.6;color:var(--ink);margin-bottom:16px;}
 
-.dh-actions{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 14px;}
-.dh-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 24px;border-radius:6px;font-size:15px;font-weight:500;line-height:1.3;text-align:center;}
-.dh-btn-primary{background:var(--accent);color:#fff;}
+/* Наочні підказки */
+.dh-vis{display:flex;flex-direction:column;align-items:center;margin:4px 0 18px;}
+.dh-vis-svg{width:100%;max-width:360px;height:auto;}
+.dh-vis-sm{max-width:260px;}
+.dh-vis-icon{align-items:flex-start;margin-bottom:10px;}
+.dh-bigicon{width:52px;height:52px;padding:12px;border-radius:16px;color:var(--c);background:color-mix(in srgb, var(--c) 13%, transparent);}
+.dh-vis .v-t{font-family:var(--sans);font-size:13px;fill:var(--ink);text-anchor:middle;font-weight:500;}
+.dh-vis .v-t-s{font-size:11.5px;}
+.dh-vis .v-t-big{font-size:34px;fill:var(--ink-mute);font-weight:300;}
+.dh-vis .v-t-big2{font-family:var(--serif);font-size:30px;}
+.dh-vis .v-t-acc{fill:var(--accent);font-weight:600;}
+.dh-vis .v-t-ter{fill:var(--terracotta-text);font-weight:600;}
+.dh-vis .v-t-mute{fill:var(--ink-mute);}
+.dh-vis .v-box{fill:var(--paper-alt);stroke:var(--line);stroke-width:1.5;}
+.dh-vis .v-box-ter{fill:var(--terracotta-tint);stroke:var(--terracotta);stroke-width:1.5;}
+.dh-vis .v-box-acc{fill:var(--accent-tint);stroke:var(--accent);stroke-width:1.5;}
+.dh-vis .v-cloud{fill:var(--paper-alt);stroke:var(--ink-mute);stroke-width:1.5;}
+.dh-vis .v-dashed{stroke-dasharray:5 4;}
+.dh-vis .v-line{fill:none;stroke:var(--ink-mute);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.dh-vis .v-line-thick{stroke-width:3;stroke:var(--ink-soft);}
+.dh-vis .v-line-mute{stroke:var(--line);}
+.dh-vis .v-arc{fill:none;stroke:var(--ink-mute);stroke-width:1.6;}
+.dh-vis .v-wave{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;}
+.dh-vis .v-fill-acc{fill:var(--accent);}
+.dh-vis .v-fill-ter{fill:var(--terracotta);}
+.dh-vis .v-fill-mute{fill:var(--ink-mute);}
+.dh-vis .v-op{opacity:.18;}
+
+/* Варіанти відповіді */
+.dh-choices{list-style:none;display:flex;flex-direction:column;gap:10px;margin:6px 0 16px;}
+.dh-choice{display:flex;gap:14px;align-items:center;min-height:60px;padding:14px 18px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);transition:border-color .15s,background .15s;}
+.dh-choice:hover{border-color:var(--c);background:color-mix(in srgb, var(--c) 6%, var(--paper));}
+.dh-choice .dh-ic{width:26px;height:26px;flex-shrink:0;color:var(--c);}
+.dh-choice>span{display:flex;flex-direction:column;gap:2px;}
+.dh-choice strong{font-size:17px;font-weight:600;color:var(--ink);line-height:1.35;}
+.dh-choice>span>span{font-size:14px;color:var(--ink-soft);line-height:1.45;}
+.dh-choice-danger .dh-ic{color:var(--terracotta-text);}
+.dh-choice-danger{border-color:color-mix(in srgb, var(--terracotta) 45%, var(--line));}
+
+/* Плитки готових дій */
+.dh-tiles{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:6px 0 16px;}
+.dh-tile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;height:100%;min-height:104px;padding:16px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);font-size:15px;font-weight:500;line-height:1.35;color:var(--ink);transition:border-color .15s,background .15s;}
+.dh-tile:hover{border-color:var(--c);background:color-mix(in srgb, var(--c) 6%, var(--paper));}
+.dh-tile .dh-ic{width:30px;height:30px;color:var(--c);}
+
+/* Кнопки */
+.dh-actions{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 12px;}
+.dh-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 26px;border-radius:8px;font:500 16px/1.3 var(--sans);text-align:center;cursor:pointer;}
+.dh-btn-primary{background:var(--accent);color:#fff;border:0;}
 .dh-btn-primary:hover{background:var(--accent-dark);}
 .dh-btn-secondary{border:1px solid var(--line);color:var(--ink);background:var(--paper);}
 .dh-btn-secondary:hover{border-color:var(--ink-mute);}
-.dh-links{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-size:14px;}
-.dh-linkbtn{font:inherit;font-size:14px;color:var(--ink-soft);background:none;border:none;padding:8px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.dh-links{display:flex;flex-wrap:wrap;gap:4px 22px;align-items:center;font-size:14px;margin-top:4px;}
+.dh-links a,.dh-linkbtn{padding:8px 0;}
+.dh-linkbtn{font:inherit;font-size:14px;color:var(--ink-soft);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
 .dh-linkbtn:hover{color:var(--ink);}
-.dh-enough{margin:-4px 0 14px;}
+.dh-links .dh-hard{color:var(--ink-soft);}
+
+/* Термінові ознаки */
+.dh-step-urgent{border-top-color:var(--terracotta);}
+.dh-urgent-list{margin:0 0 16px 20px;}
+.dh-urgent-list li{font-size:16px;line-height:1.55;margin-bottom:6px;color:var(--ink);}
+.dh-calls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 18px;}
+.dh-call{display:flex;align-items:center;gap:12px;min-height:64px;padding:12px 16px;border-radius:12px;background:var(--terracotta-text);color:#fff;}
+.dh-call:hover{background:#8A4B29;}
+.dh-call .dh-ic{width:26px;height:26px;color:#fff;}
+.dh-call span{font-size:14px;line-height:1.3;}
+.dh-call strong{display:block;font-size:24px;font-weight:600;}
+.dh-step-urgent .dh-after{margin-top:12px;}
+
+/* Таймер */
+.dh-timer{position:relative;}
+.dh-timer-svg{width:150px;height:150px;}
+.dh-timer-track{fill:none;stroke:var(--paper-alt);stroke-width:9;}
+.dh-timer-bar{fill:none;stroke:var(--c);stroke-width:9;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear;}
+.dh-timer-time{position:absolute;top:52px;left:0;right:0;text-align:center;font-family:var(--serif);font-size:30px;color:var(--ink);}
+.dh-timer-label{font-size:13px;color:var(--ink-mute);margin:6px 0 10px;}
+.dh-timer.running .dh-timer-label{visibility:hidden;}
+.dh-timer-done{font-size:16px;font-weight:600;color:var(--accent);margin-top:6px;}
+
+/* Дихальне коло */
+.dh-breath-stage{position:relative;width:180px;height:180px;display:flex;align-items:center;justify-content:center;}
+.dh-breath-circle{position:absolute;inset:0;margin:auto;width:180px;height:180px;border-radius:50%;background:color-mix(in srgb, var(--c) 16%, transparent);border:2px solid var(--c);transform:scale(.55);transition:transform 5s ease-in-out;}
+.dh-breath.inhale .dh-breath-circle{transform:scale(1);}
+.dh-breath.exhale .dh-breath-circle{transform:scale(.55);}
+.dh-breath-word{position:relative;font-family:var(--serif);font-size:22px;color:var(--ink);}
+.dh-breath:not(.running) .dh-breath-word{color:var(--ink-mute);}
+.dh-breath-hint{text-align:center;margin:8px 0 10px;}
+
+/* Великий режим для паніки: менше тексту, більший шрифт */
+.dh-state-big .dh-step h3{font-size:31px;}
+.dh-state-big .dh-text{font-size:20px;}
 
 /* Картка для друку */
 .dh-card{border:2px dashed var(--line);border-radius:12px;padding:20px 22px;margin:4px 0 18px;}
@@ -88,10 +163,13 @@
 .dh-card li{font-size:14px;line-height:1.55;margin-bottom:3px;}
 .dh-line{display:block;height:30px;border-bottom:1px solid var(--ink-mute);margin-bottom:6px;}
 
-.dh-done{background:var(--accent-tint);border-color:transparent;border-top-color:var(--c);}
-.dh-done p{font-size:16px;line-height:1.7;color:var(--ink-soft);margin-bottom:12px;}
-.dh-done-links{list-style:none;margin:0 0 14px;}
-.dh-done-links li{font-size:15px;line-height:1.6;color:var(--ink-soft);padding:6px 0;}
+/* Фінал */
+.dh-end{background:var(--accent-tint);border-color:transparent;border-top-color:var(--c);}
+.dh-end-links{list-style:none;margin:0 0 14px;}
+.dh-end-links li{font-size:16px;line-height:1.6;color:var(--ink-soft);padding:5px 0;}
+.dh-why{margin:4px 0 8px;}
+.dh-why summary{cursor:pointer;font-size:15px;font-weight:500;color:var(--accent);padding:8px 0;}
+.dh-why p{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:8px;}
 
 .dh-state-help{font-size:14px;margin:4px 0 0;}
 .dh-sources{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;}
@@ -100,27 +178,40 @@
 .dh-sources p{margin:10px 0;}
 .dh-sources ul{margin-left:18px;}
 
+/* Без JS кроки йдуть списком: не показуємо службові написи, які мають сенс лише в майстрі */
+.dh:not(.dh-js) .dh-step .dh-progress .dh-dots{display:none;}
+
+@media (prefers-reduced-motion:reduce){
+  .dh-breath-circle{transition:none;}
+  .dh-breath.inhale .dh-breath-circle{transform:scale(.85);}
+  .dh-timer-bar{transition:none;}
+}
+
 @media(max-width:640px){
-  .dh-wrap{padding-left:16px;padding-right:16px;padding-top:32px;}
+  .dh-wrap{padding-left:16px;padding-right:16px;padding-top:28px;}
   .dh-urgent .wrap{padding:0 16px;}
   .dh-options{grid-template-columns:1fr;}
   .dh-choose h1{font-size:30px;}
-  .dh-state h2{font-size:26px;}
-  .dh-ex,.dh-done{padding:22px 18px 18px;}
-  .dh-steps li{font-size:16px;}
-  .dh-btn{width:100%;}
+  .dh-step{padding:22px 18px 16px;border-radius:14px;}
+  .dh-step h3{font-size:24px;}
+  .dh-text{font-size:17px;}
+  .dh-state-big .dh-step h3{font-size:27px;}
+  .dh-state-big .dh-text{font-size:18px;}
+  .dh-tiles{grid-template-columns:1fr 1fr;}
+  .dh-actions .dh-btn{width:100%;}
+  .dh-calls{grid-template-columns:1fr;}
 }
 
 @media print{
-  .site-header,.site-footer,#contact,.dh-urgent,.dh-choose,.dh-back,.dh-actions,.dh-links,.dh-why,.dh-sources,.dh-state-help,.dh-enough{display:none !important;}
+  .site-header,.site-footer,#contact,.dh-urgent,.dh-choose,.dh-back,.dh-actions,.dh-links,.dh-why,.dh-sources,.dh-state-help,.dh-progress,.dh-timer-btn,.dh-breath,.dh-choices,.dh-tiles,.dh-calls{display:none !important;}
   body{background:#fff;}
   .dh-wrap{padding:0;max-width:none;}
   .dh section.dh-state{padding:0;}
-  .dh-ex,.dh-done,.dh-note,.dh-alert,.dh-example{border-color:#999;background:#fff;}
-  /* Кнопка «Зберегти або роздрукувати» друкує лише свою вправу */
+  .dh-step,.dh-example{border-color:#999;background:#fff;break-inside:avoid;}
   .dh.dh-print-mode .dh-state:not(.dh-printing),
-  .dh.dh-print-mode .dh-ex:not(.dh-print-target),
-  .dh.dh-print-mode .dh-done{display:none !important;}
+  .dh.dh-print-mode .dh-printing:not(.dh-print-all) .dh-step:not(.dh-print-target),
+  .dh.dh-print-mode .dh-end{display:none !important;}
+  .dh.dh-print-mode .dh-print-all .dh-step:not(.dh-end){display:block !important;}
   .dh-card{border-color:#666;break-inside:avoid;}
   .dh-line{border-color:#333;}
   .dh a{text-decoration:none;color:#000;}

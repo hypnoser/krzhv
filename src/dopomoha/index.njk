@@ -2,7 +2,7 @@
 layout: base.njk
 title: "Що робити, коли важко?"
 seoTitle: "Що робити, коли важко: коротка вправа на 2–5 хвилин"
-description: "Оберіть, що турбує — тривога, брак сил, нав'язливі перевірки чи паніка — і отримайте одну просту вправу на 2–5 хвилин. Безкоштовно, без реєстрації."
+description: "Оберіть, що турбує — тривога, брак сил, нав'язливі перевірки чи паніка — і пройдіть одну просту вправу крок за кроком. Безкоштовно, без реєстрації."
 permalink: /dopomoha/
 noAnalytics: true
 pageStyles: ["/assets/css/dopomoha.css"]
@@ -10,20 +10,23 @@ schema:
   "@context": "https://schema.org"
   "@type": "WebPage"
   "name": "Що робити, коли важко?"
-  "description": "Короткі вправи самодопомоги на 2–5 хвилин при тривозі, браку сил, нав'язливих перевірках і паніці."
+  "description": "Короткі покрокові вправи самодопомоги на 2–5 хвилин при тривозі, браку сил, нав'язливих перевірках і паніці."
   "url": "https://krzhv.com.ua/dopomoha/"
   "inLanguage": "uk"
   "author":
     "@type": "Person"
     "name": "Сергій Коржов"
 ---
-{%- set kinds = [
-  { key: "main", label: "Вправа" },
-  { key: "simpler", label: "Простіший варіант" },
-  { key: "extra", label: "Ще одна вправа" }
-] -%}
+{%- from "dopomoha-visuals.njk" import visual, icon -%}
 {%- macro sourceLinks(keys) -%}
 {%- for k in keys %}<a href="{{ dopomoha.sources[k].url }}" rel="noopener" target="_blank">{{ dopomoha.sources[k].title }}</a>{% if not loop.last %}; {% endif %}{% endfor -%}
+{%- endmacro -%}
+{%- macro urgentList() -%}
+<ul class="dh-urgent-list">
+  {%- for sign in dopomoha.urgentSigns %}
+  <li>{{ sign }}</li>
+  {%- endfor %}
+</ul>
 {%- endmacro -%}
 
 <div class="dh" id="dh">
@@ -37,8 +40,8 @@ schema:
     <section id="vybir" class="dh-choose" aria-labelledby="dh-title">
       <span class="eyebrow">Самодопомога</span>
       <h1 id="dh-title" tabindex="-1">Що робити, коли важко?</h1>
-      <p class="dh-lead">Оберіть, що турбує. Отримайте одну просту вправу на 2–5 хвилин.</p>
-      <p class="dh-meta">Безкоштовно · Без реєстрації</p>
+      <p class="dh-lead">Оберіть, що турбує. Далі — кілька коротких кроків, по одному на екрані.</p>
+      <p class="dh-meta">2–5 хвилин · Безкоштовно · Без реєстрації</p>
 
       <ul class="dh-options">
         {%- for s in dopomoha.states %}
@@ -57,95 +60,117 @@ schema:
     </section>
 
     {%- for s in dopomoha.states %}
-    <section id="{{ s.id }}" class="dh-state" aria-labelledby="{{ s.id }}-title" style="--c:{{ s.color }}" data-state="{{ s.id }}">
-      <a href="#vybir" class="dh-back" data-back>← Обрати інше</a>
-      <h2 id="{{ s.id }}-title" tabindex="-1">{{ s.title }}</h2>
-
-      {%- if s.urgent %}
-      <div class="dh-alert">
-        <p><strong>Спершу перевірте, чи потрібна невідкладна допомога.</strong> Телефонуйте <a href="tel:103">103</a> або <a href="tel:112">112</a> просто зараз, якщо:</p>
-        <ul>
-          {%- for sign in dopomoha.urgentSigns %}
-          <li>{{ sign }}</li>
-          {%- endfor %}
-        </ul>
-        <p class="dh-small">Це приклади, а не повний перелік. За кордоном — місцевий екстрений номер. Джерела: {{ sourceLinks(dopomoha.urgentSources) }}.</p>
+    <section id="{{ s.id }}" class="dh-state{% if s.big %} dh-state-big{% endif %}" aria-labelledby="{{ s.id }}-title" style="--c:{{ s.color }}"
+      data-start="{{ s.start }}" data-aliases='{{ s.aliases | dump }}'>
+      <div class="dh-state-top">
+        <a href="#vybir" class="dh-back">← Обрати інше</a>
+        <h2 id="{{ s.id }}-title" class="dh-state-title" tabindex="-1">{{ s.title }}</h2>
       </div>
+      {%- if s.safety %}
+      <p class="dh-safety">{{ s.safety | safe }}</p>
       {%- endif %}
 
-      <p class="dh-note">{{ s.note | safe }}</p>
+      {%- for key, st in s.steps %}
+      {%- set sid = s.id + "-" + key %}
+      <article id="{{ sid }}" class="dh-step dh-step-{{ st.type }}" data-key="{{ key }}" aria-labelledby="{{ sid }}-title">
+        <p class="dh-progress">
+          {%- if st.n %}<span class="dh-dots" aria-hidden="true">{% for i in range(1, st.of + 1) %}<i{% if i <= st.n %} class="on"{% endif %}></i>{% endfor %}</span>Крок {{ st.n }} з {{ st.of }}
+          {%- elif st.final %}Останній крок
+          {%- elif st.simpler %}Простіший варіант
+          {%- elif key == s.extra %}Ще одна вправа
+          {%- elif st.type == "urgent" %}Важливо
+          {%- else %}Почнімо{% endif -%}
+        </p>
 
-      {%- for kind in kinds %}
-      {%- set ex = s.exercises[kind.key] %}
-      <article id="{{ s.id }}-{{ kind.key }}" class="dh-ex" data-kind="{{ kind.key }}" aria-labelledby="{{ s.id }}-{{ kind.key }}-title">
-        <p class="dh-ex-kind">{{ kind.label }}</p>
-        <h3 id="{{ s.id }}-{{ kind.key }}-title" tabindex="-1">{{ ex.title }}</h3>
-        {%- if ex.anywhere %}
-        <p class="dh-tag">Можна непомітно: у транспорті, на роботі, в укритті</p>
+        {%- if st.visual %}{{ visual(st.visual, sid) }}{% endif %}
+
+        <h3 id="{{ sid }}-title" tabindex="-1">{{ st.title }}</h3>
+        {%- if st.type == "urgent" %}
+        <div class="dh-calls">
+          <a href="tel:103" class="dh-call">{{ icon("phone") }}<span><strong>103</strong> швидка</span></a>
+          <a href="tel:112" class="dh-call">{{ icon("phone") }}<span><strong>112</strong> екстрені служби</span></a>
+        </div>
         {%- endif %}
-        <p class="dh-ex-lead">{{ ex.lead | safe }}</p>
-        <ol class="dh-steps">
-          {%- for step in ex.steps %}
-          <li>{{ step | safe }}</li>
-          {%- endfor %}
-        </ol>
-        <p class="dh-example"><strong>Приклад.</strong> {{ ex.example | safe }}</p>
+        {%- if st.text %}<p class="dh-text">{{ st.text | safe }}</p>{% endif %}
 
-        {%- if ex.card %}
+        {%- if st.type == "urgent" %}
+        {{ urgentList() }}
+        <p class="dh-small">Це приклади, а не повний перелік. За кордоном — місцевий екстрений номер. Джерела: {{ sourceLinks(dopomoha.urgentSources) }}.</p>
+        {%- endif %}
+
+        {%- if st.type == "card" %}
         <div class="dh-card" aria-label="Картка на випадок паніки для друку">
           <p class="dh-card-title">Моя картка на випадок паніки</p>
           <p><strong>Телефоную 103 або 112, якщо:</strong></p>
-          <ul>
-            {%- for sign in dopomoha.urgentSigns %}
-            <li>{{ sign }}</li>
-            {%- endfor %}
-          </ul>
+          {{ urgentList() }}
           <p>Нові або незвичні симптоми — привід для медичної оцінки.</p>
-          <p><strong>Мої кроки:</strong></p>
-          <span class="dh-line" aria-hidden="true"></span><span class="dh-line" aria-hidden="true"></span>
+          <p><strong>Мої кроки:</strong> сісти · відчути підлогу · назвати 3 речі навколо</p>
+          <span class="dh-line" aria-hidden="true"></span>
           <p><strong>Кому написати чи зателефонувати:</strong></p>
           <span class="dh-line" aria-hidden="true"></span>
           <p class="dh-small">Порожні рядки — для заповнення від руки після друку. Сайт нічого не зберігає.</p>
         </div>
         {%- endif %}
 
-        <details class="dh-why">
-          <summary>Чому це працює</summary>
-          <p>{{ ex.why | safe }}</p>
-          <p class="dh-small">Джерела: {{ sourceLinks(ex.sources) }}.</p>
-        </details>
+        {%- if st.example %}<p class="dh-example">{{ st.example | safe }}</p>{% endif %}
+        {%- if st.note %}<p class="dh-note">{{ st.note | safe }}</p>{% endif %}
+        {%- if st.after %}<p class="dh-after">{{ st.after | safe }}</p>{% endif %}
 
-        <div class="dh-actions" hidden>
-          <a href="#{{ s.id }}-done" class="dh-btn dh-btn-primary">Готово</a>
-          {%- if kind.key != "simpler" %}
-          <a href="#{{ s.id }}-simpler" class="dh-btn dh-btn-secondary">Зараз це надто складно</a>
-          {%- endif %}
+        {%- if st.type == "choice" %}
+        <ul class="dh-choices">
+          {%- for o in st.options %}
+          <li><a href="#{{ s.id }}-{{ o.next }}" class="dh-choice{% if o.danger %} dh-choice-danger{% endif %}">{{ icon(o.icon) }}<span><strong>{{ o.label }}</strong>{% if o.sub %}<span>{{ o.sub }}</span>{% endif %}</span></a></li>
+          {%- endfor %}
+        </ul>
+        {%- elif st.type == "pick" %}
+        <ul class="dh-tiles">
+          {%- for o in st.options %}
+          <li><a href="#{{ s.id }}-{{ o.next }}" class="dh-tile">{{ icon(o.icon) }}<span>{{ o.label }}</span></a></li>
+          {%- endfor %}
+        </ul>
+        {%- elif st.options %}
+        <div class="dh-actions">
+          {%- for o in st.options %}
+          <a href="#{{ s.id }}-{{ o.next }}" class="dh-btn {% if o.primary %}dh-btn-primary{% else %}dh-btn-secondary{% endif %}">{{ o.label }}</a>
+          {%- endfor %}
         </div>
-        {%- if kind.key == "simpler" %}
-        <p class="dh-small dh-enough">Якщо й це зараз завелико — нічого робити не потрібно, можна просто перепочити. Якщо стає гірше — <a href="/help/">термінова допомога</a>.</p>
+        {%- elif st.next %}
+        <div class="dh-actions">
+          <a href="#{{ s.id }}-{{ st.next }}" class="dh-btn dh-btn-primary">{{ st.nextLabel or "Далі" }}</a>
+        </div>
         {%- endif %}
+
         <p class="dh-links">
-          <button type="button" class="dh-linkbtn" data-print hidden>Зберегти або роздрукувати</button>
-          {%- if ex.more %}
-          <a href="{{ ex.more.url }}">{{ ex.more.label }} →</a>
+          <button type="button" class="dh-linkbtn" data-back hidden>← Назад</button>
+          {%- if st.type == "card" %}<button type="button" class="dh-linkbtn" data-print hidden>Роздрукувати або зберегти</button>{% endif %}
+          {%- if not st.simpler and st.type != "urgent" and st.type != "card" and key != s.extra and not (s.big and st.type == "choice") %}
+          <a href="#{{ s.id }}-{{ s.simplest }}" class="dh-hard">Зараз це надто складно</a>
           {%- endif %}
+          {%- if st.more %}<a href="{{ st.more.url }}">{{ st.more.label }} →</a>{% endif %}
         </p>
       </article>
       {%- endfor %}
 
-      <div id="{{ s.id }}-done" class="dh-done">
-        <h3 id="{{ s.id }}-done-title" tabindex="-1">На цьому можна зупинитися.</h3>
-        <p>Одна дія — це вже крок. Повернутися сюди можна будь-коли.</p>
-        <ul class="dh-done-links">
-          <li data-done-extra><a href="#{{ s.id }}-extra">Ще одна вправа: {{ s.exercises.extra.title | lower }}</a></li>
-          <li data-done-main hidden><a href="#{{ s.id }}">Повернутися до основної вправи</a></li>
+      <article id="{{ s.id }}-end" class="dh-step dh-end" data-key="end" aria-labelledby="{{ s.id }}-end-title">
+        <div class="dh-vis dh-vis-icon" aria-hidden="true">{{ icon("yes", "dh-bigicon") }}</div>
+        <h3 id="{{ s.id }}-end-title" tabindex="-1">На цьому можна зупинитися.</h3>
+        <p class="dh-text">Одна дія — це вже крок. Повернутися сюди можна будь-коли.</p>
+        <ul class="dh-end-links">
+          <li><a href="#{{ s.id }}-{{ s.extra }}">Ще одна вправа: {{ s.extraLabel | lower }}</a></li>
+          <li><a href="#{{ s.id }}">Пройти ще раз</a></li>
           <li><a href="{{ s.guide.url }}">{{ s.guide.label }}</a></li>
           {%- if s.quiz %}
           <li><a href="{{ s.quiz.url }}">{{ s.quiz.label }}</a> — орієнтовний, не діагноз</li>
           {%- endif %}
         </ul>
-        <p>Якщо так буває часто або це заважає жити — можна поговорити з фахівцем. <a href="#contact">Написати мені ↓</a></p>
-      </div>
+        <p class="dh-text">Якщо так буває часто або це заважає жити — можна поговорити з фахівцем. <a href="#contact">Написати мені ↓</a></p>
+        <details class="dh-why">
+          <summary>Чому це працює</summary>
+          <p>{{ s.why | safe }}</p>
+          <p class="dh-small">Джерела: {{ sourceLinks(s.sources) }}.</p>
+        </details>
+        <p class="dh-links"><button type="button" class="dh-linkbtn" data-print hidden>Зберегти або роздрукувати всі кроки</button></p>
+      </article>
 
       <p class="dh-state-help"><a href="/help/">Потрібна термінова допомога →</a></p>
     </section>
