@@ -53,3 +53,21 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Очищення кешу Cloudflare після публікації. Працює, лише якщо в репозиторії задано секрети
+  # CLOUDFLARE_API_TOKEN (права: Zone → Cache Purge) і CLOUDFLARE_ZONE_ID. Без них крок пропускається:
+  # сторінки й так оновлюються на Cloudflare протягом 10 хвилин, зображення — протягом доби.
+  purge-cache:
+    needs: deploy
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+    steps:
+      - name: Purge Cloudflare cache
+        if: ${{ env.CF_TOKEN != '' && env.CF_ZONE != '' }}
+        continue-on-error: true
+        run: |
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE/purge_cache" \
+            -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
