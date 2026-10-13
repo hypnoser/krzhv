@@ -197,6 +197,13 @@ section{padding:92px 0;}
 }
 .article-tag svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
 .article-card h3{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:10px;line-height:1.35;}
+.article-card-link{display:flex;flex-direction:column;color:inherit;text-decoration:none;}
+.article-card-link p{flex:1;}
+.article-card-link .article-tag{align-self:flex-start;}
+.article-card-link:hover h3{color:var(--accent);}
+.article-card-link:focus-visible{outline:3px solid var(--accent);outline-offset:3px;}
+.article-card-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.article-date{font-size:13px;color:var(--ink-mute);}
 .article-card p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;}
 .article-link{font-size:13px;color:var(--accent);font-weight:600;}
 .articles-more{text-align:center;margin-top:44px;}

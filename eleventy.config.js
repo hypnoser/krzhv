@@ -98,8 +98,19 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => a.data.selfHelp.order - b.data.selfHelp.order);
   });
 
+  // Новіші вгорі; за однакової дати — нещодавно оновлені, далі за назвою (стабільний порядок).
+  const byNewest = (a, b) =>
+    (b.date - a.date) ||
+    (new Date(b.data.updated || b.date) - new Date(a.data.updated || a.date)) ||
+    String(a.data.title).localeCompare(String(b.data.title), "uk");
+
   eleventyConfig.addCollection("statti", (collectionApi) => {
-    return collectionApi.getFilteredByGlob("src/statti/*.md").sort((a, b) => b.date - a.date);
+    return collectionApi.getFilteredByGlob("src/statti/*.md").sort(byNewest);
+  });
+
+  // Головна: N найновіших статей, без посібників самодопомоги (на них веде блок станів) і без noindex.
+  eleventyConfig.addFilter("latestArticles", (posts, n = 3) => {
+    return posts.filter((p) => !p.data.selfHelp && !p.data.noindex).slice().sort(byNewest).slice(0, n);
   });
 
   eleventyConfig.addCollection("blog", (collectionApi) => {
