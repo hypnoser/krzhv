@@ -1,0 +1,53 @@
+<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Спрощена схема зимового погіршення настрою</title>
+  <desc id="d">Чотири кроки, з'єднані стрілками по колу: менше денного світла; зміни сну, енергії та апетиту; менше дій і контактів та більше песимістичних думок; нижчий настрій, після чого коло замикається. КПТ при сезонній депресії втручається в третій крок, а світлотерапія й денне світло — у перший.</desc>
+  <rect width="720" height="420" rx="12" fill="#EEF2EF"/>
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3D5A4A"/>
+    </marker>
+  </defs>
+
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <!-- 1 -->
+    <rect x="40" y="30" width="270" height="90" rx="12" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="175" y="58" font-size="14" font-weight="600" fill="#221F1B">1. Менше денного світла</text>
+    <text x="175" y="80" font-size="12" fill="#4A443D">за поточними уявленнями, може впливати</text>
+    <text x="175" y="98" font-size="12" fill="#4A443D">на біологічний годинник і мелатонін</text>
+
+    <!-- 2 -->
+    <rect x="410" y="30" width="270" height="90" rx="12" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="545" y="58" font-size="14" font-weight="600" fill="#221F1B">2. Зміни сну, енергії, апетиту</text>
+    <text x="545" y="80" font-size="12" fill="#4A443D">більше сну, втома, тяга до їжі,</text>
+    <text x="545" y="98" font-size="12" fill="#4A443D">важче зосередитись</text>
+
+    <!-- 3 -->
+    <rect x="410" y="270" width="270" height="100" rx="12" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
+    <text x="545" y="298" font-size="14" font-weight="600" fill="#221F1B">3. Менше дій і контактів</text>
+    <text x="545" y="320" font-size="12" fill="#4A443D">менше виходів, справ, зустрічей;</text>
+    <text x="545" y="338" font-size="12" fill="#4A443D">більше думок «я не впораюсь»,</text>
+    <text x="545" y="356" font-size="12" fill="#4A443D">«зима — це жах»</text>
+
+    <!-- 4 -->
+    <rect x="40" y="270" width="270" height="100" rx="12" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="175" y="298" font-size="14" font-weight="600" fill="#221F1B">4. Нижчий настрій</text>
+    <text x="175" y="320" font-size="12" fill="#4A443D">менше задоволення й контактів,</text>
+    <text x="175" y="338" font-size="12" fill="#4A443D">що знову зменшує бажання щось робити</text>
+
+    <!-- centre -->
+    <text x="360" y="186" font-size="17" font-weight="600" fill="#3D5A4A">Зимове коло</text>
+    <text x="360" y="208" font-size="12" fill="#5F5850">спрощена схема, не доведений</text>
+    <text x="360" y="224" font-size="12" fill="#5F5850">окремо цикл</text>
+
+    <!-- where help acts -->
+    <text x="190" y="150" text-anchor="start" font-size="11" font-weight="600" fill="#B5714A">денне світло, світлотерапія</text>
+    <text x="530" y="252" text-anchor="end" font-size="11" font-weight="600" fill="#C77A4F">КПТ: активація і робота з думками</text>
+  </g>
+
+  <g fill="none" stroke="#3D5A4A" stroke-width="2" marker-end="url(#ah)">
+    <path d="M312,75 L406,75"/>
+    <path d="M545,124 L545,266"/>
+    <path d="M406,320 L314,320"/>
+    <path d="M175,266 L175,124"/>
+  </g>
+</svg>
