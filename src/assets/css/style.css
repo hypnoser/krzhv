@@ -227,7 +227,9 @@ section{padding:92px 0;}
 .rm-promises{list-style:none;display:flex;flex-wrap:wrap;gap:8px 12px;margin:-24px 0 36px;}
 .rm-promises li{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--ink);background:var(--accent-tint);border-radius:20px;padding:7px 14px 7px 10px;}
 .rm-promises .rm-ic{width:16px;height:16px;color:var(--accent);}
-.rm-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--terracotta-text);border-radius:12px;padding:3px 10px;margin-bottom:12px;}
+.rm-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.rm-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--terracotta-text);border-radius:12px;padding:3px 10px;}
+.rm-badge-free{background:var(--accent);}
 .rm-phase{position:relative;padding-left:0;margin-bottom:36px;}
 .rm-phase:last-child{margin-bottom:0;}
 .rm-phase-label{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
