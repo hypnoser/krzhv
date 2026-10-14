@@ -57,6 +57,20 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("autoSlug", autoSlug);
 
+  // FAQPage для пошуковиків — з тих самих даних, що й блок «Часто запитують» (src/_data/faq.js).
+  eleventyConfig.addFilter("faqSchema", (groups) => {
+    const strip = (h) => String(h).replace(/<[^>]+>/g, "");
+    return JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: groups.flatMap((g) => g.items).map((i) => ({
+        "@type": "Question",
+        name: i.q,
+        acceptedAnswer: { "@type": "Answer", text: strip(i.a) },
+      })),
+    }).replace(/</g, "\\u003c");
+  });
+
   // Зображення нижче першого екрана: відкладене завантаження, якщо атрибут не задано вручну.
   // Не чіпаємо аватар у шапці статті та картинки з fetchpriority.
   // Таблиці з Markdown, де перша клітинка заголовка порожня: перша колонка — заголовки рядків.
