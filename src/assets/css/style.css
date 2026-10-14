@@ -224,6 +224,10 @@ section{padding:92px 0;}
 
 /* ===== Process: дорожня карта терапії ===== */
 .rm{position:relative;}
+.rm-promises{list-style:none;display:flex;flex-wrap:wrap;gap:8px 12px;margin:-24px 0 36px;}
+.rm-promises li{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--ink);background:var(--accent-tint);border-radius:20px;padding:7px 14px 7px 10px;}
+.rm-promises .rm-ic{width:16px;height:16px;color:var(--accent);}
+.rm-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--terracotta-text);border-radius:12px;padding:3px 10px;margin-bottom:12px;}
 .rm-phase{position:relative;padding-left:0;margin-bottom:36px;}
 .rm-phase:last-child{margin-bottom:0;}
 .rm-phase-label{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
@@ -257,11 +261,11 @@ section{padding:92px 0;}
 .rm-list-steps{counter-reset:rm;}
 .rm-list-steps li{counter-increment:rm;padding-left:28px;}
 .rm-list-steps li::before{content:counter(rm);width:20px;height:20px;top:0;left:0;opacity:1;background:color-mix(in srgb, var(--p) 15%, transparent);color:var(--p);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;}
-.rm-facts{display:grid;grid-template-columns:1fr;gap:6px;margin-top:14px;}
-.rm-facts div{display:flex;justify-content:space-between;gap:10px;background:var(--paper-alt);border-radius:8px;padding:8px 12px;}
+.rm-facts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:14px;}
+.rm-facts div{background:var(--paper-alt);border-radius:8px;padding:8px 12px;}
 .rm-facts dt{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mute);}
-.rm-facts dd{font-size:14px;color:var(--ink);text-align:right;}
-.rm-cta{margin-top:16px;}
+.rm-facts dd{font-size:14px;color:var(--ink);}
+.rm-cta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;}
 .rm-cta .sc-btn{display:inline-flex;}
 .rm-sub{font-size:13px !important;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent) !important;margin:18px 0 10px;}
 .rm-session{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;counter-reset:rs;}
