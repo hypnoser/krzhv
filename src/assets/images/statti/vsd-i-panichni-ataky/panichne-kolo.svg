@@ -22,7 +22,7 @@
     <rect x="410" y="270" width="270" height="100" rx="12" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
     <text x="545" y="298" font-size="14" font-weight="600" fill="#221F1B">3. Страх і напруження</text>
     <text x="545" y="320" font-size="12" fill="#5F5850">тривога зростає, тіло напружується,</text>
-    <text x="545" y="338" font-size="12" fill="#5F5850">дихання стає частішим</text>
+    <text x="545" y="338" font-size="12" fill="#5F5850">дихання може частішати</text>
 
     <rect x="40" y="270" width="270" height="100" rx="12" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
     <text x="175" y="298" font-size="14" font-weight="600" fill="#221F1B">4. Відчуттів більше</text>
