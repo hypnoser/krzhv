@@ -5,6 +5,7 @@ description: "Чим тривога за здоров'я відрізняєть�
 permalink: /statti/tryvoha-za-zdorovia/
 category: "Тіло і стрес"
 date: 2026-10-09
+reviewed: 2026-10-09
 updated: 2026-10-09
 section: statti
 sectionLabel: "Матеріали"

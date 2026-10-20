@@ -5,6 +5,7 @@ description: "Практичний посібник при щоденному х
 permalink: /statti/postiina-tryvoha/
 category: "Тривожні розлади"
 date: 2026-09-30
+reviewed: 2026-10-12
 updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"

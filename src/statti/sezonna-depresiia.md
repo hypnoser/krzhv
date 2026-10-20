@@ -6,6 +6,7 @@ description: "Чим сезонна депресія відрізняється 
 permalink: /statti/sezonna-depresiia/
 category: "Настрій"
 date: 2026-10-14
+reviewed: 2026-10-14
 updated: 2026-10-14
 section: statti
 sectionLabel: "Матеріали"

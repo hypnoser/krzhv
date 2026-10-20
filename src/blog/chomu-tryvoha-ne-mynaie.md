@@ -85,7 +85,7 @@ relatedUrls: ["/blog/koly-kliient-vse-rozumiie-rozumom-ale-nichoho-ne/", "/blog/
 
 Проблема виникає тоді, коли певна дія стає способом постійно контролювати тривогу або уникати очікуваної небезпеки. У науковій літературі це розрізнення має значення: дослідження показують, що вплив різних типів safety behaviours на експозицію не є однаковим.
 
-<img src="/images/blog/11_07_13.webp" alt="Схема циклу тривоги з шести кроків: тілесне відчуття або ситуація, тривожна думка, посилення тривоги, поведінка безпеки чи уникнення, короткочасне полегшення і повернення тривоги; збоку — що підтримує цикл і що допомагає його розірвати" width="1536" height="1024" loading="lazy" decoding="async" style="max-width:100%;height:auto;">
+<img src="/assets/images/blog/tsykl-tryvohy/tsykl-tryvohy.webp" srcset="/assets/images/blog/tsykl-tryvohy/tsykl-tryvohy-720.webp 720w, /assets/images/blog/tsykl-tryvohy/tsykl-tryvohy.webp 1200w" sizes="(max-width: 760px) 100vw, 720px" alt="Схема циклу тривоги з шести кроків: тілесне відчуття або ситуація, тривожна думка, посилення тривоги, поведінка безпеки чи уникнення, короткочасне полегшення і повернення тривоги; збоку — що підтримує цикл і що допомагає його розірвати" width="1200" height="800" loading="lazy" decoding="async" style="max-width:100%;height:auto;">
 
 ## Чому ж тоді логічні аргументи не допомагають?
 

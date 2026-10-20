@@ -46,6 +46,12 @@ ogType: article
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
         <span>{{ content | readingTime }} хв читання</span>
       </div>
+      {% if reviewed %}
+      <div class="article-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>
+        <span>Джерела перевірено <time datetime="{{ reviewed | isoDate }}">{{ reviewed | ukDate }}</time></span>
+      </div>
+      {% endif %}
       {% if reviewedBy %}
       <div class="article-meta-item">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
@@ -117,8 +123,14 @@ ogType: article
 
 <div class="wrap">
   <div class="cta-band">
+    {% if referOut %}
+    <h2>Потрібна підтримка фахівця?</h2>
+    <p>{{ referOut }}</p>
+    <a href="/#contact" class="cta-btn">Написати й порадитись</a>
+    {% else %}
     <h2>Потрібна підтримка фахівця?</h2>
     <p>Якщо це відгукується — я можу допомогти. Напишіть мені, і ми обговоримо, з чого почати.</p>
     <a href="/#contact" class="cta-btn">Записатись на консультацію</a>
+    {% endif %}
   </div>
 </div>

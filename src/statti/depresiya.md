@@ -5,6 +5,7 @@ description: "Посильний мінімум дня при депресії: 
 permalink: /statti/depresiya/
 category: "Настрій"
 date: 2026-08-09
+reviewed: 2026-10-12
 updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"

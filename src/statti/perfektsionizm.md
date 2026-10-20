@@ -5,6 +5,7 @@ description: "Чим здоровий перфекціонізм відрізн�
 permalink: /statti/perfektsionizm/
 category: "Прокрастинація і саморегуляція"
 date: 2026-10-09
+reviewed: 2026-10-09
 updated: 2026-10-09
 section: statti
 sectionLabel: "Матеріали"

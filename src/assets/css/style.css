@@ -99,7 +99,7 @@ img{max-width:100%;display:block;}
   font-family:var(--serif);font-weight:300;font-size:44px;line-height:1.28;
   letter-spacing:-.01em;color:var(--ink);margin:20px 0 24px;
 }
-.hero h1 em{font-style:italic;font-weight:400;color:var(--terracotta);}
+.hero h1 em{font-style:normal;font-weight:400;color:var(--terracotta);}
 .hero p.lede{font-size:17px;color:var(--ink-soft);max-width:480px;margin-bottom:36px;}
 .btn-row{display:flex;gap:16px;align-items:center;}
 .btn-primary{
@@ -217,7 +217,7 @@ section{padding:92px 0;}
 .about-body p{font-size:16px;color:var(--ink-soft);margin-bottom:20px;line-height:1.75;}
 .about-body strong{color:var(--ink);font-weight:600;}
 .quote-block{
-  font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.6;
+  font-family:var(--serif);font-style:normal;font-size:19px;line-height:1.6;
   color:var(--ink);background:var(--sand-tint);border-radius:10px;
   padding:26px 28px;margin:32px 0;
 }
@@ -299,7 +299,7 @@ section{padding:92px 0;}
 .testi-card:nth-child(3n+3){--c:var(--sand);}
 .testi-topic{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);margin-bottom:14px;display:inline-flex;align-items:center;gap:6px;}
 .testi-topic svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
-.testi-card p{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:20px;}
+.testi-card p{font-family:var(--serif);font-style:normal;font-size:15px;color:var(--ink-soft);line-height:1.7;margin-bottom:20px;}
 .testi-who{font-size:13px;color:var(--ink-mute);font-weight:500;}
 .trust-row{display:flex;justify-content:center;gap:48px;padding:36px 0 56px;border-bottom:1px solid var(--line);margin-bottom:56px;}
 .trust-stat{text-align:center;}
@@ -412,7 +412,7 @@ section{padding:92px 0;}
 }
 .article-body tr:nth-child(even) td{background:var(--paper-alt);}
 .article-body blockquote{
-  font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.6;
+  font-family:var(--serif);font-style:normal;font-size:19px;line-height:1.6;
   color:var(--ink);border-left:2px solid var(--accent);padding-left:24px;margin:32px 0;
 }
 .article-body blockquote p{margin-bottom:0;color:inherit;font-size:inherit;}
@@ -673,7 +673,7 @@ section{padding:92px 0;}
 .trust-strip .tb-ic{width:18px;height:18px;color:var(--accent);flex-shrink:0;}
 
 /* ===== Головна: фраза від першої особи в картках станів ===== */
-.state-quote{font-family:var(--serif);font-style:italic;font-size:15px !important;line-height:1.5 !important;color:var(--ink) !important;margin-bottom:8px;}
+.state-quote{font-family:var(--serif);font-style:normal;font-size:15px !important;line-height:1.5 !important;color:var(--ink) !important;margin-bottom:8px;}
 
 /* ===== Головна: «Це не слабкість характеру» ===== */
 .why-cycle{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:-24px 0 32px;}

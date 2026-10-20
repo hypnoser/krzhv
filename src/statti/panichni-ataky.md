@@ -5,6 +5,7 @@ description: "Короткий алгоритм під час панічного
 permalink: /statti/panichni-ataky/
 category: "Тривожні розлади"
 date: 2026-08-09
+reviewed: 2026-10-12
 updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"
