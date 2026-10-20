@@ -6,6 +6,7 @@ description: "Що таке ОКР, чим нав'язливі думки при
 permalink: /statti/okr/
 category: "ОКР"
 date: 2026-03-22
+reviewed: 2026-10-12
 updated: 2026-10-12
 section: statti
 sectionLabel: "Матеріали"

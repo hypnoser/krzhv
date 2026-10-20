@@ -73,6 +73,16 @@ for (const f of files.filter((x) => x.endsWith(".html") && /\/scales\//.test(x))
   if (!/noindex/.test(fs.readFileSync(f, "utf8"))) errors.push(`${urlOf(f)}: службова сторінка без noindex`);
 }
 
+// Статті: дата перевірки джерел (reviewed) не старша за 12 місяців, джерела — з посиланнями
+const SRC = path.join(__dirname, "..", "src", "statti");
+for (const name of fs.readdirSync(SRC).filter((n) => n.endsWith(".md"))) {
+  const fm = (fs.readFileSync(path.join(SRC, name), "utf8").split(/^---$/m)[1]) || "";
+  const r = fm.match(/^reviewed:\s*(\d{4}-\d{2}-\d{2})/m);
+  if (!r) warn.push(`statti/${name}: немає дати перевірки джерел (reviewed)`);
+  else if (Date.now() - Date.parse(r[1]) > 365 * 864e5) warn.push(`statti/${name}: джерела перевіряли понад 12 місяців тому (${r[1]})`);
+  if (/^\s+- "/m.test(fm)) warn.push(`statti/${name}: джерела без посилань (рядком, а не title + url)`);
+}
+
 warn.forEach((w) => console.warn("попередження: " + w));
 if (errors.length) {
   errors.forEach((e) => console.error("ПОМИЛКА: " + e));

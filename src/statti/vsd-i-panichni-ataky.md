@@ -6,6 +6,7 @@ description: "«ВСД» не є окремим діагнозом у МКХ-10.
 permalink: /statti/vsd-i-panichni-ataky/
 category: "Тривожні розлади"
 date: 2026-10-18
+reviewed: 2026-10-18
 updated: 2026-10-18
 section: statti
 sectionLabel: "Матеріали"

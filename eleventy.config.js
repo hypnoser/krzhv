@@ -2,6 +2,7 @@ const { DateTime } = require("luxon");
 const fs = require("fs");
 const path = require("path");
 const slugify = require("slugify");
+const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 
 slugify.extend({
   а: "a", б: "b", в: "v", г: "h", ґ: "g", д: "d", е: "e", є: "ie", ж: "zh",
@@ -129,6 +130,26 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addCollection("blog", (collectionApi) => {
     return collectionApi.getFilteredByGlob("src/blog/*.md").sort((a, b) => b.date - a.date);
+  });
+
+  // Стрічка /feed.xml: статті й пости блогу разом (у стрічці — найновіші першими)
+  eleventyConfig.addCollection("feed", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob(["src/statti/*.md", "src/blog/*.md"])
+      .filter((p) => !p.data.noindex)
+      .sort((a, b) => a.date - b.date); // плагін сам бере останні N і розвертає
+  });
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: "atom",
+    outputPath: "/feed.xml",
+    collection: { name: "feed", limit: 20 },
+    metadata: {
+      language: "uk",
+      title: "Сергій Коржов — статті та блог",
+      subtitle: "Доказові матеріали про тривогу, депресію, панічні атаки й ОКР та нотатки практики КПТ",
+      base: "https://krzhv.com.ua/",
+      author: { name: "Сергій Коржов" },
+    },
   });
 
   eleventyConfig.addCollection("kviz", (collectionApi) => {

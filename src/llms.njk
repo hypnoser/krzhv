@@ -19,7 +19,6 @@ eleventyExcludeFromCollections: true
 - [Що робити, коли важко](https://krzhv.com.ua/dopomoha/): короткі вправи самодопомоги на 2–5 хвилин при тривозі, браку сил, нав'язливих перевірках і паніці; не діагностика і не кризова допомога
 - [Опитувальники](https://krzhv.com.ua/kviz/): скринінгові опитувальники для самооцінки тривоги (GAD-7), депресії (PHQ-9) та ознак панічних атак (орієнтовний, не валідований)
 - [Блог](https://krzhv.com.ua/blog/): професійні нотатки для колег-психологів та особистий журнал практики
-- [Відгуки](https://krzhv.com.ua/vidguky/): відгуки клієнтів про терапію
 
 ## Матеріали для клієнтів
 {% for post in collections.statti %}
@@ -37,6 +36,3 @@ eleventyExcludeFromCollections: true
 - [{{ post.data.title }}](https://krzhv.com.ua{{ post.url }}): {{ post.data.description }}
 {%- endfor %}
 {% endif %}
-## Optional
-
-- [Відгуки клієнтів](https://krzhv.com.ua/vidguky/): відгуки клієнтів про терапію, другорядний пріоритет для агентів з обмеженим контекстом

@@ -5,6 +5,7 @@ description: "Чим соціальна тривога відрізняєтьс�
 permalink: /statti/sotsialna-tryvoha/
 category: "Тривожні розлади"
 date: 2026-10-09
+reviewed: 2026-10-09
 updated: 2026-10-09
 section: statti
 sectionLabel: "Матеріали"

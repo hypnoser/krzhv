@@ -5,6 +5,7 @@ description: "Що таке когнітивно-поведінкова тера
 permalink: /statti/shcho-take-kpt/
 category: "Про терапію"
 date: 2026-10-09
+reviewed: 2026-10-09
 updated: 2026-10-09
 section: statti
 sectionLabel: "Матеріали"

@@ -3,6 +3,9 @@ layout: blog-post.njk
 title: "Чому нам не завжди вистачає «гормонів щастя»"
 description: "Дофамін відповідає за мотивацію, а серотонін — за спокій. Розбираємося, як їхній баланс (або дисбаланс) формує наш стан."
 audience: journal
+# Знято з публікації 20.10.2026: спрощена нейрохімія без джерел (див. аудит, К2). Повернути лише після переписування з джерелами.
+permalink: false
+eleventyExcludeFromCollections: true
 date: 2026-09-20
 relatedUrls: ["/statti/depresiya/", "/statti/shcho-take-kpt/"]
 ---

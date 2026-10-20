@@ -14,7 +14,7 @@ permalink: "/blog/{{ title | autoSlug }}/"
   "mainEntityOfPage": {"@type": "WebPage", "@id": "https://krzhv.com.ua" + page.url},
   "inLanguage": "uk",
   "articleSection": "Для колег" if audience == 'colleagues' else "Особистий журнал",
-  "image": "https://krzhv.com.ua" + (ogImage or "/assets/images/og-image.png"),
+  "image": "https://krzhv.com.ua" + (ogImage or "/assets/images/og-image.jpg"),
   "datePublished": date | isoDate,
   "dateModified": (updated or date) | isoDate,
   "author": {"@type": "Person", "name": "Сергій Коржов", "url": "https://krzhv.com.ua/#about"},
