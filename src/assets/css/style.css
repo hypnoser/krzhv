@@ -63,7 +63,7 @@ img{max-width:100%;display:block;}
   display:flex;align-items:center;justify-content:space-between;
   padding:20px 32px;max-width:1080px;margin:0 auto;
 }
-.logo-block{display:flex;flex-direction:column;line-height:1.25;}
+.logo-block{display:flex;flex-direction:column;justify-content:center;min-height:44px;line-height:1.25;}
 .logo{font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:-.01em;}
 .logo-subtitle{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);}
 .nav-links{display:flex;gap:32px;font-size:14px;color:var(--ink-soft);}
@@ -71,12 +71,14 @@ img{max-width:100%;display:block;}
 .nav-links a svg{width:15px;height:15px;stroke:currentColor;flex-shrink:0;opacity:.75;}
 .nav-toggle{
   display:none;background:none;border:none;padding:6px;cursor:pointer;color:var(--ink);
+  min-width:44px;min-height:44px;align-items:center;justify-content:center;
 }
 .nav-toggle svg{width:24px;height:24px;}
 .nav-links-mobile{display:none;}
 .nav-links a:hover{color:var(--ink);}
 .nav-links a.active{color:var(--accent);}
 .nav-cta{
+  display:inline-flex;align-items:center;min-height:44px;
   background:var(--accent);color:#fff;padding:10px 22px;border-radius:6px;
   font-size:14px;font-weight:500;transition:background .15s;
 }
@@ -107,7 +109,8 @@ img{max-width:100%;display:block;}
   font-size:15px;font-weight:500;display:inline-block;transition:background .15s;
 }
 .btn-primary:hover{background:#B06A41;}
-.btn-ghost{font-size:15px;color:var(--ink-soft);border-bottom:1px solid var(--line);padding-bottom:2px;}
+.btn-ghost{font-size:15px;color:var(--ink-soft);border-bottom:1px solid var(--line);padding-bottom:2px;position:relative;}
+.btn-ghost::after{content:"";position:absolute;inset:-9px -4px;} /* зона натискання ≥44px без зміни вигляду */
 .btn-ghost:hover{color:var(--ink);border-color:var(--ink-mute);}
 .hero-photo{position:relative;}
 .hero-photo::before{
@@ -508,7 +511,7 @@ section{padding:92px 0;}
   .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr;}
   .states-grid,.states-grid-4,.articles-grid,.testi-grid{grid-template-columns:1fr 1fr;}
   .nav-links{display:none;}
-  .nav-toggle{display:block;}
+  .nav-toggle{display:inline-flex;}
   .nav-links-mobile.open{
     display:flex;flex-direction:column;gap:2px;
     background:var(--paper);border-top:1px solid var(--line);
