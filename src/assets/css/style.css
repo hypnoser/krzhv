@@ -665,3 +665,50 @@ section{padding:92px 0;}
 .faq{margin-top:48px;}
 .faq h3{font-size:17px;font-weight:600;margin:22px 0 8px;}
 .faq p{margin:0;}
+
+/* ===== Головна: смуга довіри ===== */
+.trust-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper);}
+.trust-strip ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;padding-top:16px;padding-bottom:16px;}
+.trust-strip li{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--ink);}
+.trust-strip .tb-ic{width:18px;height:18px;color:var(--accent);flex-shrink:0;}
+
+/* ===== Головна: фраза від першої особи в картках станів ===== */
+.state-quote{font-family:var(--serif);font-style:italic;font-size:15px !important;line-height:1.5 !important;color:var(--ink) !important;margin-bottom:8px;}
+
+/* ===== Головна: «Це не слабкість характеру» ===== */
+.why-cycle{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:-24px 0 32px;}
+.why-cycle span{background:var(--paper-alt);border:1px solid var(--line);border-radius:20px;padding:7px 14px;font-size:14px;color:var(--ink);}
+.why-cycle i{font-style:normal;font-weight:700;color:var(--terracotta);font-size:16px;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.why-card{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:12px;padding:24px;}
+.why-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--c);background:color-mix(in srgb, var(--c) 13%, transparent);margin-bottom:14px;}
+.why-icon .why-ic{width:22px;height:22px;}
+.why-card h3{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.why-card p{font-size:14px;line-height:1.65;color:var(--ink-soft);}
+.why-sources{font-size:12px;color:var(--ink-mute);margin-top:18px;line-height:1.6;}
+.why-sources a{text-decoration:underline;text-underline-offset:2px;}
+.why-sources a:hover{color:var(--accent);}
+
+/* ===== Головна: принципи в «Про мене» ===== */
+.principles{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px;}
+.principles li{background:var(--paper);border-radius:10px;padding:14px 16px;border-left:3px solid var(--accent);}
+.principles strong{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px;}
+.principles span{font-size:14px;line-height:1.55;color:var(--ink-soft);}
+
+/* ===== Головна: «Поки не готові писати?» ===== */
+.not-ready{margin-top:72px;}
+.nr-quick{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px;}
+.nr-card{display:flex;flex-direction:column;gap:6px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:20px 22px;transition:box-shadow .15s;}
+.nr-card:hover{box-shadow:0 8px 24px rgba(60,50,30,.08);}
+.nr-card strong{font-size:17px;font-weight:600;color:var(--ink);}
+.nr-card span{font-size:14px;color:var(--ink-soft);line-height:1.55;}
+.nr-card em{font-style:normal;font-size:14px;font-weight:600;color:var(--accent);margin-top:4px;}
+.nr-card:focus-visible{outline:3px solid var(--accent);outline-offset:3px;}
+.nr-sub{font-family:var(--serif);font-weight:400;font-size:22px;margin-bottom:20px;}
+
+@media(max-width:860px){
+  .why-grid{grid-template-columns:1fr;}
+  .principles,.nr-quick{grid-template-columns:1fr;}
+  .trust-strip ul{justify-content:flex-start;gap:8px 18px;}
+  .why-cycle{margin-top:-28px;}
+}
