@@ -14,8 +14,9 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
         <p class="lede">Це відчуття не зникло — воно просто чекає, поки ви його знайдете. Я допомагаю людям, які застрягли у тривозі, пригніченості, панічних атаках чи нав'язливих думках, знайти вихід через структурну роботу з мисленням і поведінкою.</p>
         <div class="btn-row">
           <a href="#contact" class="btn-primary">Записатись на зустріч</a>
-          <a href="#about" class="btn-ghost">Дізнатись більше</a>
+          <a href="/dopomoha/" class="btn-ghost">Або спершу вправа на 2–5 хв</a>
         </div>
+        <p class="hero-cred">Магістр клінічної психології (НУОЗ ім. П.&nbsp;Л.&nbsp;Шупика) · спеціалізація КПТ · регулярна супервізія · <a href="#about">про мене</a></p>
       </div>
       <div class="hero-photo">
         <picture><source srcset="/assets/images/profile/sergiy.webp" type="image/webp"><img src="/assets/images/profile/sergiy.jpg" alt="Сергій Коржов — клінічний психолог" width="450" height="562" fetchpriority="high" decoding="async" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;display:block;position:relative;z-index:1;"></picture>        <div class="photo-tag"><strong>Онлайн · Весь світ</strong>Формат роботи — відеозв'язок</div>
@@ -155,9 +156,8 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
       </div>
       <div class="about-body">
         <p>Я — клінічний психолог, який працює в рамках <strong>когнітивно-поведінкового підходу (КПТ)</strong>. Обрав цей напрям не випадково: КПТ — одна з найкраще досліджених і ефективних форм психотерапії, де є чіткість, структура і вимірюваний прогрес.</p>
-        <div class="quote-block">Мені важливо, щоб терапія була не просто розмовою про психологічні проблеми клієнта, а реально вирішувала їх і змінювала його світогляд.</div>
-        <p>Я працюю онлайн з людьми з усього світу. <strong>Зараз я приймаю обмежену кількість клієнтів безкоштовно</strong> — якщо ви в ситуації, де фінансовий бар'єр є реальним, напишіть мені, і ми обговоримо це особисто.</p>
-        <p>Одна сесія триває <strong>60 хвилин</strong>. Перша зустріч — це можливість познайомитись, без жодних зобов'язань.</p>
+        <div class="quote-block">Мені важливо, щоб терапія була не просто розмовою про психологічні проблеми клієнта, а реально допомагала їх розв'язувати й змінювала звичні способи мислення і поведінки.</div>
+        <p>Я працюю онлайн з людьми з усього світу. Одна сесія триває <strong>60 хвилин</strong>. Перша зустріч — це можливість познайомитись, без жодних зобов'язань.</p>
                 <div class="tag-row" style="margin-top:24px;">
           <span class="tag">Кваліфікація</span>
         </div>
@@ -288,42 +288,47 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
     </div>
     <div class="faq-groups">
       {%- for g in faq %}
-      <div class="faq-group" style="--c:{{ g.color }}" aria-labelledby="faq-{{ g.id }}">
+      {%- set gFirst = loop.first %}
+      <div class="faq-group{% if not gFirst %} faq-collapsible{% endif %}" style="--c:{{ g.color }}" aria-labelledby="faq-{{ g.id }}">
         <h3 id="faq-{{ g.id }}" class="faq-group-title"><span class="faq-group-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">{{ g.icon | safe }}</svg></span>{{ g.title }}</h3>
         {%- for item in g.items %}
-        <details class="faq-item"{% if loop.first %} open{% endif %}>
+        <details class="faq-item"{% if gFirst and loop.first %} open{% endif %}>
           <summary>{{ item.q }}</summary>
           <p>{{ item.a | safe }}</p>
         </details>
         {%- endfor %}
+        {%- if not gFirst %}
+        <button type="button" class="faq-toggle" hidden>Показати питання ({{ g.items | length }})</button>
+        {%- endif %}
       </div>
       {%- endfor %}
     </div>
     <div class="faq-more">
-      <p>Не знайшли відповіді? Напишіть мені — відповідаю протягом доби.</p>
-      <a href="https://t.me/krzhv_bot" class="sc-btn sc-btn-primary"><svg class="sc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4L2.5 11.3c-.8.3-.8 1.5.1 1.7l4.6 1.4 1.8 5.5c.3.8 1.3 1 1.9.4l2.6-2.5 4.8 3.5c.8.5 1.9.1 2.1-.9L23 5.2c.2-1-.8-1.7-2-1.2z"/><path d="M8 14.4L18 7"/></svg><span>Написати в Telegram</span></a>
+      <p>Не знайшли відповіді? <a href="https://t.me/krzhv_bot">Напишіть мені в Telegram</a> — відповідаю протягом доби.</p>
     </div>
+    <p class="help-line">Якщо вам зараз дуже погано, не чекайте консультації: <a href="/help/">Термінова допомога →</a></p>
   </div>
   <script type="application/ld+json">{{ faq | faqSchema | safe }}</script>
+  <script>
+  (function () {
+    if (!window.matchMedia("(max-width:560px)").matches) return;
+    document.querySelectorAll(".faq-collapsible").forEach(function (g) {
+      var b = g.querySelector(".faq-toggle");
+      g.classList.add("is-collapsed"); b.hidden = false;
+      b.addEventListener("click", function () { g.classList.remove("is-collapsed"); b.remove(); });
+    });
+  })();
+  </script>
 </section>
-
-<div class="wrap">
-  <p class="help-line">Якщо вам зараз дуже погано, не чекайте консультації: <a href="/help/">Термінова допомога →</a></p>
-</div>
 
 {% include "contact.njk" %}
 
-<section id="ne-hotovi" class="alt-bg not-ready">
+<section id="materialy" class="alt-bg not-ready">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Поки не готові писати?</span>
-      <h2>Почніть із цього</h2>
+      <span class="eyebrow">Матеріали</span>
+      <h2>Нові статті</h2>
     </div>
-    <div class="nr-quick">
-      <a href="/dopomoha/" class="nr-card"><strong>Вправа на 2–5 хвилин</strong><span>Коротка допомога, коли важко просто зараз.</span><em>Обрати вправу →</em></a>
-      <a href="/kviz/" class="nr-card"><strong>Опитувальник</strong><span>2 хвилини, щоб зорієнтуватися у своєму стані.</span><em>Пройти →</em></a>
-    </div>
-    <h3 class="nr-sub">Нові матеріали</h3>
     <div class="articles-grid">
       {%- from "icons.njk" import categoryIcon %}
       {%- for post in collections.statti | latestArticles(3) %}
