@@ -1,0 +1,44 @@
+<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Спрощена схема кола уникання при фобії</title>
+  <desc id="d">Чотири кроки по колу: зустріч із об'єктом страху й сплеск тривоги; бажання уникнути чи втекти; полегшення; страх зберігається, бо не було нагоди перевірити, що небезпеки немає. Експозиційна терапія розриває коло на кроці уникання.</desc>
+  <rect width="720" height="420" rx="12" fill="#EEF2EF"/>
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3D5A4A"/>
+    </marker>
+  </defs>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <rect x="40" y="30" width="270" height="90" rx="12" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="175" y="58" font-size="14" font-weight="600" fill="#221F1B">1. Об'єкт чи ситуація страху</text>
+    <text x="175" y="80" font-size="12" fill="#5F5850">різкий сплеск тривоги: серцебиття,</text>
+    <text x="175" y="98" font-size="12" fill="#5F5850">напруга, думка «це небезпечно»</text>
+
+    <rect x="410" y="30" width="270" height="90" rx="12" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="545" y="58" font-size="14" font-weight="600" fill="#221F1B">2. Уникання або втеча</text>
+    <text x="545" y="80" font-size="12" fill="#5F5850">піти, відмовитись, не наближатись,</text>
+    <text x="545" y="98" font-size="12" fill="#5F5850">шукати «безпечні» обхідні шляхи</text>
+
+    <rect x="410" y="270" width="270" height="100" rx="12" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
+    <text x="545" y="298" font-size="14" font-weight="600" fill="#221F1B">3. Швидке полегшення</text>
+    <text x="545" y="320" font-size="12" fill="#5F5850">тривога спадає, і мозок «запам'ятовує»:</text>
+    <text x="545" y="338" font-size="12" fill="#5F5850">уникання спрацювало</text>
+
+    <rect x="40" y="270" width="270" height="100" rx="12" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="175" y="298" font-size="14" font-weight="600" fill="#221F1B">4. Страх зберігається</text>
+    <text x="175" y="320" font-size="12" fill="#5F5850">немає нагоди переконатися,</text>
+    <text x="175" y="338" font-size="12" fill="#5F5850">що небезпеки немає, тож страх лишається</text>
+
+    <text x="360" y="186" font-size="17" font-weight="600" fill="#3D5A4A">Коло уникання</text>
+    <text x="360" y="208" font-size="12" fill="#5F5850">спрощена схема</text>
+    <text x="360" y="224" font-size="12" fill="#5F5850">для пояснення</text>
+
+    <text x="550" y="150" text-anchor="middle" font-size="11" font-weight="600" fill="#C77A4F">експозиційна терапія</text>
+    <text x="550" y="165" text-anchor="middle" font-size="11" font-weight="600" fill="#C77A4F">розриває коло тут</text>
+  </g>
+  <g fill="none" stroke="#3D5A4A" stroke-width="2" marker-end="url(#ah)">
+    <path d="M312,75 L406,75"/>
+    <path d="M545,175 L545,266" stroke-dasharray="0"/>
+    <path d="M406,320 L314,320"/>
+    <path d="M175,266 L175,124"/>
+  </g>
+</svg>
