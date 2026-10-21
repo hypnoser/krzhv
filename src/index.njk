@@ -10,8 +10,8 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
     <div class="hero-grid">
       <div>
         <span class="eyebrow">Клінічний психолог · КПТ · Онлайн</span>
-        <h1>А ви давно прокидались із <em>почуттям радості</em> нового дня?</h1>
-        <p class="lede">Це відчуття не зникло — воно просто чекає, поки ви його знайдете. Я допомагаю людям, які застрягли у тривозі, пригніченості, панічних атаках чи нав'язливих думках, знайти вихід через структурну роботу з мисленням і поведінкою.</p>
+        <h1>Онлайн-КПТ при <em>тривозі, депресії</em>, панічних атаках і ОКР</h1>
+        <p class="lede">Коли стан заважає жити, допомагає не лише розмова, а структурна робота з думками й поведінкою. Працюю онлайн з людьми по всьому світу.</p>
         <div class="btn-row">
           <a href="#contact" class="btn-primary">Записатись на зустріч</a>
           <a href="/dopomoha/" class="btn-ghost">Або спершу вправа на 2–5 хв</a>
@@ -248,7 +248,7 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
         </li>
       </ol>
     </div>
-    <div class="rm-phase" style="--p:var(--sand-text)">
+    <div class="rm-phase rm-later" style="--p:var(--sand-text)">
       <p class="rm-phase-label"><strong>Завершення і після</strong><span>кроки 4–5</span></p>
       <ol class="rm-row rm-row-2" start="4">
         <li class="rm-item">
@@ -273,6 +273,15 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
     </div>
     </div>
 
+    <button type="button" class="faq-toggle rm-more" hidden>Як завершується терапія · кроки 4–5</button>
+    <script>
+    (function () {
+      if (!window.matchMedia("(max-width:560px)").matches) return;
+      var p = document.querySelector(".rm-later"), b = document.querySelector(".rm-more");
+      p.hidden = true; b.hidden = false;
+      b.addEventListener("click", function () { p.hidden = false; b.remove(); });
+    })();
+    </script>
     <div class="rm-end">
       <p>Почати можна просто зараз — достатньо одного повідомлення.</p>
       <a href="https://t.me/krzhv_bot" class="btn-primary">Написати в Telegram</a>

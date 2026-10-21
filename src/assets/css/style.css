@@ -727,6 +727,8 @@ section{padding:92px 0;}
 .faq-more a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;}
 .faq-toggle{display:block;width:100%;margin-top:4px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font:500 14px var(--sans);color:var(--ink-soft);cursor:pointer;}
 .faq-collapsible.is-collapsed .faq-item{display:none;}
+.rm-more{margin-top:20px;}
+.rm-later[hidden]{display:none;}
 /* без білої смуги між останньою сірою секцією і футером */
 main:has(> section.alt-bg:last-child) + .site-footer{margin-top:0;}
 @media(min-width:861px){
