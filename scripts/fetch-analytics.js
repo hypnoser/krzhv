@@ -7,7 +7,7 @@
 //   CF_ANALYTICS_TOKEN  — токен API: Account → Account Analytics → Read
 //   CF_ACCOUNT_ID       — ID акаунта Cloudflare
 //   SECRET_PASSWORD     — пароль розділу /secret/ (з нього виводиться ключ шифрування)
-// Необов'язково: CF_SITE_TAG (за замовчуванням — токен маяка з коду сторінок), DAYS (за замовчуванням 180),
+// Необов'язково: CF_SITE_TAG (за замовчуванням визначається за доменом SITE_HOST; токен маяка в HTML — не siteTag), DAYS (за замовчуванням 180),
 //   CF_GRAPHQL_URL (для тестів), PREV_URL (звідки взяти попередній знімок, якщо Cloudflare недоступний).
 //
 // Дані — лише агреговані (кількість переглядів/візитів за годину в розрізі країни, сторінки, джерела,
@@ -26,7 +26,8 @@ const http = require("http");
 
 const ROOT = path.join(__dirname, "..");
 const OUT = process.argv[2] || path.join(ROOT, "_site", "secret", "analytics", "data.json");
-const TAG = process.env.CF_SITE_TAG || "249fb12e03964b91bfc04292c04c5a63";
+let TAG = process.env.CF_SITE_TAG || "";
+let SITE_FILTER = "";
 const HOST = process.env.SITE_HOST || "krzhv.com.ua";
 const DAYS = Math.max(1, Math.min(365, parseInt(process.env.DAYS || "180", 10) || 180));
 const GQL = process.env.CF_GRAPHQL_URL || "https://api.cloudflare.com/client/v4/graphql";
@@ -134,7 +135,7 @@ function pageloadQuery(acc, cols, start, end) {
   const dims = cols.map((c) => `${c.key}: ${c.name}`).join(" ");
   return `{ viewer { accounts(filter: {accountTag: "${acc}"}) {
     rumPageloadEventsAdaptiveGroups(
-      filter: { AND: [ { datetime_geq: "${start}", datetime_leq: "${end}" }, { OR: [ { siteTag: "${TAG}" } ] } ] }
+      filter: { AND: [ { datetime_geq: "${start}", datetime_leq: "${end}" }, ${SITE_FILTER} ] }
       limit: ${LIMIT}, orderBy: [count_DESC]
     ) { count sum { visits } avg { sampleInterval } dimensions { ${dims} } }
   } } }`;
@@ -155,6 +156,33 @@ async function queryWindow(acc, cols, start, end) {
     return acct.rumPageloadEventsAdaptiveGroups || [];
   }
   throw new Error("не вдалося підібрати набір вимірів");
+}
+
+// Який siteTag належить нашому домену: групуємо події за 30 днів за siteTag і requestHost
+async function resolveSite(acc) {
+  const hosts = [HOST, "www." + HOST];
+  if (TAG) { SITE_FILTER = `{ siteTag: "${TAG}" }`; log(`siteTag із CF_SITE_TAG: ${TAG}`); return; }
+  const to = Date.now(), from = to - 30 * 864e5;
+  try {
+    const j = await gql(`{ viewer { accounts(filter: {accountTag: "${acc}"}) {
+      rumPageloadEventsAdaptiveGroups(filter: { datetime_geq: "${iso(from)}", datetime_leq: "${iso(to)}" }, limit: 100, orderBy: [count_DESC]) {
+        count dimensions { siteTag requestHost }
+      } } } }`);
+    if (j.errors && j.errors.length) throw new Error(errText(j));
+    const g = (j.data.viewer.accounts[0] || {}).rumPageloadEventsAdaptiveGroups || [];
+    const seen = g.map((r) => `${r.dimensions.requestHost} (siteTag ${r.dimensions.siteTag}, ${r.count})`);
+    const tags = [...new Set(g.filter((r) => hosts.includes(String(r.dimensions.requestHost).toLowerCase())).map((r) => r.dimensions.siteTag))];
+    if (tags.length) {
+      TAG = tags.join(",");
+      SITE_FILTER = `{ OR: [ ${tags.map((t) => `{ siteTag: "${t}" }`).join(", ")} ] }`;
+      log(`siteTag для ${HOST}: ${TAG}`);
+      return;
+    }
+    warn(`у акаунті не знайдено подій для ${HOST} за 30 днів. Сайти в акаунті: ${seen.slice(0, 10).join("; ") || "жодного"}`);
+  } catch (e) {
+    log(`автовизначення siteTag не вдалося (${e.message}) — фільтрую за доменом`);
+  }
+  SITE_FILTER = `{ OR: [ ${hosts.map((h) => `{ requestHost: "${h}" }`).join(", ")} ] }`;
 }
 
 const iso = (ms) => new Date(ms).toISOString().replace(/\.\d+Z$/, "Z");
@@ -181,7 +209,7 @@ async function fetchVitals(acc) {
   const to = Date.now(), from = to - 30 * 864e5;
   const q = `{ viewer { accounts(filter: {accountTag: "${acc}"}) {
     rumWebVitalsEventsAdaptiveGroups(
-      filter: { AND: [ { datetime_geq: "${iso(from)}", datetime_leq: "${iso(to)}" }, { OR: [ { siteTag: "${TAG}" } ] } ] }
+      filter: { AND: [ { datetime_geq: "${iso(from)}", datetime_leq: "${iso(to)}" }, ${SITE_FILTER} ] }
       limit: 100, orderBy: [count_DESC]
     ) { count quantiles { ${fields.join(" ")} } dimensions { p: requestPath } }
   } } }`;
@@ -244,6 +272,7 @@ async function keepPrevious(reason) {
 
   try {
     const acc = process.env.CF_ACCOUNT_ID;
+    await resolveSite(acc);
     const cols = await pickDimensions();
     const now = Date.now();
     const start = now - DAYS * 864e5;
