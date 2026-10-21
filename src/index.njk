@@ -3,7 +3,7 @@ layout: base.njk
 title: "Сергій Коржов — Клінічний психолог, КПТ онлайн"
 description: "Клінічний психолог, спеціалізація КПТ. Онлайн-консультації для україномовних та російськомовних клієнтів."
 permalink: /
-schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://krzhv.com.ua/#person", "name": "Сергій Коржов", "jobTitle": "Клінічний психолог", "url": "https://krzhv.com.ua/", "alumniOf": {"@type": "CollegeOrUniversity", "name": "Національний університет охорони здоров'я України імені П. Л. Шупика", "url": "https://www.nuozu.edu.ua/"}, "hasCredential": [{"@type": "EducationalOccupationalCredential", "credentialCategory": "degree", "name": "Магістр психології (клінічна психологія)", "recognizedBy": {"@type": "CollegeOrUniversity", "name": "Національний університет охорони здоров'я України імені П. Л. Шупика"}}, {"@type": "EducationalOccupationalCredential", "credentialCategory": "certificate", "name": "Когнітивно-поведінкова терапія тривожних розладів", "recognizedBy": {"@type": "EducationalOrganization", "name": "UpProSchool"}}], "memberOf": {"@type": "Organization", "name": "Асоціація клінічних психологів та психотерапевтів України"}, "knowsAbout": ["Когнітивно-поведінкова терапія", "Клінічна психологія", "Тривожні розлади", "Депресія"], "knowsLanguage": ["uk", "ru"], "sameAs": ["https://www.linkedin.com/in/korzhov-sv/", "https://www.instagram.com/krzhv.psy", "https://share.google/fX6DD3ILjeFh1Z7Zp"]}, {"@type": "MedicalBusiness", "name": "Сергій Коржов — Клінічний психолог", "url": "https://krzhv.com.ua/", "image": "https://krzhv.com.ua/assets/images/og-image.jpg", "priceRange": "$$", "areaServed": "Online", "availableLanguage": ["Ukrainian", "Russian"], "founder": {"@id": "https://krzhv.com.ua/#person"}}]}
+schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://krzhv.com.ua/#person", "name": "Сергій Коржов", "jobTitle": "Клінічний психолог", "url": "https://krzhv.com.ua/", "alumniOf": {"@type": "CollegeOrUniversity", "name": "Національний університет охорони здоров'я України імені П. Л. Шупика", "url": "https://www.nuozu.edu.ua/"}, "hasCredential": [{"@type": "EducationalOccupationalCredential", "credentialCategory": "degree", "name": "Магістр психології (клінічна психологія)", "recognizedBy": {"@type": "CollegeOrUniversity", "name": "Національний університет охорони здоров'я України імені П. Л. Шупика"}}, {"@type": "EducationalOccupationalCredential", "credentialCategory": "certificate", "name": "Основи когнітивно-поведінкової терапії (спеціалізація «КПТ-консультант»)", "recognizedBy": {"@type": "EducationalOrganization", "name": "UpProSchool"}}], "memberOf": {"@type": "Organization", "name": "Асоціація клінічних психологів та психотерапевтів України"}, "knowsAbout": ["Когнітивно-поведінкова терапія", "Клінічна психологія", "Тривожні розлади", "Депресія"], "knowsLanguage": ["uk", "ru"], "sameAs": ["https://www.linkedin.com/in/korzhov-sv/", "https://www.instagram.com/krzhv.psy", "https://share.google/fX6DD3ILjeFh1Z7Zp"]}, {"@type": "MedicalBusiness", "name": "Сергій Коржов — Клінічний психолог", "url": "https://krzhv.com.ua/", "image": "https://krzhv.com.ua/assets/images/og-image.jpg", "priceRange": "$$", "areaServed": "Online", "availableLanguage": ["Ukrainian", "Russian"], "founder": {"@id": "https://krzhv.com.ua/#person"}}]}
 ---
 <section class="hero">
   <div class="wrap">
@@ -163,10 +163,55 @@ schema: {"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id":
         </div>
         <ul class="credentials">
           <li><strong>Магістр психології</strong> (клінічна психологія) — <a href="https://www.nuozu.edu.ua/" target="_blank" rel="noopener">Національний університет охорони здоров'я України імені П.&nbsp;Л.&nbsp;Шупика</a>.</li>
-          <li><strong>Когнітивно-поведінкова терапія тривожних розладів</strong> — навчальна програма UpProSchool, 2025–2026.</li>
+          <li><strong>Основи когнітивно-поведінкової терапії</strong> — курс підвищення кваліфікації UpProSchool, 210 год (7 кредитів ЄКТС), спеціалізація «КПТ-консультант», 2026.</li>
+          <li><strong>Додаткове навчання</strong> — курси Асоціації клінічних психологів та психотерапевтів України: пропедевтика психічних розладів (92 год), методи КПТ у роботі клінічного психолога (20 год).</li>
           <li><strong>Супервізія</strong> — регулярна, групова, раз на місяць.</li>
           <li><strong>Член</strong> Асоціації клінічних психологів та психотерапевтів України.</li>
         </ul>
+        {%- macro docThumb(d, i) -%}
+          <li><button type="button" class="doc-thumb" data-doc="{{ i }}" aria-label="Відкрити: {{ d.title }}"><img src="/assets/images/dokumenty/{{ d.file }}-thumb.webp" alt="{{ d.title }}" loading="lazy" decoding="async"><span>{{ d.title }}</span></button></li>
+        {%- endmacro %}
+        <div class="docs" id="dokumenty">
+          <p class="docs-head">Документи</p>
+          <ul class="docs-grid">
+            {%- for d in dokumenty.main %}{{ docThumb(d, loop.index0) }}{% endfor %}
+          </ul>
+          <p class="docs-sub">Навчання з ПТСР</p>
+          <p class="docs-note">Проходив, щоб вчасно розпізнати ПТСР і скерувати до профільного фахівця. Із запитами щодо ПТСР я не працюю.</p>
+          <ul class="docs-grid">
+            {%- for d in dokumenty.ptsr %}{{ docThumb(d, dokumenty.main.length + loop.index0) }}{% endfor %}
+          </ul>
+        </div>
+        <dialog class="doc-dialog" id="docDialog" aria-label="Документ">
+          <div class="doc-dialog-bar"><p id="docCap"></p><button type="button" class="doc-x" data-act="close" aria-label="Закрити">×</button></div>
+          <div class="doc-dialog-body"><button type="button" class="doc-nav" data-act="prev" aria-label="Попередній">‹</button><img id="docImg" alt=""><button type="button" class="doc-nav" data-act="next" aria-label="Наступний">›</button></div>
+        </dialog>
+        <script type="application/json" id="docData">{{ dokumenty.main.concat(dokumenty.ptsr) | dump | safe }}</script>
+        <script>
+        (function () {
+          var docs = JSON.parse(document.getElementById("docData").textContent), dlg = document.getElementById("docDialog");
+          var img = document.getElementById("docImg"), cap = document.getElementById("docCap"), cur = 0;
+          if (!dlg.showModal) return;
+          function show(i) {
+            cur = (i + docs.length) % docs.length;
+            img.src = "/assets/images/dokumenty/" + docs[cur].file + ".webp";
+            img.alt = docs[cur].title;
+            cap.textContent = docs[cur].title + " — " + docs[cur].note;
+          }
+          document.querySelectorAll(".doc-thumb").forEach(function (b) {
+            b.addEventListener("click", function () { show(+b.dataset.doc); dlg.showModal(); });
+          });
+          dlg.addEventListener("click", function (e) {
+            var a = e.target.closest("[data-act]");
+            if (a) { if (a.dataset.act === "close") dlg.close(); else show(cur + (a.dataset.act === "next" ? 1 : -1)); }
+            else if (e.target === dlg) dlg.close();
+          });
+          dlg.addEventListener("keydown", function (e) {
+            if (e.key === "ArrowRight") show(cur + 1);
+            if (e.key === "ArrowLeft") show(cur - 1);
+          });
+        })();
+        </script>
         <ul class="principles">
           <li><strong>Доказові методи</strong><span>Працюю лише з тим, що має підтвердження в дослідженнях.</span></li>
           <li><strong>Чесні межі</strong><span>Якщо ваш запит не мій, скажу прямо й підкажу, куди звернутися.</span></li>
