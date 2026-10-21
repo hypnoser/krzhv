@@ -501,7 +501,7 @@
     const rs = D.raw, parts = [];
     if (D.demo) parts.push('<div class="an-demo">ДЕМО-ДАНІ: це згенерований приклад, а не справжня статистика сайту.</div>');
     if (rs.warnings && rs.warnings.length) parts.push('<div class="an-warn"><b>Попередження збірки:</b><ul style="margin:6px 0 0 18px">' + rs.warnings.map((w) => "<li>" + esc(w) + "</li>").join("") + "</ul></div>");
-    if (!D.n && !D.demo) parts.push('<div class="an-warn">Cloudflare поки не повернув жодного рядка. Якщо Web Analytics увімкнено недавно, дані з\'являться за годину-дві; інакше перевірте <code>CF_SITE_TAG</code> (README).</div>');
+    if (!D.n && !D.demo) parts.push('<div class="an-warn">Cloudflare поки не повернув жодного рядка. Якщо Web Analytics увімкнено недавно, дані з\'являться за годину-дві; інакше відкрийте в GitHub → Actions останній запуск → крок «Fetch analytics snapshot»: там видно, які сайти знайдено в акаунті Cloudflare.</div>');
     $("#anBanner").innerHTML = parts.join("");
     const g = new Date(D.gen);
     $("#anFresh").textContent = "Знімок: " + dstr(kparts(D.gen).day) + " " + pad(g.getHours()) + ":" + pad(g.getMinutes()) +
