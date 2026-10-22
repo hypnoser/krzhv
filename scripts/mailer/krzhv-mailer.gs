@@ -102,7 +102,7 @@ function krzhvMailTick() {
     let pending = 0;
     GmailApp.search('label:' + KRZHV_L_DRAFT + ' -label:' + KRZHV_L_DONE + ' -label:' + KRZHV_L_EDIT, 0, 20)
       .forEach(function (t) {
-        const msgs = t.getMessages();
+        const msgs = t.getMessages().filter(function (m) { return !m.isDraft(); }); // автозбережений чернетковий «ОК» не рахується
         if (msgs.length < 2) { pending++; return; }
         const meta = JSON.parse(props.getProperty('krzhv_meta_' + t.getId()) || '{}');
         const txt = krzhvStrip_(msgs[msgs.length - 1].getPlainBody()).trim();
@@ -173,7 +173,7 @@ function krzhvPublish_(thread, first, meta) {
 function krzhvPoll_(req) {
   const threads = GmailApp.search('label:' + KRZHV_L_EDIT + ' -label:' + KRZHV_L_DONE + ' newer_than:30d', 0, 20);
   return { ok: true, threads: threads.map(function (t) {
-    const msgs = t.getMessages();
+    const msgs = t.getMessages().filter(function (m) { return !m.isDraft(); });
     const item = { threadId: t.getId(), subject: t.getFirstMessageSubject(),
       replies: msgs.slice(1).map(function (m) { return { date: m.getDate().toISOString(), text: krzhvStrip_(m.getPlainBody()) }; }) };
     if (req.withAttachments) {
