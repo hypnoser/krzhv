@@ -3,6 +3,8 @@ layout: blog-post.njk
 title: "Тривога як надто чутлива автосигналізація"
 description: "Чому тривога вмикається без причини і чому «вимкнути» її силою не вдається. Жива аналогія з автосигналізацією."
 audience: journal
+permalink: false
+eleventyExcludeFromCollections: true
 date: 2026-10-22
 updated: 2026-10-22
 seoTags: ["тривога", "КПТ", "тривожність", "психологія"]
