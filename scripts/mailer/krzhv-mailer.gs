@@ -75,6 +75,7 @@ function krzhvStrip_(text) {
   const lines = String(text).split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
+    if (/^(--|__)\s*$|^(з повагою|з пошаною|щиро|дякую|best regards|regards|sent from)/i.test(l.trim())) break; // підпис
     if (/^>/.test(l) || /^(On .+wrote:|.+пише:|.+написав.*:|-{3,}\s*Original|(пише|wrote):?$|(пн|вт|ср|чт|пт|сб|нд|Mon|Tue|Wed|Thu|Fri|Sat|Sun)[.,]?\s+\d{1,2}\s+\S+\.?\s+\d{4})/i.test(l.trim())) break; // Gmail UA переносить «пише:» на окремий рядок
     keep.push(l);
   }
