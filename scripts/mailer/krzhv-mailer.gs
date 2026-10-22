@@ -75,7 +75,7 @@ function krzhvStrip_(text) {
   const lines = String(text).split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
-    if (/^>/.test(l) || /^(On .+wrote:|.+пише:|.+написав.*:|-{3,}\s*Original)/i.test(l.trim())) break;
+    if (/^>/.test(l) || /^(On .+wrote:|.+пише:|.+написав.*:|-{3,}\s*Original|(пише|wrote):?$|(пн|вт|ср|чт|пт|сб|нд|Mon|Tue|Wed|Thu|Fri|Sat|Sun)[.,]?\s+\d{1,2}\s+\S+\.?\s+\d{4})/i.test(l.trim())) break; // Gmail UA переносить «пише:» на окремий рядок
     keep.push(l);
   }
   return keep.join('\n').trim().slice(0, 4000);
