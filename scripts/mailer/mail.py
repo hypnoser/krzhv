@@ -3,9 +3,12 @@
 KRZHV_MAIL_URL (адреса веб-застосунку) і KRZHV_MAIL_TOKEN. У репозиторії їх немає.
 
   mail.py send --subject "Чернетка: ..." --html email.html [--text t.txt] [--kind draft|info]
+               [--publish-file локальний_шлях=шлях/в/репо ...]   # файли, які скрипт сам закомітить після «ОК»
+               [--publish-at 2026-11-11T08:00:00+02:00] [--publish-url https://krzhv.com.ua/... ...] [--title "..."]
                [--attach f1 f2] [--inline cid=path.png]
-  mail.py poll [--attachments DIR]     # відповіді власника на чернетки + вкладення першого листа
-  mail.py done --thread ID             # позначити чернетку опрацьованою
+  mail.py poll [--attachments DIR]     # гілки з ПРАВКАМИ (мітка krzhv-edit) + вкладення першого листа
+  mail.py done --thread ID             # позначити гілку опрацьованою
+Публікацію на «ОК» виконує сам Apps Script (хвилинний тригер): див. README.
 """
 import argparse, base64, json, mimetypes, os, pathlib, sys, urllib.request
 
@@ -13,7 +16,7 @@ def call(payload):
     url, token = os.environ.get("KRZHV_MAIL_URL"), os.environ.get("KRZHV_MAIL_TOKEN")
     if not url or not token:
         sys.exit("Не задано KRZHV_MAIL_URL / KRZHV_MAIL_TOKEN")
-    payload["token"] = token
+    payload["krzhv"] = 1; payload["token"] = token
     req = urllib.request.Request(url, json.dumps(payload).encode(), {"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=120) as r:  # 302 → GET на результат, дія вже виконана
         return json.loads(r.read().decode())
@@ -27,6 +30,7 @@ ap = argparse.ArgumentParser(); sub = ap.add_subparsers(dest="cmd", required=Tru
 s = sub.add_parser("send"); s.add_argument("--subject", required=True); s.add_argument("--html", required=True)
 s.add_argument("--text"); s.add_argument("--kind", default="info", choices=["draft", "info"])
 s.add_argument("--attach", nargs="*", default=[]); s.add_argument("--inline", nargs="*", default=[])
+s.add_argument("--publish-file", nargs="*", default=[]); s.add_argument("--publish-at"); s.add_argument("--publish-url", nargs="*", default=[]); s.add_argument("--title")
 p = sub.add_parser("poll"); p.add_argument("--attachments")
 d = sub.add_parser("done"); d.add_argument("--thread", required=True)
 a = ap.parse_args()
@@ -37,7 +41,8 @@ if a.cmd == "send":
         cid, path = x.split("=", 1); b = blob(path); b["cid"] = cid; inline.append(b)
     r = call({"action": "send", "subject": a.subject, "html": pathlib.Path(a.html).read_text(encoding="utf-8"),
               "text": pathlib.Path(a.text).read_text(encoding="utf-8") if a.text else None,
-              "kind": a.kind, "attachments": [blob(x) for x in a.attach], "inline": inline})
+              "kind": a.kind, "inline": inline, "publishAt": a.publish_at, "publishUrls": a.publish_url, "title": a.title,
+              "attachments": [blob(x) for x in a.attach] + [blob(l, r.replace("/", "__")) for l, r in (x.split("=", 1) for x in a.publish_file)]})
 elif a.cmd == "poll":
     r = call({"action": "poll", "withAttachments": bool(a.attachments)})
     if a.attachments and r.get("ok"):
