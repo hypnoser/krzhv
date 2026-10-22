@@ -1,0 +1,33 @@
+<svg width="720" height="400" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Цикл руминацій</title>
+  <desc id="d">Чотири кроки по колу: неприємне відчуття чи подія; прокручування думок «чому зі мною так?»; гірший настрій, менше дій і розмов; нерозв'язані проблеми й менше підтримки, після чого неприємне відчуття повертається.</desc>
+  <rect width="720" height="400" rx="12" fill="#EEF2EF"/>
+  <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#3D5A4A"/></marker></defs>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <rect x="40" y="40" width="270" height="86" rx="12" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="175" y="70" font-size="14" font-weight="600" fill="#221F1B">1. Неприємне відчуття</text>
+    <text x="175" y="92" font-size="12" fill="#4A443D">невдача, сварка, поганий настрій</text>
+    <text x="175" y="110" font-size="12" fill="#4A443D">чи просто важкий день</text>
+
+    <rect x="410" y="40" width="270" height="86" rx="12" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
+    <text x="545" y="70" font-size="14" font-weight="600" fill="#221F1B">2. Прокручування думок</text>
+    <text x="545" y="92" font-size="12" fill="#4A443D">«Чому зі мною так?»</text>
+    <text x="545" y="110" font-size="12" fill="#4A443D">«Що зі мною не так?»</text>
+
+    <rect x="410" y="250" width="270" height="86" rx="12" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="545" y="280" font-size="14" font-weight="600" fill="#221F1B">3. Гірший настрій</text>
+    <text x="545" y="302" font-size="12" fill="#4A443D">менше дій і розмов,</text>
+    <text x="545" y="320" font-size="12" fill="#4A443D">слабше розв'язуються задачі</text>
+
+    <rect x="40" y="250" width="270" height="86" rx="12" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="175" y="280" font-size="14" font-weight="600" fill="#221F1B">4. Проблем більше</text>
+    <text x="175" y="302" font-size="12" fill="#4A443D">лишаються нерозв'язаними,</text>
+    <text x="175" y="320" font-size="12" fill="#4A443D">підтримки менше</text>
+
+    <path d="M312 83 L406 83" stroke="#3D5A4A" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+    <path d="M545 128 L545 246" stroke="#3D5A4A" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+    <path d="M408 293 L314 293" stroke="#3D5A4A" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+    <path d="M175 248 L175 130" stroke="#3D5A4A" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+    <text x="360" y="198" font-size="12" font-style="italic" fill="#94897E">спрощена авторська схема</text>
+  </g>
+</svg>
