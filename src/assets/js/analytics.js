@@ -586,6 +586,11 @@
     }, true);
     document.addEventListener("click", (ev) => { if (!ev.target.closest(".an-fac")) $$(".an-fac[open]").forEach((o) => (o.open = false)); });
     $("#anOut").addEventListener("click", () => { K.logout(); location.reload(); });
+    const me = $("#anMe");
+    try { me.checked = localStorage.getItem("krzhv-noanalytics") !== "0"; } catch (e) { /* без localStorage */ }
+    me.addEventListener("change", () => {
+      try { localStorage.setItem("krzhv-noanalytics", me.checked ? "1" : "0"); } catch (e) { /* ігноруємо */ }
+    });
     $("#anReload").addEventListener("click", () => { load(); });
   }
 

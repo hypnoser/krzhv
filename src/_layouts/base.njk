@@ -2,6 +2,10 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
+{#- Виключення власника зі статистики Cloudflare Web Analytics: у браузері з прапорцем krzhv-noanalytics
+    (ставиться після входу в /secret/ або за посиланням ?noanalytics=1; ?noanalytics=0 — вмикає облік назад; без прапорця, але з входом у /secret/ — теж не рахується)
+    маяк завантажується як завжди, але його звіти (/cdn-cgi/rum) не відправляються. -#}
+<script>(function(){try{var k="krzhv-noanalytics",q=location.search,ls=localStorage;if(/[?&]noanalytics=1\b/.test(q))ls.setItem(k,"1");if(/[?&]noanalytics=0\b/.test(q))ls.setItem(k,"0");var v=ls.getItem(k);if(!(v==="1"||(v===null&&ls.getItem("krzhv-secret-key-v1"))))return;var r=/\/cdn-cgi\/rum|cloudflareinsights\.com\/cdn-cgi/,n=navigator,sb=n.sendBeacon&&n.sendBeacon.bind(n);if(sb)n.sendBeacon=function(u,d){return r.test(String(u))?true:sb(u,d)};var f=window.fetch;if(f)window.fetch=function(i,o){var u=typeof i==="string"?i:(i&&i.url)||"";return r.test(String(u))?Promise.resolve(new Response(null,{status:204})):f.apply(this,arguments)};var X=XMLHttpRequest.prototype,op=X.open,sd=X.send;X.open=function(m,u){this.__noa=r.test(String(u));return op.apply(this,arguments)};X.send=function(){if(!this.__noa)return sd.apply(this,arguments)}}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% set docTitle = seoTitle or title %}<title>{{ docTitle }}{% if docTitle != "Сергій Коржов — Клінічний психолог, КПТ онлайн" %} — Сергій Коржов{% endif %}</title>
 <meta name="description" content="{{ description }}">
