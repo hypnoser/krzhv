@@ -16,6 +16,13 @@ KRZHV_MAIL_URL (адреса веб-застосунку) і KRZHV_MAIL_TOKEN. �
 import argparse, base64, json, mimetypes, os, pathlib, sys, urllib.error, urllib.request
 
 def call(payload):
+    # Читання (poll/status) безпечно повторювати: Apps Script інколи віддає 404 на редиректі.
+    for i in range(3 if payload.get("action") in ("poll", "status") else 1):
+        r = _call(payload, last=(i == 2 or payload.get("action") not in ("poll", "status")))
+        if r is not None:
+            return r
+
+def _call(payload, last=True):
     url, token = os.environ.get("KRZHV_MAIL_URL"), os.environ.get("KRZHV_MAIL_TOKEN")
     if not url or not token:
         sys.exit("Не задано KRZHV_MAIL_URL / KRZHV_MAIL_TOKEN")
@@ -25,6 +32,8 @@ def call(payload):
         with urllib.request.urlopen(req, timeout=120) as r:  # 302 → GET на результат, дія вже виконана
             return json.loads(r.read().decode())
     except (urllib.error.HTTPError, json.JSONDecodeError) as e:
+        if not last:
+            return None
         print(json.dumps({"ok": None, "warning": f"відповідь не прочитано ({e}); дію могло бути виконано, перевір mail.py status перед повтором"}, ensure_ascii=False))
         sys.exit(3)
 
