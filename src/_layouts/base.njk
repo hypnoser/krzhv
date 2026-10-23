@@ -50,6 +50,8 @@
 {# Наперед — лише шрифти першого екрана: основний текст і заголовок. Решта підвантажується за потреби. #}
 <link rel="preload" href="/assets/fonts/Inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Merriweather-300.woff2" as="font" type="font/woff2" crossorigin>
+{% if siteStatus.closed and not isSecretPage %}<script>try{if(localStorage.getItem("krzhv_maintenance_bypass")==="1")document.documentElement.className+=" mnt-open"}catch(e){}</script>
+{% endif %}
 <style>{{ inlineCss | safe }}</style>
 {% for href in pageStyles %}<link rel="stylesheet" href="{{ href }}?v={{ build.version }}">
 {% endfor %}
@@ -135,13 +137,14 @@
 {{ content | safe }}
 </main>
 
-{% if maintenanceOverlay %}
-<div class="maintenance-overlay" id="maintenanceOverlay">
+{# Накладка «сайт закрито»: вмикається прапорцем closed у src/_data/siteStatus.json. Не показується в /secret/ (там адмінка). #}
+{% if siteStatus.closed and not isSecretPage %}
+<div class="maintenance-overlay" id="maintenanceOverlay" data-nosnippet role="dialog" aria-modal="true" aria-labelledby="maintenanceTitle">
   <div class="maintenance-box">
     <span class="eyebrow">Технічні роботи</span>
-    <h1>Сайт на реконструкції</h1>
-    <p>Ми оновлюємо сайт і скоро повернемось. Дякуємо за терпіння.</p>
-    <p class="maintenance-contact">Зв'язатись напряму: <a href="https://t.me/krzhv_bot">Telegram</a></p>
+    <h2 id="maintenanceTitle" class="maintenance-title">Сайт тимчасово закрито</h2>
+    <p class="maintenance-contact">Зв'язок: <a href="mailto:krzhv@proton.me">krzhv@proton.me</a></p>
+    <p class="maintenance-urgent">Термінова допомога: <strong>103</strong> або <strong>112</strong></p>
   </div>
   <div class="maintenance-hidden-toggle" id="maintenanceToggle"></div>
 </div>
@@ -149,12 +152,17 @@
   (function () {
     var KEY = 'krzhv_maintenance_bypass';
     var overlay = document.getElementById('maintenanceOverlay');
-    if (localStorage.getItem(KEY) === '1') {
-      overlay.style.display = 'none';
+    var parts = document.querySelectorAll('.skip-link, .site-header, .site-notice, main, .site-footer');
+    function lock(on) {
+      for (var i = 0; i < parts.length; i++) { if (on) parts[i].setAttribute('inert', ''); else parts[i].removeAttribute('inert'); }
     }
+    var open = false;
+    try { open = localStorage.getItem(KEY) === '1'; } catch (e) {}
+    if (open) { overlay.style.display = 'none'; } else { lock(true); }
     document.getElementById('maintenanceToggle').addEventListener('click', function () {
-      localStorage.setItem(KEY, '1');
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
       overlay.style.display = 'none';
+      lock(false);
     });
   })();
 </script>
