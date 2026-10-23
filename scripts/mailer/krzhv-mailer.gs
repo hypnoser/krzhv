@@ -26,9 +26,11 @@ function krzhvMailRoute_(e) {
   try {
     const token = PropertiesService.getScriptProperties().getProperty('KRZHV_TOKEN');
     if (!token || req.token !== token) return krzhvOut_({ ok: false, error: 'forbidden' });
+    krzhvEnsureTrigger_(); // самовідновлення: тригер існує, поки агент звертається до скрипта
     if (req.action === 'send') return krzhvOut_(krzhvSend_(req));
     if (req.action === 'poll') return krzhvOut_(krzhvPoll_(req));
     if (req.action === 'done') return krzhvOut_(krzhvDone_(req));
+    if (req.action === 'status') return krzhvOut_(krzhvStatus_(req));
     return krzhvOut_({ ok: false, error: 'unknown action' });
   } catch (err) {
     return krzhvOut_({ ok: false, error: String(err) });
@@ -46,6 +48,8 @@ function krzhvProps_() { return PropertiesService.getScriptProperties(); }
 function krzhvSend_(req) {
   let subject = String(req.subject || '').trim();
   if (subject.indexOf(KRZHV_TAG) !== 0) subject = KRZHV_TAG + ' ' + subject;
+  // Унікальна тема: нова версія чернетки не повинна потрапити в стару (done) гілку Gmail.
+  if (req.kind === 'draft') subject += ' · ' + Utilities.formatDate(new Date(), 'Europe/Kyiv', 'dd.MM HH:mm');
   const opts = { htmlBody: req.html, name: 'krzhv · агент контенту' };
   if (req.attachments && req.attachments.length) opts.attachments = req.attachments.map(krzhvBlob_);
   if (req.inline && req.inline.length) {
@@ -55,19 +59,17 @@ function krzhvSend_(req) {
   GmailApp.sendEmail(krzhvMe_(), subject, req.text || 'Лист потрібно відкрити в HTML-режимі.', opts);
   let threadId = null;
   if (req.kind === 'draft') {
-    Utilities.sleep(3000);
     const q = 'in:anywhere from:me to:me newer_than:1d subject:"' + subject.replace(/"/g, '') + '"';
-    const t = GmailApp.search(q, 0, 1)[0];
-    if (t) {
-      t.addLabel(krzhvLabel_(KRZHV_L_DRAFT));
-      threadId = t.getId();
-      krzhvProps_().setProperty('krzhv_meta_' + threadId, JSON.stringify({
-        publishAt: req.publishAt || null, urls: req.publishUrls || [], title: req.title || subject,
-      }));
-      krzhvEnsureTrigger_();
-    }
+    let t = null;
+    for (let i = 0; i < 4 && !t; i++) { Utilities.sleep(3000); t = GmailApp.search(q, 0, 1)[0]; }
+    if (!t) return { ok: false, error: 'лист надіслано, але гілку не знайдено: НЕ надсилай вдруге, перевір mail.py status', subject: subject };
+    t.addLabel(krzhvLabel_(KRZHV_L_DRAFT));
+    threadId = t.getId();
+    krzhvProps_().setProperty('krzhv_meta_' + threadId, JSON.stringify({
+      publishAt: req.publishAt || null, urls: req.publishUrls || [], title: req.title || subject,
+    }));
   }
-  return { ok: true, threadId: threadId };
+  return { ok: true, threadId: threadId, subject: subject };
 }
 
 function krzhvStrip_(text) {
@@ -75,12 +77,14 @@ function krzhvStrip_(text) {
   const lines = String(text).split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
-    if (/^(--|__)\s*$|^(з повагою|з пошаною|щиро|дякую|best regards|regards|sent from)/i.test(l.trim())) break; // підпис
+    if (/^(--|__)\s*$|^(з повагою|з пошаною|best regards|regards|sent from)/i.test(l.trim())) break; // підпис
     if (/^>/.test(l) || /^(On .+wrote:|.+пише:|.+написав.*:|-{3,}\s*Original|(пише|wrote):?$|(пн|вт|ср|чт|пт|сб|нд|Mon|Tue|Wed|Thu|Fri|Sat|Sun)[.,]?\s+\d{1,2}\s+\S+\.?\s+\d{4})/i.test(l.trim())) break; // Gmail UA переносить «пише:» на окремий рядок
     keep.push(l);
   }
   return keep.join('\n').trim().slice(0, 4000);
 }
+
+function krzhvIsOk_(txt) { return /^[oOоО][kKкК][.!\s]*$/.test(String(txt).trim()); }
 
 function krzhvEnsureTrigger_() {
   const has = ScriptApp.getProjectTriggers().some(function (t) { return t.getHandlerFunction() === KRZHV_TICK; });
@@ -92,22 +96,21 @@ function krzhvRemoveTrigger_() {
   });
 }
 
-// Обробник (тригер раз на 5 хвилин). Працює лише поки є чернетка без відповіді/публікації або перевірка після деплою.
+// Обробник (тригер раз на 5 хвилин, постійний: створюється/відновлюється на кожен запит агента й не видаляється).
 function krzhvMailTick() {
   const props = krzhvProps_();
   const busy = Number(props.getProperty('krzhv_busy') || 0);
   if (Date.now() - busy < 90000) return;
   props.setProperty('krzhv_busy', String(Date.now()));
   try {
-    let pending = 0;
     GmailApp.search('label:' + KRZHV_L_DRAFT + ' -label:' + KRZHV_L_DONE + ' -label:' + KRZHV_L_EDIT, 0, 20)
       .forEach(function (t) {
         const msgs = t.getMessages().filter(function (m) { return !m.isDraft(); }); // автозбережений чернетковий «ОК» не рахується
-        if (msgs.length < 2) { pending++; return; }
+        if (msgs.length < 2) return;
         const meta = JSON.parse(props.getProperty('krzhv_meta_' + t.getId()) || '{}');
         const txt = krzhvStrip_(msgs[msgs.length - 1].getPlainBody()).trim();
-        if (/^[oOоО][kKкК][.!\s]*$/.test(txt)) {
-          if (meta.publishAt && new Date(meta.publishAt) > new Date()) { pending++; return; }
+        if (krzhvIsOk_(txt)) {
+          if (meta.publishAt && new Date(meta.publishAt) > new Date()) return;
           krzhvPublish_(t, msgs[0], meta);
         } else {
           t.addLabel(krzhvLabel_(KRZHV_L_EDIT)); // правки: їх підхоплює агент
@@ -119,20 +122,27 @@ function krzhvMailTick() {
       if (Date.now() < v.after) { left.push(v); return; }
       const code = UrlFetchApp.fetch(v.url + '?v=' + Date.now(), { muteHttpExceptions: true }).getResponseCode();
       if (code === 200) {
-        GmailApp.sendEmail(krzhvMe_(), KRZHV_TAG + ' Опубліковано: ' + v.title,
+        GmailApp.sendEmail(krzhvMe_(), KRZHV_TAG + ' Сторінка відкривається: ' + v.title,
           'Сторінка відкривається: ' + v.url, { name: 'krzhv · агент контенту' });
       } else if (v.tries < 6) {
-        v.tries++; v.after = Date.now() + 120000; left.push(v);
+        v.tries++; v.after = Date.now() + 240000; left.push(v);
       } else {
         GmailApp.sendEmail(krzhvMe_(), KRZHV_TAG + ' УВАГА: сторінка не відкривається: ' + v.title,
           v.url + ' повертає ' + code + '. Перевірте вкладку Actions на GitHub.', { name: 'krzhv · агент контенту' });
       }
     });
     props.setProperty('krzhv_verify', JSON.stringify(left));
-    if (!pending && !left.length) krzhvRemoveTrigger_();
   } finally {
     props.deleteProperty('krzhv_busy');
   }
+}
+
+function krzhvToday_() { return Utilities.formatDate(new Date(), 'Europe/Kyiv', 'yyyy-MM-dd'); }
+// Дати публікації = день фактичної публікації (власник міг відповісти «ОК» пізніше запланованого дня).
+function krzhvStampDates_(text) {
+  const d = krzhvToday_();
+  return text.replace(/^(date|updated|reviewed):[ \t]*\d{4}-\d{2}-\d{2}[ \t]*$/gm, '$1: ' + d)
+    .replace(/("datePublished":\s*")\d{4}-\d{2}-\d{2}(")/g, '$1' + d + '$2');
 }
 
 function krzhvPublish_(thread, first, meta) {
@@ -147,11 +157,15 @@ function krzhvPublish_(thread, first, meta) {
     return;
   }
   const headers = { Authorization: 'Bearer ' + gh, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+  const commits = [];
   for (let i = 0; i < files.length; i++) {
     const path = files[i].getName().replace(/__/g, '/');
     const api = 'https://api.github.com/repos/' + repo + '/contents/' + encodeURI(path);
     const cur = UrlFetchApp.fetch(api + '?ref=main', { headers: headers, muteHttpExceptions: true });
-    const body = { message: 'Публікація: ' + title, branch: 'main', content: Utilities.base64Encode(files[i].getBytes()) };
+    let content;
+    if (/^src\/(statti|blog)\/[^\/]+\.md$/.test(path)) content = Utilities.base64Encode(krzhvStampDates_(files[i].getDataAsString('UTF-8')), Utilities.Charset.UTF_8);
+    else content = Utilities.base64Encode(files[i].getBytes());
+    const body = { message: 'Публікація: ' + title, branch: 'main', content: content };
     if (cur.getResponseCode() === 200) body.sha = JSON.parse(cur.getContentText()).sha;
     const r = UrlFetchApp.fetch(api, { method: 'put', headers: headers, contentType: 'application/json',
       payload: JSON.stringify(body), muteHttpExceptions: true });
@@ -161,12 +175,18 @@ function krzhvPublish_(thread, first, meta) {
         'HTTP ' + r.getResponseCode() + ': ' + r.getContentText().slice(0, 500), { name: 'krzhv · агент контенту' });
       return;
     }
+    try { commits.push(JSON.parse(r.getContentText()).commit.html_url); } catch (x) { /* не критично */ }
   }
   thread.addLabel(krzhvLabel_(KRZHV_L_DONE));
+  props.deleteProperty('krzhv_meta_' + thread.getId());
+  // Негайне підтвердження (не залежить від URL і від перевірки сторінки).
+  GmailApp.sendEmail(krzhvMe_(), KRZHV_TAG + ' Опубліковано в main: ' + title,
+    'Файли записано в main: ' + files.length + '.\n' + commits.join('\n') +
+    '\nЗбірка на GitHub Actions триває 1-2 хвилини.' + ((meta.urls || []).length ? ' Сторінку перевірю самостійно (лист «Сторінка відкривається» або «УВАГА»).' : ''),
+    { name: 'krzhv · агент контенту' });
   const verify = JSON.parse(props.getProperty('krzhv_verify') || '[]');
   (meta.urls || []).forEach(function (u) { verify.push({ url: u, title: title, after: Date.now() + 240000, tries: 0 }); });
   props.setProperty('krzhv_verify', JSON.stringify(verify));
-  props.deleteProperty('krzhv_meta_' + thread.getId());
 }
 
 // Для агента: гілки з правками (мітка krzhv-edit) і вкладення першого листа.
@@ -176,12 +196,28 @@ function krzhvPoll_(req) {
     const msgs = t.getMessages().filter(function (m) { return !m.isDraft(); });
     const item = { threadId: t.getId(), subject: t.getFirstMessageSubject(),
       replies: msgs.slice(1).map(function (m) { return { date: m.getDate().toISOString(), text: krzhvStrip_(m.getPlainBody()) }; }) };
+    // isOk=true означає, що публікація на «ОК» не вдалась (лист УВАГА): правок немає, не переписуй чернетку.
+    item.isOk = item.replies.length > 0 && krzhvIsOk_(item.replies[item.replies.length - 1].text);
     if (req.withAttachments) {
       item.attachments = msgs[0].getAttachments().map(function (a) {
         return { name: a.getName(), mime: a.getContentType(), b64: Utilities.base64Encode(a.getBytes()) };
       });
     }
     return item;
+  }) };
+}
+
+// Стан усіх гілок krzhv за 14 днів (для агента й діагностики).
+function krzhvStatus_(req) {
+  const props = krzhvProps_();
+  const threads = GmailApp.search('label:' + KRZHV_L_DRAFT + ' newer_than:14d in:anywhere', 0, 40);
+  return { ok: true, today: krzhvToday_(), threads: threads.map(function (t) {
+    const msgs = t.getMessages().filter(function (m) { return !m.isDraft(); });
+    const last = msgs.length > 1 ? krzhvStrip_(msgs[msgs.length - 1].getPlainBody()).slice(0, 200) : '';
+    const meta = JSON.parse(props.getProperty('krzhv_meta_' + t.getId()) || '{}');
+    return { threadId: t.getId(), subject: t.getFirstMessageSubject(), date: msgs[0].getDate().toISOString(),
+      labels: t.getLabels().map(function (l) { return l.getName(); }), inTrash: t.isInTrash(),
+      replies: msgs.length - 1, lastReply: last, publishAt: meta.publishAt || null };
   }) };
 }
 
@@ -200,6 +236,6 @@ function krzhvMailSetup() {
   });
   UrlFetchApp.fetch('https://api.github.com/repos/' + p.getProperty('KRZHV_GH_REPO'),
     { headers: { Authorization: 'Bearer ' + p.getProperty('KRZHV_GH_TOKEN') } });
-  ScriptApp.getProjectTriggers();
+  krzhvEnsureTrigger_();
   GmailApp.sendEmail(krzhvMe_(), KRZHV_TAG + ' Тест: модуль підключено', 'Дозволи надано, токен GitHub працює.', { name: 'krzhv · агент контенту' });
 }

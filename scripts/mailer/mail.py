@@ -8,9 +8,12 @@ KRZHV_MAIL_URL (адреса веб-застосунку) і KRZHV_MAIL_TOKEN. �
                [--attach f1 f2] [--inline cid=path.png]
   mail.py poll [--attachments DIR]     # гілки з ПРАВКАМИ (мітка krzhv-edit) + вкладення першого листа
   mail.py done --thread ID             # позначити гілку опрацьованою
-Публікацію на «ОК» виконує сам Apps Script (хвилинний тригер): див. README.
+  mail.py status                       # усі гілки krzhv за 14 днів: мітки, відповіді, publishAt (діагностика, перевірка «чернетка надійшла?»)
+--publish-at НЕОБОВ'ЯЗКОВИЙ: без нього публікація одразу після «ОК» власника. Тема чернетки отримує мітку часу автоматично.
+Публікацію на «ОК» виконує сам Apps Script (тригер раз на 5 хвилин): див. README.
+Якщо send/done повертає HTTP 404/помилку читання відповіді: дію МОГЛО бути виконано. Перш ніж слати вдруге, виконай mail.py status.
 """
-import argparse, base64, json, mimetypes, os, pathlib, sys, urllib.request
+import argparse, base64, json, mimetypes, os, pathlib, sys, urllib.error, urllib.request
 
 def call(payload):
     url, token = os.environ.get("KRZHV_MAIL_URL"), os.environ.get("KRZHV_MAIL_TOKEN")
@@ -18,8 +21,12 @@ def call(payload):
         sys.exit("Не задано KRZHV_MAIL_URL / KRZHV_MAIL_TOKEN")
     payload["krzhv"] = 1; payload["token"] = token
     req = urllib.request.Request(url, json.dumps(payload).encode(), {"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as r:  # 302 → GET на результат, дія вже виконана
-        return json.loads(r.read().decode())
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:  # 302 → GET на результат, дія вже виконана
+            return json.loads(r.read().decode())
+    except (urllib.error.HTTPError, json.JSONDecodeError) as e:
+        print(json.dumps({"ok": None, "warning": f"відповідь не прочитано ({e}); дію могло бути виконано, перевір mail.py status перед повтором"}, ensure_ascii=False))
+        sys.exit(3)
 
 def blob(path, name=None):
     p = pathlib.Path(path)
@@ -33,6 +40,7 @@ s.add_argument("--attach", nargs="*", default=[]); s.add_argument("--inline", na
 s.add_argument("--publish-file", nargs="*", default=[]); s.add_argument("--publish-at"); s.add_argument("--publish-url", nargs="*", default=[]); s.add_argument("--title")
 p = sub.add_parser("poll"); p.add_argument("--attachments")
 d = sub.add_parser("done"); d.add_argument("--thread", required=True)
+sub.add_parser("status")
 a = ap.parse_args()
 
 if a.cmd == "send":
@@ -51,6 +59,8 @@ elif a.cmd == "poll":
             for f in t.pop("attachments", []):
                 (d_ / f["name"]).write_bytes(base64.b64decode(f["b64"]))
             t["savedTo"] = str(d_)
+elif a.cmd == "status":
+    r = call({"action": "status"})
 else:
     r = call({"action": "done", "threadId": a.thread})
 print(json.dumps(r, ensure_ascii=False, indent=2))
