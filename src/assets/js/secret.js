@@ -61,6 +61,8 @@
     if (!(await verify(key))) return null;
     var raw = new Uint8Array(await subtle.exportKey("raw", key));
     try { root.localStorage.setItem(STORE_KEY, b64e(raw)); } catch (e) {}
+    // Власник: цей браузер більше не потрапляє в статистику сайту (див. base.njk)
+    try { if (root.localStorage.getItem("krzhv-noanalytics") === null) root.localStorage.setItem("krzhv-noanalytics", "1"); } catch (e) {}
     return key;
   }
 
