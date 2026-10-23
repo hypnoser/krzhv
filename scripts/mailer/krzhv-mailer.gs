@@ -84,7 +84,7 @@ function krzhvStrip_(text) {
 
 function krzhvEnsureTrigger_() {
   const has = ScriptApp.getProjectTriggers().some(function (t) { return t.getHandlerFunction() === KRZHV_TICK; });
-  if (!has) ScriptApp.newTrigger(KRZHV_TICK).timeBased().everyMinutes(1).create();
+  if (!has) ScriptApp.newTrigger(KRZHV_TICK).timeBased().everyMinutes(5).create();
 }
 function krzhvRemoveTrigger_() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
@@ -92,7 +92,7 @@ function krzhvRemoveTrigger_() {
   });
 }
 
-// Хвилинний обробник. Працює лише поки є чернетка без відповіді/публікації або перевірка після деплою.
+// Обробник (тригер раз на 5 хвилин). Працює лише поки є чернетка без відповіді/публікації або перевірка після деплою.
 function krzhvMailTick() {
   const props = krzhvProps_();
   const busy = Number(props.getProperty('krzhv_busy') || 0);
