@@ -69,8 +69,7 @@
     { k: "nav", label: "Тип переходу", col: "nav" },
   ];
   const BOTMODES = ["off", "explicit", "strict"];
-  const GATE_SINCE = "2026-10-24"; // з цього дня на сайті діє браузерний фільтр (base.njk): раніше боти потрапляли в лічильник
-  const RULES = { 1: "явні боти за браузером/ОС", 2: "Linux-десктоп без джерела", 3: "хвилі без джерела з однієї країни", 4: "попередня підгрузка сторінки" };
+  const RULES = { 1: "явні боти за браузером/ОС", 2: "Linux-десктоп без джерела", 3: "хвилі без джерела з однієї країни", 4: "попередня підгрузка сторінки", 5: "ідеально регулярні візити (як за розкладом)" };
   const FAC = {};
   FACETS.forEach((f) => (FAC[f.k] = f));
 
@@ -229,6 +228,26 @@
     G.forEach((g) => {
       if (g.v >= thr && g.nr / g.v >= 0.9 && g.dk / g.v >= 0.9 && g.p.size <= 2) g.rows.forEach((r) => { d.bot[r] = 1; d.why[r] = 3; });
     });
+    // Регулярні візити: однаковий набір (година доби, країна, сторінка, ОС, браузер, пристрій) без джерела
+    // з однаковою кількістю щодня щонайменше 14 діб поспіль (≥90% діб) — ознака запуску за розкладом (моніторинг, сканер).
+    if (d.hourly) {
+      const R5 = new Map();
+      for (let r = 0; r < n; r++) {
+        if (d.bot[r] || !noRef[rc[r]]) continue;
+        const k = d.rh[r] + "|" + cc[r] + "|" + pc_[r] + "|" + oc[r] + "|" + bc[r] + "|" + dc[r];
+        let g = R5.get(k);
+        if (!g) { g = { days: new Map(), rows: [] }; R5.set(k, g); }
+        g.days.set(d.rd[r], (g.days.get(d.rd[r]) || 0) + d.views[r]); g.rows.push(r);
+      }
+      R5.forEach((g) => {
+        if (g.days.size < 14) return;
+        const ds = Array.from(g.days.keys()), span = Math.max.apply(null, ds) - Math.min.apply(null, ds) + 1;
+        if (g.days.size / span < 0.9) return;
+        const vals = Array.from(g.days.values()), mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+        const sd = Math.sqrt(vals.reduce((a, b) => a + (b - mean) * (b - mean), 0) / vals.length);
+        if (sd / mean <= 0.2) g.rows.forEach((r) => { d.bot[r] = 1; d.why[r] = 5; });
+      });
+    }
   }
 
   /* ---------- Фільтрація й агрегація ---------- */
@@ -547,28 +566,28 @@
       " · охоплено " + dstr(D.d0) + " — " + dstr(D.d1) + (rs.sampleInterval && rs.sampleInterval > 1.05 ? " · вибірка ≈ 1 з " + dec(rs.sampleInterval, 0) : "");
   }
   function renderBotNote() {
-    const [r0, r1] = [C.r0, C.r1], by = { 1: 0, 2: 0, 3: 0, 4: 0 };
-    let all = 0, secret = S.exSecret ? D.dict.path.map((p) => p.indexOf("/secret/") === 0) : null;
+    const r0 = C.r0, r1 = C.r1, by = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, top = new Map();
+    const secret = S.exSecret ? D.dict.path.map((p) => p.indexOf("/secret/") === 0) : null;
+    let all = 0;
     for (let r = 0; r < D.n; r++) {
       const d = D.rd[r];
       if (d < r0 || d > r1 || (secret && secret[D.c.path[r]])) continue;
       all += D.views[r];
-      if (D.bot[r]) by[D.why[r]] += D.views[r];
+      if (!D.bot[r]) continue;
+      by[D.why[r]] += D.views[r];
+      const k = D.why[r] + "|" + D.dict.country[D.c.country[r]] + "|" + D.dict.os[D.c.os[r]] + " / " + D.dict.browser[D.c.browser[r]] + "|" + D.dict.path[D.c.path[r]];
+      top.set(k, (top.get(k) || 0) + D.views[r]);
     }
-    const ex = by[1], su = by[2] + by[3] + by[4], mode = { off: "усі дані без очищення", explicit: "приховано явних ботів", strict: "приховано явних і підозрілих" }[S.bots];
-    let h = `<b>Боти (оцінка за агрегатами):</b> ${mode}. Явні: ${num(ex)} (${pc(ex, all)}), підозрілі: ${num(su)} (${pc(su, all)}) переглядів із ${num(all)} за період.`;
-    if (su) h += " Підозрілі: " + [2, 3, 4].filter((k) => by[k]).map((k) => `${RULES[k]} — ${num(by[k])}`).join("; ") + ".";
-    const g = dfromiso(D.raw.gateSince || GATE_SINCE);
-    if (D.d1 - g >= 2) {
-      const len = D.d1 - g + 1, a = rawViews(g, D.d1) / len, b0 = Math.max(D.d0, g - len), b = g > b0 ? rawViews(b0, g - 1) / (g - b0) : NaN;
-      h += ` Браузерний фільтр на сайті діє з ${dstr(g)}: ${dec(a, 0)} переглядів/добу після` + (isNaN(b) ? "." : `, ${dec(b, 0)} до (без очищення).`);
-    } else h += ` Браузерний фільтр на сайті діє з ${dstr(g)}: за даними до цієї дати боти відсіюються лише евристикою вище.`;
+    const ex = by[1], su = by[2] + by[3] + by[4] + by[5];
+    const mode = { off: "показано всі дані без очищення", explicit: "приховано явних ботів", strict: "приховано явних і підозрілих" }[S.bots];
+    let h = `<b>Боти (оцінка за агрегатами):</b> ${mode}. Явні: ${num(ex)} (${pc(ex, all)}), підозрілі: ${num(su)} (${pc(su, all)}) переглядів із ${num(all)} за період. Дані Cloudflare не змінюються: фільтр діє лише на екрані.`;
+    const rows = Array.from(top.entries()).sort((a, b) => b[1] - a[1]).slice(0, 10);
+    if (rows.length) {
+      h += `<details style="margin-top:6px"><summary style="cursor:pointer">Що саме відсіюється (топ ${rows.length})</summary><table class="an-tbl" style="margin-top:6px"><thead><tr><th style="text-align:left">Правило</th><th style="text-align:left">Країна</th><th style="text-align:left">ОС / браузер</th><th style="text-align:left">Сторінка</th><th>Перегляди</th></tr></thead><tbody>` +
+        rows.map(([k, v]) => { const p = k.split("|"); return `<tr><td style="text-align:left">${esc(RULES[p[0]])}</td><td style="text-align:left">${esc(cname(p[1]))}</td><td style="text-align:left">${esc(p[2])}</td><td style="text-align:left">${esc(p[3])}</td><td>${num(v)}</td></tr>`; }).join("") +
+        "</tbody></table><div style=\"margin-top:6px\">Якщо група хибна, прибери її правилом вище («усі дані») або виключи окремий фільтр країни/ОС/сторінки.</div></details>";
+    }
     $("#anBotNote").innerHTML = h;
-  }
-  function rawViews(a, b) {
-    let v = 0;
-    for (let r = 0; r < D.n; r++) { const d = D.rd[r]; if (d >= a && d <= b && D.dict.path[D.c.path[r]].indexOf("/secret/") !== 0) v += D.views[r]; }
-    return v;
   }
   function render() {
     ctx();

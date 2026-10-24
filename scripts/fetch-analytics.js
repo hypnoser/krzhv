@@ -289,7 +289,7 @@ async function keepPrevious(reason) {
 
     const data = Object.assign(pack(cols, groups), {
       v: 1, generatedAt: new Date().toISOString(), host: HOST, siteTag: TAG,
-      from: iso(start), to: iso(now), days: DAYS, vitals, warnings, gateSince: process.env.GATE_SINCE || "2026-10-24",
+      from: iso(start), to: iso(now), days: DAYS, vitals, warnings,
     });
     const plain = zlib.gzipSync(Buffer.from(JSON.stringify(data)));
     const enc = gcmEncrypt(key, plain);
