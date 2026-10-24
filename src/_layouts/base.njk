@@ -2,10 +2,32 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-{#- Виключення власника зі статистики Cloudflare Web Analytics: у браузері з прапорцем krzhv-noanalytics
-    (ставиться після входу в /secret/ або за посиланням ?noanalytics=1; ?noanalytics=0 — вмикає облік назад; без прапорця, але з входом у /secret/ — теж не рахується)
-    маяк завантажується як завжди, але його звіти (/cdn-cgi/rum) не відправляються. -#}
-<script>(function(){try{var k="krzhv-noanalytics",q=location.search,ls=localStorage;if(/[?&]noanalytics=1\b/.test(q))ls.setItem(k,"1");if(/[?&]noanalytics=0\b/.test(q))ls.setItem(k,"0");var v=ls.getItem(k);if(!(v==="1"||(v===null&&ls.getItem("krzhv-secret-key-v1"))))return;var r=/\/cdn-cgi\/rum|cloudflareinsights\.com\/cdn-cgi/,n=navigator,sb=n.sendBeacon&&n.sendBeacon.bind(n);if(sb)n.sendBeacon=function(u,d){return r.test(String(u))?true:sb(u,d)};var f=window.fetch;if(f)window.fetch=function(i,o){var u=typeof i==="string"?i:(i&&i.url)||"";return r.test(String(u))?Promise.resolve(new Response(null,{status:204})):f.apply(this,arguments)};var X=XMLHttpRequest.prototype,op=X.open,sd=X.send;X.open=function(m,u){this.__noa=r.test(String(u));return op.apply(this,arguments)};X.send=function(){if(!this.__noa)return sd.apply(this,arguments)}}catch(e){}})();</script>
+{#- Облік відвідувань Cloudflare Web Analytics: звіти маяка (/cdn-cgi/rum) утримуються, доки немає ознаки живої людини.
+    Людина: довірена (isTrusted) дія — скрол, дотик, миша, клавіша — або вкладка видима щонайменше 2,5 с. Прямі ознаки автоматизації
+    (navigator.webdriver, HeadlessChrome/bot/crawl/preview в UA, порожні languages, вікно 0×0) — звіти відкидаються. Пререндер рахується лише після показу.
+    Закрита вкладка без ознак людини — звіт відкидається. Виключення власника: у браузері з прапорцем krzhv-noanalytics
+    (ставиться після входу в /secret/ або за ?noanalytics=1; ?noanalytics=0 вмикає облік назад; без прапорця, але з входом у /secret/, теж не рахується) звіти не відправляються.
+    Стан для діагностики: <html data-krzhv-gate="wait|ok|drop">. -#}
+<script>(function(){
+var w=window,d=document,n=navigator,H=d.documentElement,R=/\/cdn-cgi\/rum|cloudflareinsights\.com\/cdn-cgi/,MS=2500,st="wait",Q=[],vis=0,last=0,owner=false;
+try{var k="krzhv-noanalytics",ls=localStorage;if(/[?&]noanalytics=1\b/.test(location.search))ls.setItem(k,"1");if(/[?&]noanalytics=0\b/.test(location.search))ls.setItem(k,"0");var v=ls.getItem(k);owner=v==="1"||(v===null&&!!ls.getItem("krzhv-secret-key-v1"))}catch(e){}
+function auto(){try{return n.webdriver===true||/HeadlessChrome|PhantomJS|Lighthouse|Prerender|(^|[^a-z])(bot|crawler|spider|crawl|preview)/i.test(n.userAgent)||(n.languages&&n.languages.length===0)||(w.outerWidth===0&&w.outerHeight===0)}catch(e){return false}}
+function set(x){st=x;H.setAttribute("data-krzhv-gate",x)}
+var ob=n.sendBeacon&&n.sendBeacon.bind(n),of=w.fetch,X=w.XMLHttpRequest&&XMLHttpRequest.prototype,oo=X&&X.open,os=X&&X.send;
+function ok(){if(st!=="wait")return;set("ok");var q=Q;Q=[];for(var i=0;i<q.length;i++)try{q[i]()}catch(e){}}
+function drop(){if(st==="wait"){set("drop");Q=[]}}
+if(ob)n.sendBeacon=function(u,b){if(!R.test(String(u)))return ob(u,b);if(st==="drop")return true;if(st==="ok")return ob(u,b);Q.push(function(){ob(u,b)});return true};
+if(of)w.fetch=function(i,o){var u=typeof i==="string"?i:(i&&i.url)||"",a=arguments,t=this;if(!R.test(String(u)))return of.apply(t,a);if(st==="drop")return Promise.resolve(new Response(null,{status:204}));if(st==="ok")return of.apply(t,a);return new Promise(function(res){Q.push(function(){res(of.apply(t,a))})})};
+if(X){X.open=function(m,u){this.__rum=R.test(String(u));return oo.apply(this,arguments)};X.send=function(){var x=this,a=arguments;if(!x.__rum||st==="ok")return os.apply(x,a);if(st==="wait")Q.push(function(){os.apply(x,a)})}}
+if(owner||auto()){set("drop");return}
+set("wait");
+function tick(){if(st!=="wait")return;var t=Date.now();if(d.visibilityState==="visible"&&!d.prerendering)vis+=t-last;last=t;if(vis>=MS)ok()}
+last=Date.now();var iv=setInterval(function(){tick();if(st!=="wait")clearInterval(iv)},250);
+function hum(e){if(e&&e.isTrusted===false)return;if(d.visibilityState==="visible"&&!d.prerendering)ok()}
+["pointerdown","touchstart","keydown","wheel","scroll"].forEach(function(t){w.addEventListener(t,hum,{capture:true,passive:true})});
+d.addEventListener("visibilitychange",function(){tick()},true);
+w.addEventListener("pagehide",function(e){tick();if(!e.persisted)drop()},true);
+})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% set docTitle = seoTitle or title %}<title>{{ docTitle }}{% if docTitle != "Сергій Коржов — Клінічний психолог, КПТ онлайн" %} — Сергій Коржов{% endif %}</title>
 <meta name="description" content="{{ description }}">

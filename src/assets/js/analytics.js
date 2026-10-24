@@ -68,6 +68,9 @@
     { k: "os", label: "ОС", col: "os" },
     { k: "nav", label: "Тип переходу", col: "nav" },
   ];
+  const BOTMODES = ["off", "explicit", "strict"];
+  const GATE_SINCE = "2026-10-24"; // з цього дня на сайті діє браузерний фільтр (base.njk): раніше боти потрапляли в лічильник
+  const RULES = { 1: "явні боти за браузером/ОС", 2: "Linux-десктоп без джерела", 3: "хвилі без джерела з однієї країни", 4: "попередня підгрузка сторінки" };
   const FAC = {};
   FACETS.forEach((f) => (FAC[f.k] = f));
 
@@ -83,7 +86,7 @@
 
   /* ---------- Стан ---------- */
   const newState = () => {
-    const s = { tab: "overview", p: "30", from: "", to: "", metric: "views", cmp: true, exSecret: true, gran: "auto", page: "", f: {} };
+    const s = { tab: "overview", p: "30", from: "", to: "", metric: "views", cmp: true, exSecret: true, bots: "explicit", gran: "auto", page: "", f: {} };
     FACETS.forEach((f) => (s.f[f.k] = { sel: [], ex: false }));
     return s;
   };
@@ -101,6 +104,7 @@
       const s = newState();
       ["tab", "p", "from", "to", "metric", "gran", "page"].forEach((k) => { if (typeof o[k] === "string") s[k] = o[k]; });
       ["cmp", "exSecret"].forEach((k) => { if (typeof o[k] === "boolean") s[k] = o[k]; });
+      if (BOTMODES.indexOf(o.bots) >= 0) s.bots = o.bots;
       FACETS.forEach((f) => { const x = o.f && o.f[f.k]; if (x && Array.isArray(x.sel)) s.f[f.k] = { sel: x.sel.filter((v) => typeof v === "string").slice(0, 200), ex: !!x.ex }; });
       S = s;
     } catch (e) { /* стан за замовчуванням */ }
@@ -184,6 +188,7 @@
     d.d0 = kparts(Date.parse(payload.from)).day;
     d.d1 = kparts(Date.parse(payload.to)).day;
     d.gen = payload.generatedAt ? Date.parse(payload.generatedAt) : Date.now();
+    classifyBots(d);
     FACETS.forEach((f) => { delete f._v; });
     // Заголовки сторінок із карти, вбудованої в HTML
     TT = {};
@@ -192,6 +197,38 @@
       Object.keys(m).forEach((u) => { TT[normPath(u)] = m[u]; });
     } catch (e) { /* без заголовків */ }
     return d;
+  }
+
+  /* ---------- Евристична класифікація ботів ----------
+     У знімку лише агрегати (країна, пристрій, ОС, джерело…), окремих запитів немає, тому це оцінка, а не доказ.
+     d.bot: 2 — явний бот (UA/ОС із ознаками автоматизації), 1 — підозрілий. d.why — номер правила (RULES). */
+  const BOT_UA = /headless|phantom|lighthouse|prerender|(^|[^a-z])(bot|crawler|spider|crawl|preview)|python|curl|wget|java\/|go-http|scrapy|httpclient|libwww/i;
+  function classifyBots(d) {
+    const n = d.n;
+    d.bot = new Uint8Array(n); d.why = new Uint8Array(n);
+    const badB = d.dict.browser.map((v) => BOT_UA.test(v)), badO = d.dict.os.map((v) => BOT_UA.test(v));
+    const linux = d.dict.os.map((v) => /^(linux|ubuntu|debian|fedora)/i.test(v));
+    const desk = d.dict.device.map((v) => /desktop/i.test(v));
+    const bc = d.c.browser, oc = d.c.os, dc = d.c.device, rc = d.c.refHost, nc = d.c.nav;
+    const noRef = d.dict.refHost.map((h) => h === ""), nav = d.dict.nav;
+    for (let r = 0; r < n; r++) {
+      if (badB[bc[r]] || badO[oc[r]]) { d.bot[r] = 2; d.why[r] = 1; }
+      else if (nav[nc[r]] === "prerender") { d.bot[r] = 1; d.why[r] = 4; }
+      else if (linux[oc[r]] && desk[dc[r]] && noRef[rc[r]] && (nav[nc[r]] === "navigate" || nav[nc[r]] === "")) { d.bot[r] = 1; d.why[r] = 2; }
+    }
+    // Хвилі: одна країна за годину (або добу), майже все без джерела, майже все десктоп, 1-2 сторінки
+    const thr = d.hourly ? 12 : 30, G = new Map(), tc = d.c.t, cc = d.c.country, pc_ = d.c.path;
+    for (let r = 0; r < n; r++) {
+      if (d.bot[r]) continue;
+      const k = tc[r] + "|" + cc[r];
+      let g = G.get(k);
+      if (!g) { g = { v: 0, nr: 0, dk: 0, p: new Set(), rows: [] }; G.set(k, g); }
+      const v = d.views[r];
+      g.v += v; if (noRef[rc[r]]) g.nr += v; if (desk[dc[r]]) g.dk += v; g.p.add(pc_[r]); g.rows.push(r);
+    }
+    G.forEach((g) => {
+      if (g.v >= thr && g.nr / g.v >= 0.9 && g.dk / g.v >= 0.9 && g.p.size <= 2) g.rows.forEach((r) => { d.bot[r] = 1; d.why[r] = 3; });
+    });
   }
 
   /* ---------- Фільтрація й агрегація ---------- */
@@ -210,10 +247,11 @@
     const act = [];
     FACETS.forEach((f) => { if (f.k !== skip && S.f[f.k].sel.length) act.push([D.c[f.col], allowOf(f)]); });
     if (S.exSecret) act.push([D.c.path, Uint8Array.from(D.dict.path, (p) => (p.indexOf("/secret/") === 0 ? 0 : 1))]);
-    const out = [], rd = D.rd, na = act.length;
+    const out = [], rd = D.rd, na = act.length, bm = S.bots === "strict" ? 1 : S.bots === "explicit" ? 2 : 0, bot = D.bot;
     outer: for (let r = 0; r < D.n; r++) {
       const d = rd[r];
       if (d < r0 || d > r1) continue;
+      if (bm && bot[r] >= bm) continue;
       for (let j = 0; j < na; j++) if (!act[j][1][act[j][0][r]]) continue outer;
       out.push(r);
     }
@@ -446,7 +484,7 @@
     el.innerHTML = '<div class="an-row" id="anRowTop"></div><div class="an-row" id="anRowFac"><span class="lbl">Фільтри</span>' +
       FACETS.filter((f) => D.has[f.col] || f.k === "cat" || f.k === "src").map((f) =>
         `<details class="an-fac" data-fac="${f.k}"><summary>${f.label}</summary><div class="an-pop"><input type="search" placeholder="Пошук…" data-fsearch="${f.k}"><div class="list" data-flist="${f.k}"></div><div class="foot"><label class="an-chk"><input type="checkbox" data-fex="${f.k}"> виключити вибране</label><button class="an-link" data-fclear="${f.k}" type="button">скинути</button></div></div></details>`).join("") +
-      '</div><div class="an-row" id="anRowChips"></div>';
+      '</div><div class="an-row" id="anRowChips"></div><div class="an-botnote" id="anBotNote"></div>';
   }
   function renderFilters() {
     const seg = (items, cur, attr) => '<div class="an-seg">' + items.map((i) => `<button type="button" class="${i[0] === cur ? "on" : ""}" ${attr}="${i[0]}">${i[1]}</button>`).join("") + "</div>";
@@ -460,6 +498,7 @@
     top += '<span class="lbl" style="margin-left:12px;min-width:0">Рахувати</span>' + seg([["views", "перегляди"], ["visits", "візити"]], S.metric, "data-metric");
     top += `<label class="an-chk" style="margin-left:12px"><input type="checkbox" data-opt="cmp" ${S.cmp ? "checked" : ""}> порівняти з попереднім</label>`;
     top += `<label class="an-chk"><input type="checkbox" data-opt="exSecret" ${S.exSecret ? "checked" : ""}> без /secret/</label>`;
+    top += '<span class="lbl" style="margin-left:12px;min-width:0">Боти</span>' + seg([["off", "усі дані"], ["explicit", "без явних"], ["strict", "суворо"]], S.bots, "data-bots");
     top += `<button class="an-link" type="button" data-resetall style="margin-left:auto">скинути все</button>`;
     $("#anRowTop").innerHTML = top;
     void maxLen;
@@ -507,9 +546,34 @@
     $("#anFresh").textContent = "Знімок: " + dstr(kparts(D.gen).day) + " " + pad(g.getHours()) + ":" + pad(g.getMinutes()) +
       " · охоплено " + dstr(D.d0) + " — " + dstr(D.d1) + (rs.sampleInterval && rs.sampleInterval > 1.05 ? " · вибірка ≈ 1 з " + dec(rs.sampleInterval, 0) : "");
   }
+  function renderBotNote() {
+    const [r0, r1] = [C.r0, C.r1], by = { 1: 0, 2: 0, 3: 0, 4: 0 };
+    let all = 0, secret = S.exSecret ? D.dict.path.map((p) => p.indexOf("/secret/") === 0) : null;
+    for (let r = 0; r < D.n; r++) {
+      const d = D.rd[r];
+      if (d < r0 || d > r1 || (secret && secret[D.c.path[r]])) continue;
+      all += D.views[r];
+      if (D.bot[r]) by[D.why[r]] += D.views[r];
+    }
+    const ex = by[1], su = by[2] + by[3] + by[4], mode = { off: "усі дані без очищення", explicit: "приховано явних ботів", strict: "приховано явних і підозрілих" }[S.bots];
+    let h = `<b>Боти (оцінка за агрегатами):</b> ${mode}. Явні: ${num(ex)} (${pc(ex, all)}), підозрілі: ${num(su)} (${pc(su, all)}) переглядів із ${num(all)} за період.`;
+    if (su) h += " Підозрілі: " + [2, 3, 4].filter((k) => by[k]).map((k) => `${RULES[k]} — ${num(by[k])}`).join("; ") + ".";
+    const g = dfromiso(D.raw.gateSince || GATE_SINCE);
+    if (D.d1 - g >= 2) {
+      const len = D.d1 - g + 1, a = rawViews(g, D.d1) / len, b0 = Math.max(D.d0, g - len), b = g > b0 ? rawViews(b0, g - 1) / (g - b0) : NaN;
+      h += ` Браузерний фільтр на сайті діє з ${dstr(g)}: ${dec(a, 0)} переглядів/добу після` + (isNaN(b) ? "." : `, ${dec(b, 0)} до (без очищення).`);
+    } else h += ` Браузерний фільтр на сайті діє з ${dstr(g)}: за даними до цієї дати боти відсіюються лише евристикою вище.`;
+    $("#anBotNote").innerHTML = h;
+  }
+  function rawViews(a, b) {
+    let v = 0;
+    for (let r = 0; r < D.n; r++) { const d = D.rd[r]; if (d >= a && d <= b && D.dict.path[D.c.path[r]].indexOf("/secret/") !== 0) v += D.views[r]; }
+    return v;
+  }
   function render() {
     ctx();
     renderFilters();
+    renderBotNote();
     renderTabs();
     const t = AN.tabs.find((x) => x.id === S.tab) || AN.tabs[0];
     $("#anBody").innerHTML = D.n || D.demo ? t.render(C) : '<div class="an-empty">Даних ще немає.</div>';
@@ -546,6 +610,7 @@
       if (ds.p) { S.p = ds.p; render(); }
       else if (ds.gran) { S.gran = ds.gran; render(); }
       else if (ds.metric) { S.metric = ds.metric; render(); }
+      else if (ds.bots) { S.bots = ds.bots; render(); }
       else if (ds.tab) { S.tab = ds.tab; render(); window.scrollTo({ top: $("#anTabs").offsetTop - 80 }); }
       else if (ds.chip) { const i = ds.chip.indexOf("|"), k = ds.chip.slice(0, i), v = ds.chip.slice(i + 1); S.f[k].sel = S.f[k].sel.filter((x) => x !== v); render(); }
       else if (ds.fclear) { S.f[ds.fclear] = { sel: [], ex: false }; render(); }
