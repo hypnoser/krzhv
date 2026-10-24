@@ -302,6 +302,7 @@
       const a = dfromiso(S.from), b = dfromiso(S.to);
       if (!isNaN(a) && !isNaN(b)) return a <= b ? [a, b] : [b, a];
     }
+    if (S.p === "today") { const t = Math.max(kparts(Date.now()).day, D.d0); return [t, t]; }
     if (S.p === "all") return [D.d0, D.d1];
     const len = parseInt(S.p, 10) || 30;
     return [D.d1 - len + 1, D.d1];
@@ -508,7 +509,8 @@
   function renderFilters() {
     const seg = (items, cur, attr) => '<div class="an-seg">' + items.map((i) => `<button type="button" class="${i[0] === cur ? "on" : ""}" ${attr}="${i[0]}">${i[1]}</button>`).join("") + "</div>";
     const maxLen = D.d1 - D.d0 + 1;
-    let top = '<span class="lbl">Період</span>' + seg([["7", "7 днів"], ["30", "30"], ["90", "90"], ["180", "180"], ["all", "Весь"], ["custom", "Свій"]], S.p, "data-p");
+    let top = '<span class="lbl">Період</span>' + seg([["today", "Сьогодні"], ["7", "7 днів"], ["30", "30"], ["90", "90"], ["180", "180"], ["all", "Весь"], ["custom", "Свій"]], S.p, "data-p");
+    if (S.p === "today" && range()[0] > D.d1) top += '<span style="font-size:12px;color:var(--ink-mute)">знімок ще за вчора, дані за сьогодні зʼявляться після оновлення (щогодини)</span>';
     if (S.p === "custom") {
       const [a, b] = range();
       top += `<input type="date" data-date="from" value="${diso(a)}" min="${diso(D.d0)}" max="${diso(D.d1)}"> — <input type="date" data-date="to" value="${diso(b)}" min="${diso(D.d0)}" max="${diso(D.d1)}">`;
