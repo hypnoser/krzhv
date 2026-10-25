@@ -1,0 +1,51 @@
+<svg width="720" height="440" viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Поганий настрій і депресія: на що дивитись</title>
+  <desc id="d">Порівняння в чотирьох рядках. Тривалість: поганий настрій зазвичай минає за кілька днів, при депресії симптоми тримаються щонайменше два тижні. Частота: поганий настрій приходить і відходить, при депресії симптоми майже щодня. Насолода: поганий настрій не забирає здатності радіти, при депресії інтерес і радість значною мірою зникають. Функціонування: поганий настрій зазвичай не ламає звичного ритму, при депресії помітно страждають робота, навчання чи стосунки.</desc>
+  <rect width="720" height="440" rx="12" fill="#EEF2EF"/>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="360" y="34" font-size="16" font-weight="700" fill="#221F1B">Поганий настрій і депресія: на що дивитись</text>
+
+    <rect x="160" y="52" width="250" height="40" rx="10" fill="#94897E"/>
+    <text x="285" y="77" font-size="14" font-weight="600" fill="#FDFDFB">Поганий настрій</text>
+    <rect x="430" y="52" width="270" height="40" rx="10" fill="#3D5A4A"/>
+    <text x="565" y="77" font-size="14" font-weight="600" fill="#FDFDFB">Депресія (привід до фахівця)</text>
+
+    <!-- row labels -->
+    <rect x="20" y="104" width="130" height="70" rx="10" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="85" y="144" font-size="13" font-weight="600" fill="#221F1B">Тривалість</text>
+    <rect x="20" y="186" width="130" height="70" rx="10" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="85" y="226" font-size="13" font-weight="600" fill="#221F1B">Частота</text>
+    <rect x="20" y="268" width="130" height="70" rx="10" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="85" y="308" font-size="13" font-weight="600" fill="#221F1B">Радість</text>
+    <rect x="20" y="350" width="130" height="70" rx="10" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <text x="85" y="390" font-size="13" font-weight="600" fill="#221F1B">Щоденні справи</text>
+
+    <!-- col 1 -->
+    <rect x="160" y="104" width="250" height="70" rx="10" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="285" y="136" font-size="12" fill="#5F5850">зазвичай минає</text>
+    <text x="285" y="154" font-size="12" fill="#5F5850">за кілька днів</text>
+    <rect x="160" y="186" width="250" height="70" rx="10" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="285" y="218" font-size="12" fill="#5F5850">приходить і відходить,</text>
+    <text x="285" y="236" font-size="12" fill="#5F5850">залежить від подій</text>
+    <rect x="160" y="268" width="250" height="70" rx="10" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="285" y="300" font-size="12" fill="#5F5850">приємне все ще</text>
+    <text x="285" y="318" font-size="12" fill="#5F5850">може радувати</text>
+    <rect x="160" y="350" width="250" height="70" rx="10" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <text x="285" y="382" font-size="12" fill="#5F5850">звичний ритм зазвичай</text>
+    <text x="285" y="400" font-size="12" fill="#5F5850">зберігається</text>
+
+    <!-- col 2 -->
+    <rect x="430" y="104" width="270" height="70" rx="10" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="565" y="136" font-size="12" fill="#221F1B">симптоми тримаються</text>
+    <text x="565" y="154" font-size="12" fill="#221F1B">щонайменше 2 тижні</text>
+    <rect x="430" y="186" width="270" height="70" rx="10" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="565" y="218" font-size="12" fill="#221F1B">більшу частину дня,</text>
+    <text x="565" y="236" font-size="12" fill="#221F1B">майже щодня</text>
+    <rect x="430" y="268" width="270" height="70" rx="10" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="565" y="300" font-size="12" fill="#221F1B">інтерес і задоволення</text>
+    <text x="565" y="318" font-size="12" fill="#221F1B">значною мірою зникають</text>
+    <rect x="430" y="350" width="270" height="70" rx="10" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <text x="565" y="382" font-size="12" fill="#221F1B">помітно страждають робота,</text>
+    <text x="565" y="400" font-size="12" fill="#221F1B">навчання, стосунки</text>
+  </g>
+</svg>
