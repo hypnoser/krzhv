@@ -77,7 +77,7 @@ function krzhvStrip_(text) {
   const lines = String(text).split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
-    if (/^(--|__)\s*$|^(з повагою|з пошаною|best regards|regards|sent from)/i.test(l.trim())) break; // підпис
+    if (/^(--|__)\s*$|^[*_~\s]*(з повагою|з пошаною|best regards|regards|sent from|надіслано з)/i.test(l.trim())) break; // підпис (також у markdown: *З повагою,*)
     if (/^>/.test(l) || /^(On .+wrote:|.+пише:|.+написав.*:|-{3,}\s*Original|(пише|wrote):?$|(пн|вт|ср|чт|пт|сб|нд|Mon|Tue|Wed|Thu|Fri|Sat|Sun)[.,]?\s+\d{1,2}\s+\S+\.?\s+\d{4})/i.test(l.trim())) break; // Gmail UA переносить «пише:» на окремий рядок
     keep.push(l);
   }
@@ -103,17 +103,27 @@ function krzhvMailTick() {
   if (Date.now() - busy < 90000) return;
   props.setProperty('krzhv_busy', String(Date.now()));
   try {
-    GmailApp.search('label:' + KRZHV_L_DRAFT + ' -label:' + KRZHV_L_DONE + ' -label:' + KRZHV_L_EDIT, 0, 20)
+    // Без -label:edit: пізніша відповідь «ОК» у гілці, яку раніше помилково/справді позначили правками, теж публікує.
+    GmailApp.search('label:' + KRZHV_L_DRAFT + ' -label:' + KRZHV_L_DONE, 0, 20)
       .forEach(function (t) {
         const msgs = t.getMessages().filter(function (m) { return !m.isDraft(); }); // автозбережений чернетковий «ОК» не рахується
         if (msgs.length < 2) return;
+        const last = msgs[msgs.length - 1];
+        if (props.getProperty('krzhv_seen_' + t.getId()) === last.getId()) return; // цей лист уже опрацьовано
         const meta = JSON.parse(props.getProperty('krzhv_meta_' + t.getId()) || '{}');
-        const txt = krzhvStrip_(msgs[msgs.length - 1].getPlainBody()).trim();
+        const txt = krzhvStrip_(last.getPlainBody()).trim();
         if (krzhvIsOk_(txt)) {
           if (meta.publishAt && new Date(meta.publishAt) > new Date()) return;
+          props.setProperty('krzhv_seen_' + t.getId(), last.getId());
           krzhvPublish_(t, msgs[0], meta);
         } else {
+          props.setProperty('krzhv_seen_' + t.getId(), last.getId());
           t.addLabel(krzhvLabel_(KRZHV_L_EDIT)); // правки: їх підхоплює агент
+          // Мовчазної помилки бути не може: власник одразу бачить, як розпізнано відповідь.
+          GmailApp.sendEmail(krzhvMe_(), KRZHV_TAG + ' Відповідь сприйнято як ПРАВКИ, не як ОК: ' + t.getFirstMessageSubject(),
+            'Розпізнаний текст відповіді: «' + txt.slice(0, 300) + '».\n\nЦе не публікація. Агент внесе правки й надішле нову чернетку ' +
+            '(перевірка правок щодня близько 15:23 за Києвом). Якщо це мало бути «ОК», надішліть у цій же гілці ще одну відповідь з єдиним словом ОК, без підпису.',
+            { name: 'krzhv · агент контенту' });
         }
       });
     const verify = JSON.parse(props.getProperty('krzhv_verify') || '[]');
