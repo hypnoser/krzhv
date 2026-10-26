@@ -84,7 +84,8 @@ function krzhvStrip_(text) {
   return keep.join('\n').trim().slice(0, 4000);
 }
 
-function krzhvIsOk_(txt) { return /^[oOоО][kKкК][.!\s]*$/.test(String(txt).trim()); }
+// «ОК» будь-якою розкладкою (кирилиця/латиниця, будь-який регістр, змішано), також «окей/okay»; після слова дозволені лише розділові знаки, пробіли, емодзі.
+function krzhvIsOk_(txt) { return /^[\s​-‍﻿]*[oOоО][kKкК](?:[eEеЕ][yYйЙ]|[aAаА][yYуУ])?[^\p{L}\p{N}]*$/u.test(String(txt)); }
 
 function krzhvEnsureTrigger_() {
   const has = ScriptApp.getProjectTriggers().some(function (t) { return t.getHandlerFunction() === KRZHV_TICK; });
