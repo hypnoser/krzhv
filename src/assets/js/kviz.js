@@ -74,7 +74,7 @@
       html += '<div class="kviz-crisis">';
       html += '<strong>Якщо зараз важко — це важливо.</strong> ';
       html += 'Контакти екстреної допомоги та ліній підтримки: <a href="/help/">сторінка «Термінова допомога»</a>. ';
-      html += 'Ви також можете написати мені напряму: <a href="https://t.me/krzhv_bot">Telegram</a>.';
+      html += 'Ви також можете написати мені напряму: <a href="https://t.me/krzhv_bot?start=site_kviz-' + (location.pathname.replace(/[^A-Za-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(5, 40) || 'result') + '_result">Telegram</a>.';
       html += '</div>';
     }
 

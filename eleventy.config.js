@@ -56,6 +56,14 @@ module.exports = function (eleventyConfig) {
       .trim();
   });
 
+  // Посилання на Telegram-бота з міткою джерела (/start site_<сторінка>_<місце>): бот пише її в «Джерело».
+  // Дозволені символи мітки Telegram: A-Za-z0-9_- , до 64 знаків.
+  eleventyConfig.addFilter("botLink", (url, place) => {
+    let slug = String(url || "/").replace(/\.html$/, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "home";
+    const suffix = place ? "_" + String(place).replace(/[^A-Za-z0-9-]/g, "") : "";
+    slug = slug.slice(0, 64 - "site_".length - suffix.length).replace(/-+$/, "");
+    return "https://t.me/krzhv_bot?start=site_" + slug + suffix;
+  });
   eleventyConfig.addFilter("autoSlug", autoSlug);
 
   // FAQPage для пошуковиків — з тих самих даних, що й блок «Часто запитують» (src/_data/faq.js).
