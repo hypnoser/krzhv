@@ -2,42 +2,94 @@
 layout: base.njk
 section: kviz
 title: "Опитувальники"
-description: "Короткі скринінгові опитувальники для самооцінки тривоги (GAD-7), депресії (PHQ-9) та ознак панічних атак: що вимірюють, як читати результат, межі."
+description: "Короткі скринінгові опитувальники: самопочуття (WHO-5), тривога (GAD-7), панічні атаки, соціальна тривога (Mini-SPIN), нав'язливі думки (OCI-R), депресія (PHQ-9), вигорання (CBI), регуляція емоцій (DERS-18)."
 permalink: /kviz/
 schema:
   "@context": "https://schema.org"
   "@type": "CollectionPage"
   "name": "Опитувальники"
-  "description": "Скринінгові опитувальники для самооцінки тривоги, депресії та ознак панічних атак"
+  "description": "Скринінгові опитувальники для самооцінки: самопочуття, тривога, паніка, соціальна тривога, нав'язливі думки, депресія, вигорання, регуляція емоцій"
 ---
 <div class="wrap">
   <div class="page-head">
     <span class="eyebrow">Опитувальники</span>
     <h1>Ви впізнаєте свій стан у симптомах — але не впевнені, наскільки це серйозно?</h1>
-    <p>Пройдіть короткий опитувальник — 2 хвилини — і отримайте орієнтовну відповідь: наскільки виражені у вас ознаки тривоги, депресії чи панічних атак. Два з трьох — GAD-7 і PHQ-9 — міжнародно визнані скринінгові інструменти; третій — орієнтовний перелік на основі DSM-5. Відповіді рахуються лише у вашому браузері й нікуди не надсилаються.</p>
+    <p>Пройдіть короткий опитувальник — від хвилини до чотирьох — і отримайте орієнтовну відповідь: наскільки виражені у вас ознаки тривоги, депресії, нав'язливих думок, вигорання чи труднощів з емоціями. Більшість із них — міжнародно відомі скринінгові шкали; українські тексти є перекладами, які окремо не валідовано, тому результат — підказка, а не точна оцінка. Відповіді рахуються лише у вашому браузері й нікуди не надсилаються.</p>
   </div>
 
-  <div class="articles-grid" style="margin-bottom:80px;">
+{% from "icons.njk" import categoryIcon %}
+  <h2 style="font-family:var(--serif);font-weight:400;font-size:26px;margin:0 0 4px">Почніть тут</h2>
+  <p style="color:var(--ink-mute);margin:0 0 20px;font-size:15px">Якщо не впевнені, з чого почати: загальне самопочуття за хвилину.</p>
+  <div class="articles-grid">
     <div class="article-card">
-      <span class="article-tag">{% from "icons.njk" import categoryIcon %}{{ categoryIcon("Тривога") }}Тривога і страхи</span>
+      <span class="article-tag">{{ categoryIcon("Настрій") }}Самопочуття</span>
+      <h3><a href="/kviz/samopochuttia/">Індекс самопочуття (WHO-5)</a></h3>
+      <p>П'ять запитань про настрій, спокій, енергію, сон та інтерес до життя за останні два тижні. Результат у відсотках і підказка, чи варто пройти детальніші опитувальники.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">1 хвилина · 5 запитань</p>
+      <a href="/kviz/samopochuttia/" class="article-link">Пройти опитувальник →</a>
+    </div>
+  </div>
+  <h2 style="font-family:var(--serif);font-weight:400;font-size:26px;margin:48px 0 4px">Тривога і страхи</h2>
+  <p style="color:var(--ink-mute);margin:0 0 20px;font-size:15px">Що саме турбує: загальна тривога, паніка, соціальні страхи, нав'язливі думки.</p>
+  <div class="articles-grid">
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("Тривога") }}Тривога і страхи</span>
       <h3><a href="/kviz/tryvoga/">Опитувальник рівня тривоги (GAD-7)</a></h3>
       <p>Міжнародний скринінговий інструмент для оцінки рівня тривоги за останні два тижні. Оригінал валідований, українська версія — орієнтир.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">2 хвилини · 7 запитань</p>
       <a href="/kviz/tryvoga/" class="article-link">Пройти опитувальник →</a>
-    </div>
-    <div class="article-card">
-      <span class="article-tag">{{ categoryIcon("Депресія") }}Депресія</span>
-      <h3><a href="/kviz/depresiya/">Опитувальник рівня депресії (PHQ-9)</a></h3>
-      <p>Міжнародний скринінговий інструмент для оцінки симптомів депресії за останні два тижні. Оригінал валідований, українська версія — орієнтир.</p>
-      <a href="/kviz/depresiya/" class="article-link">Пройти опитувальник →</a>
     </div>
     <div class="article-card">
       <span class="article-tag">{{ categoryIcon("Тривожні розлади") }}Панічні атаки</span>
       <h3><a href="/kviz/panichni-ataky/">Опитувальник ознак панічних атак</a></h3>
       <p>Орієнтовний скринінг на основі діагностичних критеріїв DSM-5.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">2 хвилини · 8 запитань</p>
       <a href="/kviz/panichni-ataky/" class="article-link">Пройти опитувальник →</a>
     </div>
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("Тривога") }}Соціальна тривога</span>
+      <h3><a href="/kviz/sotsialna-tryvoha/">Соціальна тривога (Mini-SPIN)</a></h3>
+      <p>Три запитання: чи заважає страх збентеження й уваги інших спілкуванню та вчинкам.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">менше хвилини · 3 запитання</p>
+      <a href="/kviz/sotsialna-tryvoha/" class="article-link">Пройти опитувальник →</a>
+    </div>
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("ОКР") }}Нав'язливі думки</span>
+      <h3><a href="/kviz/okr/">Нав'язливі думки і ритуали (OCI-R)</a></h3>
+      <p>18 тверджень за останній місяць: перевірки, миття, лічба, порядок, нав'язливі думки, накопичення. Загальний бал і шість підшкал.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">4 хвилини · 18 тверджень</p>
+      <a href="/kviz/okr/" class="article-link">Пройти опитувальник →</a>
+    </div>
   </div>
-
+  <h2 style="font-family:var(--serif);font-weight:400;font-size:26px;margin:48px 0 4px">Настрій і сили</h2>
+  <p style="color:var(--ink-mute);margin:0 0 20px;font-size:15px">Пригніченість, виснаження, вигорання.</p>
+  <div class="articles-grid">
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("Депресія") }}Депресія</span>
+      <h3><a href="/kviz/depresiya/">Опитувальник рівня депресії (PHQ-9)</a></h3>
+      <p>Міжнародний скринінговий інструмент для оцінки симптомів депресії за останні два тижні. Оригінал валідований, українська версія — орієнтир.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">2 хвилини · 9 запитань</p>
+      <a href="/kviz/depresiya/" class="article-link">Пройти опитувальник →</a>
+    </div>
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("Вигорання") }}Вигорання</span>
+      <h3><a href="/kviz/vyhorannia/">Вигорання: Копенгагенський опитувальник (CBI)</a></h3>
+      <p>Особисте виснаження, виснаження від роботи та від роботи з клієнтами окремими показниками.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">3–4 хвилини · до 19 запитань</p>
+      <a href="/kviz/vyhorannia/" class="article-link">Пройти опитувальник →</a>
+    </div>
+  </div>
+  <h2 style="font-family:var(--serif);font-weight:400;font-size:26px;margin:48px 0 4px">Емоції та їх регуляція</h2>
+  <p style="color:var(--ink-mute);margin:0 0 20px;font-size:15px">Для тих, у кого емоції «зашкалюють» або важко розібратися, що відбувається.</p>
+  <div class="articles-grid">
+    <div class="article-card">
+      <span class="article-tag">{{ categoryIcon("Настрій") }}Емоції</span>
+      <h3><a href="/kviz/rehuliatsiia-emotsii/">Труднощі з регуляцією емоцій (DERS-18)</a></h3>
+      <p>18 тверджень про те, як ви розумієте й опановуєте емоції, коли засмучені. Профіль за шістьма шкалами.</p>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">4 хвилини · 18 тверджень</p>
+      <a href="/kviz/rehuliatsiia-emotsii/" class="article-link">Пройти опитувальник →</a>
+    </div>
+  </div>
   <p class="states-disclaimer" style="margin-bottom:60px;">Це орієнтовний скринінг, а не діагностика. Точний діагноз може встановити лише фахівець після особистої консультації.</p>
 </div>
 
