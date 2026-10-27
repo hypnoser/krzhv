@@ -21,6 +21,12 @@
 - Нічого про ліки, дози, діагностику, окрім скерування до лікаря.
 - Перед надсиланням пройти `CONTENT-REVIEW-CHECKLIST.md` (розділи A–E) і коротко відзвітувати, що перевірено, а що викликає сумнів.
 
+### Реєстр джерел (оновлено 27.10.2026)
+- **Пріоритет:** (1) клінічні настанови (NICE, APA, VA/DoD, WHO); (2) Cochrane, систематичні огляди, мета-аналізи; (3) першоджерела (РКД, оригінальні роботи, напр. Linehan та співавт. для DBT); (4) офіційні пацієнтські сторінки (NHS, NIMH/NIH, NCBI Bookshelf, WHO, Mayo Clinic, Royal College of Psychiatrists). Не цитувати: блоги, Вікіпедію, пересказ ШІ, комерційні сайти центрів, сніпети пошуку без відкритої сторінки.
+- **З середовища запланованих завдань відкриваються (перевірено 23.10.2026):** `doi.org` (з переходом на видавця), `cambridge.org`, `who.int`, `pmc.ncbi.nlm.nih.gov`. Частково або з відмовою для ботів: `pubmed.ncbi.nlm.nih.gov` і `link.springer.com` (вимагають cookies), `tandfonline.com`, `sciencedirect.com`, `nice.org.uk`, `cochranelibrary.com` (403). Якщо джерело не відкрилось: шукати той самий твір у PMC або Europe PMC, на сайті автора чи установи; не вдалось, не ставити в `sources`, не писати з пам'яті й сказати про це власнику в листі.
+- **Домени для середовища** (мають бути в «Дозволених доменах» у налаштуваннях середовища): `doi.org`, `*.doi.org`, `*.nih.gov`, `*.ncbi.nlm.nih.gov`, `*.europepmc.org`, `*.cambridge.org`, `*.who.int`, `*.apa.org`, `*.nhs.uk`, `*.nice.org.uk`, `*.cochranelibrary.com`, `*.rcpsych.ac.uk`, `*.mind.org.uk`, `*.mayoclinic.org`, `*.va.gov`, `*.samhsa.gov`, `*.biomedcentral.com`, `*.jamanetwork.com`, `*.thelancet.com`, `*.bmj.com`, `*.frontiersin.org`, `*.plos.org`, `*.wiley.com`, `*.sagepub.com`, `*.oup.com`, `*.springernature.com`, `*.crossref.org`, а також для DBT: `*.behavioraltech.org`, `*.linehaninstitute.org`, `*.guilford.com`. Якщо потрібного домену немає в списку, не обходити: повідомити власника, який домен додати.
+- **DBT:** підручники й тренінг-матеріали Linehan онлайн зазвичай недоступні, тому не цитувати їх як відкриті. Описи модулів і ефективність брати з відкритих РКД, мета-аналізів і настанов (PMC/Europe PMC, NHS/NICE, APA), а структуру навичок з Linehan Institute чи Behavioral Tech лише за прочитаною сторінкою.
+
 ## Формат статті (`src/statti/<slug>.md`)
 ```
 ---
