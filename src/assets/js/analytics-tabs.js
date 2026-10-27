@@ -346,6 +346,72 @@
       sec("Сирі дані", "Агреговані рядки Cloudflare з урахуванням усіх фільтрів · CSV вивантажує всю вибірку, не лише видимі рядки", table("raw", cols, C.cur, { sort: "t", limit: 25 }));
   }
 
+  /* ---------- Сервер (без JavaScript) ----------
+     Дані — журнал запитів Cloudflare (scripts/edge-visitors.js): бачить і тих, у кого блокується лічильник Web Analytics.
+     Боти й павуки відсіяні за правилами scripts/bot-rules.js; «підозріло» показано окремо й у «людей» не входить. */
+  const KYIV = new Intl.DateTimeFormat("uk-UA", { timeZone: "Europe/Kyiv", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+  const hourText = (t) => KYIV.format(new Date(t));
+  function demoEdge() {
+    const now = Date.now(), H = 36e5, h = (k) => new Date(Math.floor((now - k * H) / H) * H).toISOString().replace(/\.\d+Z$/, "Z");
+    const R = (k, p, c, d, br, os, v, kd, nm, w, n, js) => [h(k), p, c, d, br, os, v, kd, nm, w, n, js];
+    return { v: 1, from: h(24 * 14), to: h(0), kinds: { ai: "AI-боти й асистенти", search: "Пошукові роботи", tool: "Скрипти й бібліотеки", scanner: "Сканери безпеки й мережі", burst: "Хвилі запитів з одного пристрою" },
+      summary: {}, rows: [
+        R(3, "/statti/", "DE", "mobile", "Safari", "iOS", "h", "", "", "", 1, 1), R(3, "/", "DE", "mobile", "Safari", "iOS", "h", "", "", "", 1, 1), R(3, "/kviz/", "DE", "mobile", "Safari", "iOS", "h", "", "", "", 1, 1),
+        R(9, "/statti/okr/", "UA", "desktop", "Edge", "Windows", "h", "", "", "", 2, 1), R(15, "/blog/", "PL", "mobile", "Chrome", "Android", "h", "", "", "", 1, 0),
+        R(5, "/statti/fobii/", "US", "desktop", "Chrome", "Linux", "s", "", "", "Linux-десктоп", 1, 0),
+        R(6, "/", "BE", "mobile", "Chrome", "Android", "s", "", "", "обхід сайту? 20 різних сторінок за годину з одного пристрою", 20, 0),
+        R(2, "/", "US", "desktop", "Інший", "Інша", "b", "ai", "GPTBot", "відомий ai-боти й асистенти", 4, 0), R(4, "/", "US", "desktop", "Інший", "Інша", "b", "search", "bingbot", "відомий пошукові роботи", 6, 0),
+        R(7, "/", "US", "desktop", "Інший", "Інша", "b", "tool", "curl", "відомий скрипти й бібліотеки", 2, 0), R(11, "/", "NL", "desktop", "Інший", "Інша", "b", "scanner", "censys", "відомий сканери безпеки й мережі", 3, 0),
+      ] };
+  }
+  function server() {
+    const D = A.D(), E = (D.raw && D.raw.edge) || (D.demo ? demoEdge() : null);
+    const head = (extra) => sec("Серверні візити (без JavaScript)", "Журнал запитів Cloudflare: бачить і тих, у кого лічильник блокується", extra);
+    if (!E || !E.rows) {
+      return head('<div class="an-note">Серверних даних у знімку немає. Імовірна причина: токен <code>CF_ANALYTICS_TOKEN</code> без права <b>Zone → Analytics → Read</b> для зони сайту, або перевищено ліміт запитів Cloudflare (спробує наступний щогодинний знімок). Подробиці — у «Попередженнях збірки» вгорі та в README, розділ «Статистика відвідувань».</div>');
+    }
+    const rows = E.rows.map((r) => ({ t: r[0], ts: Date.parse(r[0]), p: r[1], c: r[2], d: r[3], br: r[4], os: r[5], v: r[6], k: r[7], nm: r[8], w: r[9], n: r[10], js: r[11] }));
+    const by = { h: 0, s: 0, b: 0 };
+    rows.forEach((r) => { by[r.v] += r.n; });
+    const vis = new Set(rows.filter((r) => r.v === "h").map((r) => [r.t, r.c, r.d, r.br, r.os].join("|"))).size;
+    // Лічильник JS за той самий період
+    const from = Date.parse(E.from), tp = D.dict.t.map((x) => (x ? Date.parse(x) : 0));
+    let rum = 0;
+    for (let i = 0; i < D.n; i++) if (tp[D.c.t[i]] >= from) rum += D.views[i];
+    const days = Math.max(1, Math.round((Date.parse(E.to) - from) / 864e5));
+    const kp = (k, v, hint) => `<div class="an-kpi"><div class="k">${k}</div><div class="v">${num(v)}</div><div class="d flat">${hint || "&nbsp;"}</div></div>`;
+    const kpis = '<div class="an-kpis">' + kp("Схожі на людей, перегляди", by.h, "сервер, без ботів") + kp("Візити (оцінка)", vis, "година · країна · пристрій") +
+      kp("Лічильник JS, перегляди", Math.round(rum), by.h ? "бачить " + pc(Math.min(rum, by.h), by.h) + " людей" : "") + kp("Підозрілі", by.s, "окремо, не входять у «людей»") + kp("Боти й павуки", by.b, "відсіяно") + "</div>";
+    const note = `<p class="an-note">За ${days} дн. сервер бачить <b>${num(by.h)}</b> переглядів, схожих на людські (${num(vis)} візитів за оцінкою). Лічильник Web Analytics зафіксував <b>${num(Math.round(rum))}</b>. Різниця — це відвідувачі, у яких лічильник заблоковано (блокувальники, режими приватності, VPN, швидке закриття сторінки). «Скрипти: так» означає, що пристрій завантажив скрипти сайту, тобто це майже напевно браузер людини.</p>`;
+    const mk = (v) => rows.filter((r) => r.v === v);
+    const pageC = (r) => `<button class="lnk" data-page="${esc(r.p)}">${esc(titleOf(r.p))}</button><span class="p">${esc(r.p)}</span>`;
+    const baseCols = [
+      { k: "t", label: "Час (Київ)", left: true, num: (r) => r.ts, html: (r) => hourText(r.t), text: (r) => hourText(r.t), csv: (r) => r.t },
+      { k: "p", label: "Сторінка", left: true, text: (r) => titleOf(r.p), html: pageC, csv: (r) => r.p },
+      { k: "c", label: "Країна", left: true, text: (r) => cname(r.c), html: (r) => `${flag(r.c)} ${esc(cname(r.c))}`, csv: (r) => r.c },
+      { k: "d", label: "Пристрій", left: true, text: (r) => DEV[r.d] || r.d || "—" },
+      { k: "b", label: "Браузер · ОС", left: true, text: (r) => r.br + " · " + r.os },
+    ];
+    const human = table("edgeH", baseCols.concat([
+      { k: "js", label: "Скрипти", left: true, text: (r) => (r.js ? "так" : "—") },
+      { k: "n", label: "Перегляди", num: (r) => r.n },
+    ]), mk("h"), { sort: "t", limit: 20, search: true, text: (r) => hourText(r.t) + " " + r.p + " " + cname(r.c) + " " + r.br + " " + r.os });
+    const susp = table("edgeS", baseCols.concat([
+      { k: "w", label: "Чому підозріло", left: true, text: (r) => r.w || "—" },
+      { k: "n", label: "Запити", num: (r) => r.n },
+    ]), mk("s"), { sort: "t", limit: 10 });
+    const kinds = {}, names = {};
+    mk("b").forEach((r) => { kinds[r.k] = (kinds[r.k] || 0) + r.n; if (r.nm) names[r.nm.toLowerCase()] = (names[r.nm.toLowerCase()] || 0) + r.n; });
+    const kl = (E.kinds || {});
+    const kindItems = Object.keys(kinds).sort((a, b) => kinds[b] - kinds[a]).map((k) => ({ label: kl[k] || k, n: kinds[k], alt: true }));
+    const nameItems = Object.keys(names).sort((a, b) => names[b] - names[a]).slice(0, 12).map((k) => ({ label: k, n: names[k] }));
+    const bots = `<div class="an-grid two"><div><div class="sub">За видами</div>${A.barList(kindItems, { total: by.b })}</div><div><div class="sub">Найчастіші назви</div>${A.barList(nameItems)}</div></div>`;
+    return head(kpis + note) +
+      sec("Схожі на людей", "Агреговано по годинах; вибірка без ботів і «підозрілих»", human) +
+      `<details class="an-card"><summary style="cursor:pointer;font-weight:600">Підозрілі (${num(by.s)}) — не входять у «людей», але не відкинуті</summary><div class="sub" style="margin-top:8px">Linux-десктоп, дуже старі версії браузерів, скорочені User-Agent, обхід багатьох сторінок за годину.</div>${susp}</details>` +
+      `<details class="an-card" style="margin-top:16px"><summary style="cursor:pointer;font-weight:600">Відсіяні боти й павуки (${num(by.b)})</summary><div style="margin-top:12px">${bots}</div></details>`;
+  }
+
   A.tabs.push(
     { id: "overview", label: "Огляд", render: overview },
     { id: "pages", label: "Сторінки", render: pages },
@@ -353,6 +419,7 @@
     { id: "audience", label: "Аудиторія", render: audience },
     { id: "flows", label: "Шляхи", render: flows },
     { id: "time", label: "Час", render: time },
+    { id: "server", label: "Сервер (без JS)", render: server },
     { id: "speed", label: "Швидкість", render: speed },
     { id: "data", label: "Дані", render: data }
   );

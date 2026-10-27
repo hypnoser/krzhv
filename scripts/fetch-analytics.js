@@ -28,6 +28,7 @@ const ROOT = path.join(__dirname, "..");
 const OUT = process.argv[2] || path.join(ROOT, "_site", "secret", "analytics", "data.json");
 let TAG = process.env.CF_SITE_TAG || "";
 let SITE_FILTER = "";
+const edgeLib = require("./edge-visitors");
 const HOST = process.env.SITE_HOST || "krzhv.com.ua";
 const DAYS = Math.max(1, Math.min(365, parseInt(process.env.DAYS || "180", 10) || 180));
 const GQL = process.env.CF_GRAPHQL_URL || "https://api.cloudflare.com/client/v4/graphql";
@@ -248,6 +249,21 @@ function writeOut(blob) {
   log(`записано ${OUT} (${(fs.statSync(OUT).size / 1024).toFixed(1)} КБ)`);
 }
 
+// Серверні відвідування (журнал запитів Cloudflare) — доповнюють JS-лічильник, який блокується. Збій тут не валить знімок.
+async function fetchEdge() {
+  if (process.env.EDGE === "0") return null;
+  const zone = process.env.CF_ZONE_ID || (HOST === "krzhv.com.ua" ? "ea3874554e67e6867545f719380de906" : "");
+  if (!zone) { log("серверні візити пропущено: не задано CF_ZONE_ID"); return null; }
+  const days = Math.max(1, Math.min(30, parseInt(process.env.EDGE_DAYS || "14", 10) || 14));
+  const to = Date.now(), from = to - days * 864e5;
+  const rows = await edgeLib.fetchEdgeRows(gql, zone, from, to);
+  let scripts = null;
+  try { scripts = await edgeLib.fetchEdgeScripts(gql, zone, from, to); } catch (e) { log(`ознака «завантажив скрипти» недоступна: ${e.message}`); }
+  const edge = edgeLib.buildEdge(rows, from, to, scripts);
+  log(`серверні візити: ${rows.length} рядків за ${days} дн. (люди ${edge.summary.h}, підозрілі ${edge.summary.s}, боти ${edge.summary.b})`);
+  return edge;
+}
+
 async function keepPrevious(reason) {
   warn(reason);
   if (fs.existsSync(OUT)) return;
@@ -287,9 +303,12 @@ async function keepPrevious(reason) {
     let vitals = null;
     try { vitals = await fetchVitals(acc); } catch (e) { log(`Web Vitals недоступні: ${e.message}`); }
 
+    let edge = null;
+    try { edge = await fetchEdge(); } catch (e) { warn(`Серверні візити (без JS) не оновлено: ${e.message}`); }
+
     const data = Object.assign(pack(cols, groups), {
       v: 1, generatedAt: new Date().toISOString(), host: HOST, siteTag: TAG,
-      from: iso(start), to: iso(now), days: DAYS, vitals, warnings,
+      from: iso(start), to: iso(now), days: DAYS, vitals, edge, warnings,
     });
     const plain = zlib.gzipSync(Buffer.from(JSON.stringify(data)));
     const enc = gcmEncrypt(key, plain);
