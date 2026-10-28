@@ -1,32 +1,32 @@
 <svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
   <title id="t">Спрощена схема кола уникання при агорафобії</title>
-  <desc id="d">П'ять кроків по колу: ситуація і страх; уникання; короткочасне полегшення; страх стає сильнішим; життя звужується. КПТ з поступовою експозицією втручається в крок уникання.</desc>
+  <desc id="d">П'ять кроків по колу: лячна ситуація; людина її обминає; одразу стає легше; страх наступного разу сильніший; світ людини стає меншим. КПТ допомагає на кроці обминання.</desc>
   <rect width="720" height="420" rx="12" fill="#EEF2EF"/>
   <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#3D5A4A"/></marker></defs>
   <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
     <rect x="40" y="30" width="290" height="80" rx="12" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
-    <text x="185" y="62" font-size="14" font-weight="600" fill="#221F1B">1. Ситуація і страх</text>
-    <text x="185" y="86" font-size="12" fill="#4A443D">«А якщо стане зле, а вийти буде важко?»</text>
+    <text x="185" y="62" font-size="14" font-weight="600" fill="#221F1B">1. Лячна ситуація</text>
+    <text x="185" y="86" font-size="12" fill="#4A443D">«А якщо стане зле, а вийти важко?»</text>
 
     <rect x="390" y="30" width="290" height="80" rx="12" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
-    <text x="535" y="62" font-size="14" font-weight="600" fill="#221F1B">2. Уникання</text>
-    <text x="535" y="86" font-size="12" fill="#4A443D">не йти або йти лише з супроводом</text>
+    <text x="535" y="62" font-size="14" font-weight="600" fill="#221F1B">2. Обминаю</text>
+    <text x="535" y="86" font-size="12" fill="#4A443D">не йду або йду лише з кимось</text>
 
     <rect x="390" y="170" width="290" height="80" rx="12" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
-    <text x="535" y="202" font-size="14" font-weight="600" fill="#221F1B">3. Короткочасне полегшення</text>
-    <text x="535" y="226" font-size="12" fill="#4A443D">тривога знижується</text>
+    <text x="535" y="202" font-size="14" font-weight="600" fill="#221F1B">3. Одразу легше</text>
+    <text x="535" y="226" font-size="12" fill="#4A443D">але ненадовго</text>
 
     <rect x="390" y="310" width="290" height="80" rx="12" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
-    <text x="535" y="342" font-size="14" font-weight="600" fill="#221F1B">4. Страх сильніший</text>
-    <text x="535" y="366" font-size="12" fill="#4A443D">ситуація здається ще страшнішою</text>
+    <text x="535" y="342" font-size="14" font-weight="600" fill="#221F1B">4. Страх росте</text>
+    <text x="535" y="366" font-size="12" fill="#4A443D">наступного разу лякає більше</text>
 
     <rect x="40" y="310" width="290" height="80" rx="12" fill="#FDFDFB" stroke="#C77A4F" stroke-width="2"/>
-    <text x="185" y="342" font-size="14" font-weight="600" fill="#221F1B">5. Життя звужується</text>
+    <text x="185" y="342" font-size="14" font-weight="600" fill="#221F1B">5. Світ стає меншим</text>
     <text x="185" y="366" font-size="12" fill="#4A443D">менше місць, справ і зустрічей</text>
 
     <rect x="40" y="170" width="290" height="80" rx="12" fill="#3D5A4A"/>
-    <text x="185" y="202" font-size="14" font-weight="600" fill="#FDFDFB">Де втручається КПТ</text>
-    <text x="185" y="226" font-size="12" fill="#FDFDFB">малі кроки за ієрархією, з фахівцем</text>
+    <text x="185" y="202" font-size="14" font-weight="600" fill="#FDFDFB">Де допомагає КПТ</text>
+    <text x="185" y="226" font-size="12" fill="#FDFDFB">маленькі кроки разом із фахівцем</text>
   </g>
   <g stroke="#3D5A4A" stroke-width="2" fill="none" marker-end="url(#ah)">
     <path d="M330 70 H386"/><path d="M535 110 V166"/><path d="M535 250 V306"/><path d="M386 350 H334"/><path d="M185 306 V254" stroke-dasharray="5 4"/><path d="M185 166 V114" stroke-dasharray="5 4"/>
