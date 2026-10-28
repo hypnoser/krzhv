@@ -1,6 +1,6 @@
 <svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
   <title id="t">Спрощена схема кола уникання при агорафобії</title>
-  <desc id="d">П'ять кроків по колу: лячна ситуація; людина її обминає; одразу стає легше; страх наступного разу сильніший; світ людини стає меншим. КПТ допомагає на кроці обминання.</desc>
+  <desc id="d">П'ять кроків по колу, кожен веде до наступного: лячна ситуація; людина її обминає; одразу стає легше; страх наступного разу сильніший; світ людини стає меншим. Після цього коло починається знову.</desc>
   <rect width="720" height="420" rx="12" fill="#EEF2EF"/>
   <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#3D5A4A"/></marker></defs>
   <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
@@ -24,12 +24,11 @@
     <text x="185" y="342" font-size="14" font-weight="600" fill="#221F1B">5. Світ стає меншим</text>
     <text x="185" y="366" font-size="12" fill="#4A443D">менше місць, справ і зустрічей</text>
 
-    <rect x="40" y="170" width="290" height="80" rx="12" fill="#3D5A4A"/>
-    <text x="185" y="202" font-size="14" font-weight="600" fill="#FDFDFB">Де допомагає КПТ</text>
-    <text x="185" y="226" font-size="12" fill="#FDFDFB">маленькі кроки разом із фахівцем</text>
+    <text x="205" y="206" font-size="13" font-weight="600" fill="#3D5A4A">Коло замикається</text>
+    <text x="205" y="228" font-size="12" fill="#4A443D">і кожен виток підсилює страх</text>
   </g>
   <g stroke="#3D5A4A" stroke-width="2" fill="none" marker-end="url(#ah)">
-    <path d="M330 70 H386"/><path d="M535 110 V166"/><path d="M535 250 V306"/><path d="M386 350 H334"/><path d="M185 306 V254" stroke-dasharray="5 4"/><path d="M185 166 V114" stroke-dasharray="5 4"/>
+    <path d="M330 70 H386"/><path d="M535 110 V166"/><path d="M535 250 V306"/><path d="M386 350 H334"/><path d="M70 306 V114"/>
   </g>
   <text x="360" y="410" font-family="Inter, Arial, sans-serif" font-size="11" text-anchor="middle" fill="#94897E">Авторське спрощення, не результат окремого дослідження</text>
 </svg>
