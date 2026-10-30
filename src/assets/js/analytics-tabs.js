@@ -420,29 +420,66 @@
     const titles = Object.keys(tt).filter((p) => /^\/statti\/./.test(p)).slice(0, 4);
     const pp = titles.length ? titles : ["/statti/tryvoga/", "/statti/panichni-ataky/"];
     const qs = [["що таке панічна атака", 0], ["як позбутись тривоги", 0], ["кпт онлайн", 1], ["тривога вранці причини", 1], ["страх виходити з дому", 0], ["агорафобія", 0]];
-    const rows = qs.map((x, i) => [x[0], pp[x[1] % pp.length], 12 - i * 2, 300 - i * 40, 6.5 + i * 1.7]);
-    return { site: "sc-domain:krzhv.com.ua", from: "2026-08-01", to: "2026-10-28", days: 90,
-      totals: { clicks: 66, impressions: 1700, ctr: 0.039, position: 9.4 }, daily: [], rows };
+    const end = Date.now(), iso = (k) => new Date(end - k * 864e5).toISOString().slice(0, 10);
+    const rows = [], daily = [];
+    for (let k = 89; k >= 1; k--) {
+      let c = 0, im = 0;
+      qs.forEach((x, i) => {
+        if ((k + i) % 3) return;
+        const cl = (k + i) % 2, imp = 8 - i;
+        rows.push([iso(k), x[0], pp[x[1] % pp.length], cl, imp, 6.5 + i * 1.7]); c += cl; im += imp;
+      });
+      daily.push([iso(k), c + 1, im + 9, 9.4]);
+    }
+    return { site: "sc-domain:krzhv.com.ua", from: iso(89), to: iso(0), days: 90, daily, rows };
   }
   function queries() {
-    const D = A.D(), G = (D.raw && D.raw.gsc) || (D.demo ? demoGsc() : null);
+    const D = A.D(), S = A.S(), C = A.C();
+    const G = (D.raw && D.raw.gsc) || (D.demo ? demoGsc() : null);
     const head = (body) => sec("Пошукові запити (Google)", "Дані Google Search Console: з яких запитів люди бачили сайт у видачі Google і переходили на нього.", body);
-    if (!G || !G.rows) {
+    if (!G || !G.rows || (G.rows[0] && typeof G.rows[0][0] === "string" && !/^\d{4}-\d\d-\d\d$/.test(G.rows[0][0]))) {
       return head('<div class="an-note">Даних Search Console у знімку немає. Щоб вони з\'явились: у Google Cloud створіть сервісний акаунт і ключ JSON, додайте його e-mail користувачем (лише перегляд) у Search Console, а в GitHub → Settings → Secrets → Actions додайте <code>GSC_KEY</code> (вміст JSON) і <code>GSC_SITE</code> (наприклад <code>sc-domain:krzhv.com.ua</code>). Після наступного оновлення сайту (щогодини) тут з\'явиться таблиця. Детальніше: <code>scripts/gsc.js</code>.</div>' +
         '<p class="an-note">Запити зі штучних асистентів (ChatGPT, Claude, Perplexity та ін.) недоступні ніде: сайту передається лише факт переходу, див. вкладку «Джерела».</p>');
     }
-    const T = G.totals || {}, rows = G.rows.map((r) => ({ q: r[0], p: r[1], c: r[2], i: r[3], pos: r[4] }));
+    const dayOf = (d) => A.kparts(Date.parse(d + "T12:00:00Z")).day;
+    // Сторінки: фільтр «Сторінка» і вибір конкретної сторінки діють на цю вкладку так само, як на решту
+    const pf = S.f.path || { sel: [], ex: false }, pset = new Set(pf.sel);
+    const pageOk = (p) => {
+      const np = A.normPath(p);
+      if (S.page && np !== S.page) return false;
+      return !pf.sel.length || pset.has(np) !== !!pf.ex;
+    };
+    const other = Object.keys(S.f).filter((k) => k !== "path" && S.f[k].sel.length).length;
+    const rows = G.rows.map((r) => ({ d: dayOf(r[0]), q: r[1], p: r[2], c: r[3], i: r[4], pos: r[5] }))
+      .filter((r) => r.d >= C.r0 && r.d <= C.r1 && pageOk(r.p));
+    const daily = G.daily.map((r) => ({ d: dayOf(r[0]), c: r[1], i: r[2], pos: r[3] })).filter((r) => r.d >= C.r0 && r.d <= C.r1);
+    const g0 = dayOf(G.from), g1 = dayOf(G.to);
+    const pageSel = S.page || pf.sel.length;
     const byQ = new Map();
     rows.forEach((r) => {
       const o = byQ.get(r.q) || { q: r.q, c: 0, i: 0, pw: 0, pages: new Set() };
       o.c += r.c; o.i += r.i; o.pw += r.pos * r.i; o.pages.add(r.p); byQ.set(r.q, o);
     });
     const qrows = Array.from(byQ.values()).map((o) => ({ q: o.q, c: o.c, i: o.i, ctr: o.i ? o.c / o.i : 0, pos: o.i ? o.pw / o.i : 0, n: o.pages.size }));
+    const byP = new Map();
+    rows.forEach((r) => {
+      const k = r.q + "\u0001" + r.p, o = byP.get(k) || { q: r.q, p: r.p, c: 0, i: 0, pw: 0 };
+      o.c += r.c; o.i += r.i; o.pw += r.pos * r.i; byP.set(k, o);
+    });
+    const prow = Array.from(byP.values()).map((o) => ({ q: o.q, p: o.p, c: o.c, i: o.i, pos: o.i ? o.pw / o.i : 0 }));
     const sumC = rows.reduce((a, r) => a + r.c, 0), sumI = rows.reduce((a, r) => a + r.i, 0);
+    const dc = daily.reduce((a, r) => a + r.c, 0), di = daily.reduce((a, r) => a + r.i, 0), dpw = daily.reduce((a, r) => a + r.pos * r.i, 0);
     const kp = (k, v, hint) => `<div class="an-kpi"><div class="k">${k}</div><div class="v">${v}</div><div class="d flat">${hint || "&nbsp;"}</div></div>`;
-    const kpis = '<div class="an-kpis">' + kp("Кліки з Google", num(T.clicks || 0), "переходи на сайт") + kp("Покази", num(T.impressions || 0), "скільки разів сайт був у видачі") +
-      kp("CTR", dec((T.ctr || 0) * 100, 1) + "%", "кліки / покази") + kp("Середня позиція", dec(T.position || 0, 1), "менше = вище у видачі") + "</div>";
-    const note = `<p class="an-note">Період: ${esc(G.from)} — ${esc(G.to)} (${G.days} дн.; останні 1–2 дні Google ще не публікує). Ресурс: <code>${esc(G.site)}</code>. У таблиці лише запити, які Google показує окремо: рідкісні запити він приховує з міркувань приватності, тому в таблиці ${num(sumC)} кліків із ${num(T.clicks || 0)} і ${num(sumI)} показів із ${num(T.impressions || 0)}. Це лише Google: Bing і Yandex сюди не входять. Фільтри й період зверху на цю вкладку не діють.</p>`;
+    const tot = pageSel ? { c: sumC, i: sumI, pos: sumI ? rows.reduce((a, r) => a + r.pos * r.i, 0) / sumI : 0 } : { c: dc, i: di, pos: di ? dpw / di : 0 };
+    const kpis = '<div class="an-kpis">' + kp("Кліки з Google", num(tot.c), "переходи на сайт") + kp("Покази", num(tot.i), "скільки разів сайт був у видачі") +
+      kp("CTR", tot.i ? dec((tot.c / tot.i) * 100, 1) + "%" : "—", "кліки / покази") + kp("Середня позиція", tot.i ? dec(tot.pos, 1) : "—", "менше = вище у видачі") + "</div>";
+    const notes = [`Період: ${dstr(C.r0)} — ${dstr(C.r1)}${pageSel ? ", лише вибрані сторінки" : ""}. Ресурс: <code>${esc(G.site)}</code>. Це лише Google, Bing і Yandex сюди не входять.`];
+    if (C.r1 > g1 || C.r0 < g0) notes.push(`Дані Search Console охоплюють ${dstr(g0)} — ${dstr(g1)}; решти періоду в них немає.`);
+    notes.push("Google публікує дані із затримкою: за сьогодні й вчора запитів зазвичай ще мало або немає, для «Сьогодні» таблиця майже завжди порожня.");
+    if (!pageSel) notes.push(`У таблиці лише запити, які Google показує окремо: рідкісні запити він приховує з міркувань приватності, тому тут ${num(sumC)} кліків із ${num(dc)} і ${num(sumI)} показів із ${num(di)}.`);
+    if (other) notes.push("Інші фільтри (країна, пристрій, джерело, браузер…) на цю вкладку не діють: Search Console їх не має. Діють період і фільтр за сторінкою.");
+    const note = '<p class="an-note">' + notes.join(" ") + "</p>";
+    if (!rows.length) return head(kpis + note + '<div class="an-empty">За вибраний період і сторінки запитів Google немає.</div>');
     const qt = table("gscQ", [
       { k: "q", label: "Запит", left: true, text: (r) => r.q },
       { k: "c", label: "Кліки", num: (r) => r.c },
@@ -457,7 +494,7 @@
       { k: "c", label: "Кліки", num: (r) => r.c },
       { k: "i", label: "Покази", num: (r) => r.i },
       { k: "pos", label: "Позиція", num: (r) => r.pos, html: (r) => dec(r.pos, 1), csv: (r) => Math.round(r.pos * 10) / 10 },
-    ], rows, { sort: "c", limit: 20, search: true, text: (r) => r.q + " " + r.p + " " + titleOf(r.p) });
+    ], prow, { sort: "c", limit: 20, search: true, text: (r) => r.q + " " + r.p + " " + titleOf(r.p) });
     return head(kpis + note) +
       sec("Запити", "Скільки разів показали й скільки разів перейшли; клік по заголовку сортує", qt) +
       sec("Запит і сторінка, на яку він привів", "Одна сторінка часто збирає кілька запитів: це підказує, які теми читачі шукають", pt);
