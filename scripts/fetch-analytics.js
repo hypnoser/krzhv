@@ -8,6 +8,7 @@
 //   CF_ACCOUNT_ID       — ID акаунта Cloudflare
 //   SECRET_PASSWORD     — пароль розділу /secret/ (з нього виводиться ключ шифрування)
 // Необов'язково: CF_SITE_TAG (за замовчуванням визначається за доменом SITE_HOST; токен маяка в HTML — не siteTag), DAYS (за замовчуванням 180),
+//   GSC_KEY, GSC_SITE — пошукові запити з Google Search Console (див. scripts/gsc.js; без них вкладка «Запити» покаже інструкцію),
 //   CF_GRAPHQL_URL (для тестів), PREV_URL (звідки взяти попередній знімок, якщо Cloudflare недоступний).
 //
 // Дані — лише агреговані (кількість переглядів/візитів за годину в розрізі країни, сторінки, джерела,
@@ -306,9 +307,17 @@ async function keepPrevious(reason) {
     let edge = null;
     try { edge = await fetchEdge(); } catch (e) { warn(`Серверні візити (без JS) не оновлено: ${e.message}`); }
 
+    let gsc = null;
+    if (process.env.GSC_KEY && process.env.GSC_SITE) {
+      try {
+        gsc = await require("./gsc").fetchGsc();
+        log(`Search Console: ${gsc.rows.length} пар «запит + сторінка» за ${gsc.days} дн.`);
+      } catch (e) { warn(`Search Console не оновлено: ${e.message}`); }
+    } else log("Search Console пропущено: не задано GSC_KEY, GSC_SITE");
+
     const data = Object.assign(pack(cols, groups), {
       v: 1, generatedAt: new Date().toISOString(), host: HOST, siteTag: TAG,
-      from: iso(start), to: iso(now), days: DAYS, vitals, edge, warnings,
+      from: iso(start), to: iso(now), days: DAYS, vitals, edge, gsc, warnings,
     });
     const plain = zlib.gzipSync(Buffer.from(JSON.stringify(data)));
     const enc = gcmEncrypt(key, plain);

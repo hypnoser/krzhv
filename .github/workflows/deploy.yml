@@ -43,6 +43,8 @@ jobs:
           CF_ANALYTICS_TOKEN: ${{ secrets.CF_ANALYTICS_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           SECRET_PASSWORD: ${{ secrets.SECRET_PASSWORD }}
+          GSC_KEY: ${{ secrets.GSC_KEY }}
+          GSC_SITE: ${{ secrets.GSC_SITE }}
         run: node scripts/fetch-analytics.js
 
       - name: Check internal links

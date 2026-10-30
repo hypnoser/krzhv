@@ -412,10 +412,62 @@
       `<details class="an-card" style="margin-top:16px"><summary style="cursor:pointer;font-weight:600">Відсіяні боти й павуки (${num(by.b)})</summary><div style="margin-top:12px">${bots}</div></details>`;
   }
 
+
+  /* ---------- Запити (Google Search Console) ---------- */
+  function demoGsc() {
+    let tt = {};
+    try { tt = JSON.parse(document.getElementById("anTitles").textContent); } catch (e) { /* без заголовків */ }
+    const titles = Object.keys(tt).filter((p) => /^\/statti\/./.test(p)).slice(0, 4);
+    const pp = titles.length ? titles : ["/statti/tryvoga/", "/statti/panichni-ataky/"];
+    const qs = [["що таке панічна атака", 0], ["як позбутись тривоги", 0], ["кпт онлайн", 1], ["тривога вранці причини", 1], ["страх виходити з дому", 0], ["агорафобія", 0]];
+    const rows = qs.map((x, i) => [x[0], pp[x[1] % pp.length], 12 - i * 2, 300 - i * 40, 6.5 + i * 1.7]);
+    return { site: "sc-domain:krzhv.com.ua", from: "2026-08-01", to: "2026-10-28", days: 90,
+      totals: { clicks: 66, impressions: 1700, ctr: 0.039, position: 9.4 }, daily: [], rows };
+  }
+  function queries() {
+    const D = A.D(), G = (D.raw && D.raw.gsc) || (D.demo ? demoGsc() : null);
+    const head = (body) => sec("Пошукові запити (Google)", "Дані Google Search Console: з яких запитів люди бачили сайт у видачі Google і переходили на нього.", body);
+    if (!G || !G.rows) {
+      return head('<div class="an-note">Даних Search Console у знімку немає. Щоб вони з\'явились: у Google Cloud створіть сервісний акаунт і ключ JSON, додайте його e-mail користувачем (лише перегляд) у Search Console, а в GitHub → Settings → Secrets → Actions додайте <code>GSC_KEY</code> (вміст JSON) і <code>GSC_SITE</code> (наприклад <code>sc-domain:krzhv.com.ua</code>). Після наступного оновлення сайту (щогодини) тут з\'явиться таблиця. Детальніше: <code>scripts/gsc.js</code>.</div>' +
+        '<p class="an-note">Запити зі штучних асистентів (ChatGPT, Claude, Perplexity та ін.) недоступні ніде: сайту передається лише факт переходу, див. вкладку «Джерела».</p>');
+    }
+    const T = G.totals || {}, rows = G.rows.map((r) => ({ q: r[0], p: r[1], c: r[2], i: r[3], pos: r[4] }));
+    const byQ = new Map();
+    rows.forEach((r) => {
+      const o = byQ.get(r.q) || { q: r.q, c: 0, i: 0, pw: 0, pages: new Set() };
+      o.c += r.c; o.i += r.i; o.pw += r.pos * r.i; o.pages.add(r.p); byQ.set(r.q, o);
+    });
+    const qrows = Array.from(byQ.values()).map((o) => ({ q: o.q, c: o.c, i: o.i, ctr: o.i ? o.c / o.i : 0, pos: o.i ? o.pw / o.i : 0, n: o.pages.size }));
+    const sumC = rows.reduce((a, r) => a + r.c, 0), sumI = rows.reduce((a, r) => a + r.i, 0);
+    const kp = (k, v, hint) => `<div class="an-kpi"><div class="k">${k}</div><div class="v">${v}</div><div class="d flat">${hint || "&nbsp;"}</div></div>`;
+    const kpis = '<div class="an-kpis">' + kp("Кліки з Google", num(T.clicks || 0), "переходи на сайт") + kp("Покази", num(T.impressions || 0), "скільки разів сайт був у видачі") +
+      kp("CTR", dec((T.ctr || 0) * 100, 1) + "%", "кліки / покази") + kp("Середня позиція", dec(T.position || 0, 1), "менше = вище у видачі") + "</div>";
+    const note = `<p class="an-note">Період: ${esc(G.from)} — ${esc(G.to)} (${G.days} дн.; останні 1–2 дні Google ще не публікує). Ресурс: <code>${esc(G.site)}</code>. У таблиці лише запити, які Google показує окремо: рідкісні запити він приховує з міркувань приватності, тому в таблиці ${num(sumC)} кліків із ${num(T.clicks || 0)} і ${num(sumI)} показів із ${num(T.impressions || 0)}. Це лише Google: Bing і Yandex сюди не входять. Фільтри й період зверху на цю вкладку не діють.</p>`;
+    const qt = table("gscQ", [
+      { k: "q", label: "Запит", left: true, text: (r) => r.q },
+      { k: "c", label: "Кліки", num: (r) => r.c },
+      { k: "i", label: "Покази", num: (r) => r.i },
+      { k: "ctr", label: "CTR", num: (r) => r.ctr, html: (r) => dec(r.ctr * 100, 1) + "%", csv: (r) => Math.round(r.ctr * 10000) / 100 },
+      { k: "pos", label: "Позиція", num: (r) => r.pos, html: (r) => dec(r.pos, 1), csv: (r) => Math.round(r.pos * 10) / 10 },
+      { k: "n", label: "Сторінок", num: (r) => r.n },
+    ], qrows, { sort: "c", limit: 20, search: true, text: (r) => r.q });
+    const pt = table("gscP", [
+      { k: "q", label: "Запит", left: true, text: (r) => r.q },
+      { k: "p", label: "Сторінка", left: true, text: (r) => titleOf(r.p), html: (r) => pageCell(r.p), csv: (r) => r.p },
+      { k: "c", label: "Кліки", num: (r) => r.c },
+      { k: "i", label: "Покази", num: (r) => r.i },
+      { k: "pos", label: "Позиція", num: (r) => r.pos, html: (r) => dec(r.pos, 1), csv: (r) => Math.round(r.pos * 10) / 10 },
+    ], rows, { sort: "c", limit: 20, search: true, text: (r) => r.q + " " + r.p + " " + titleOf(r.p) });
+    return head(kpis + note) +
+      sec("Запити", "Скільки разів показали й скільки разів перейшли; клік по заголовку сортує", qt) +
+      sec("Запит і сторінка, на яку він привів", "Одна сторінка часто збирає кілька запитів: це підказує, які теми читачі шукають", pt);
+  }
+
   A.tabs.push(
     { id: "overview", label: "Огляд", render: overview },
     { id: "pages", label: "Сторінки", render: pages },
     { id: "sources", label: "Джерела", render: sources },
+    { id: "queries", label: "Запити", render: queries },
     { id: "audience", label: "Аудиторія", render: audience },
     { id: "flows", label: "Шляхи", render: flows },
     { id: "time", label: "Час", render: time },
