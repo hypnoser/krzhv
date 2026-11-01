@@ -1,0 +1,40 @@
+<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Хто за що відповідає, коли йдеться про ліки</title>
+  <desc id="d">Схема з трьох карток. Лікар призначає ліки, оцінює, чи вони підходять, і сам планує будь-які зміни чи припинення. Психолог проводить психотерапію, але не призначає і не скасовує ліки. Ви розповідаєте про самопочуття та побічні дії і не припиняєте ліки самостійно. Стрілки з усіх трьох карток ведуть до спільного результату: рішення ухвалюється разом.</desc>
+  <rect width="720" height="420" rx="12" fill="#EEF2EF"/>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="360" y="36" font-size="17" font-weight="700" fill="#221F1B">Хто за що відповідає</text>
+
+    <rect x="20" y="58" width="210" height="230" rx="14" fill="#FDFDFB" stroke="#3D5A4A" stroke-width="2"/>
+    <rect x="20" y="58" width="210" height="44" rx="14" fill="#3D5A4A"/>
+    <text x="125" y="86" font-size="16" font-weight="700" fill="#FDFDFB">Лікар</text>
+    <text x="125" y="130" font-size="14" fill="#221F1B">призначає ліки</text>
+    <text x="125" y="160" font-size="14" fill="#221F1B">оцінює, чи вони</text>
+    <text x="125" y="180" font-size="14" fill="#221F1B">підходять</text>
+    <text x="125" y="214" font-size="14" fill="#221F1B">сам планує будь-які</text>
+    <text x="125" y="234" font-size="14" fill="#221F1B">зміни чи припинення</text>
+
+    <rect x="255" y="58" width="210" height="230" rx="14" fill="#FDFDFB" stroke="#B5714A" stroke-width="2"/>
+    <rect x="255" y="58" width="210" height="44" rx="14" fill="#B5714A"/>
+    <text x="360" y="86" font-size="16" font-weight="700" fill="#FDFDFB">Психолог</text>
+    <text x="360" y="130" font-size="14" fill="#221F1B">проводить</text>
+    <text x="360" y="150" font-size="14" fill="#221F1B">психотерапію</text>
+    <text x="360" y="190" font-size="14" font-weight="700" fill="#B5714A">не призначає</text>
+    <text x="360" y="212" font-size="14" font-weight="700" fill="#B5714A">і не скасовує ліки</text>
+
+    <rect x="490" y="58" width="210" height="230" rx="14" fill="#FDFDFB" stroke="#94897E" stroke-width="2"/>
+    <rect x="490" y="58" width="210" height="44" rx="14" fill="#94897E"/>
+    <text x="595" y="86" font-size="16" font-weight="700" fill="#FDFDFB">Ви</text>
+    <text x="595" y="130" font-size="14" fill="#221F1B">розповідаєте лікарю</text>
+    <text x="595" y="150" font-size="14" fill="#221F1B">про самопочуття</text>
+    <text x="595" y="170" font-size="14" fill="#221F1B">і побічні дії</text>
+    <text x="595" y="204" font-size="14" font-weight="700" fill="#221F1B">не припиняєте ліки</text>
+    <text x="595" y="224" font-size="14" font-weight="700" fill="#221F1B">самостійно</text>
+
+    <path d="M125 292 L125 322 L330 322 M360 292 L360 322 M595 292 L595 322 L390 322" stroke="#3D5A4A" stroke-width="2" fill="none"/>
+    <path d="M360 322 L360 340" stroke="#3D5A4A" stroke-width="2" fill="none"/>
+    <path d="M352 334 L360 346 L368 334 Z" fill="#3D5A4A"/>
+    <rect x="160" y="350" width="400" height="48" rx="12" fill="#3D5A4A"/>
+    <text x="360" y="380" font-size="15" font-weight="700" fill="#FDFDFB">Рішення ухвалюється разом із лікарем</text>
+  </g>
+</svg>
